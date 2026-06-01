@@ -4,9 +4,10 @@ export default function Hero() {
   return (
     <section className="relative h-screen">
       <Image
-        src="/hero.jpg"
+        src="/homeImg/hero.svg"
         alt="Printing Company"
-        className="absolute inset-0 h-full w-full object-cover"
+        fill
+        className="absolute inset-0 object-cover"
       />
       <div className="absolute inset-0 bg-black/40" />
 
