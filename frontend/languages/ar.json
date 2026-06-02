@@ -5,5 +5,57 @@
     "subtitle": "نحترم الطبيعة ونهتم باحتياجاتك",
     "explore": "اكتشف",
     "reviews": "اطّلع على 215 تقييم على Google"
+  },
+  "nav": {
+    "ourServices": "خدماتنا",
+    "selfPublishing": "النشر الذاتي",
+    "guide": "الدليل",
+    "testimonials": "آراء العملاء",
+    "aboutUs": "من نحن",
+    "contactUs": "اتصل بنا",
+    "letsTalk": "تحدث معنا",
+    "coverGenerator": "مولد الأغلفة",
+    "callMeBack": "اتصل بي",
+    "searchEngine": "محرك البحث",
+    "searchPlaceholder": "أدخل ما تبحث عنه",
+    "explore": "استكشف",
+    "ourProducts": "منتجاتنا",
+    "haveQuestions": "هل لديك أسئلة؟",
+    "getAnswers": "احصل على إجابات.",
+    "categories": {
+      "binding": "التجليد",
+      "enhancement": "التحسين",
+      "coverExtras": "إضافات الغلاف",
+      "reprints": "إعادة الطباعة والنسخ الفاكسيميلية",
+      "greenBook": "الكتاب الأخضر"
+    },
+    "products": {
+      "hardcoverThreadSewn":     { "hl": "مجلد فاخر",       "basic": "مخيط بالخيط" },
+      "hardcoverPerfectBound":   { "hl": "مجلد فاخر",       "basic": "لصق مثالي" },
+      "softcoverThreadSewn":     { "hl": "غلاف ناعم",       "basic": "مخيط بالخيط" },
+      "softcoverPerfectBound":   { "hl": "غلاف ناعم",       "basic": "لصق مثالي" },
+      "softcoverSaddleStitched": { "hl": "غلاف ناعم",       "basic": "خياطة السرج" },
+      "halfBinding":             { "hl": "نصف تجليد",       "basic": "" },
+      "flexoBinding":            { "hl": "تجليد فليكسو",    "basic": "" },
+      "spiralBinding":           { "hl": "تجليد حلزوني",    "basic": "" },
+      "openSpineBinding":        { "hl": "تجليد مفتوح",     "basic": "" },
+      "swissBinding":            { "hl": "تجليد سويسري",    "basic": "" }
+    },
+    "guideLinks": {
+      "preparingMaterials": "تحضير المواد للطباعة الرقمية",
+      "glossary":           "المسرد",
+      "bookPaper":          "ورق الكتب",
+      "blog":               "المدونة",
+      "videoTutorials":     "دروس فيديو",
+      "faq":                "الأسئلة الشائعة",
+      "generalTerms":       "الشروط العامة للتعاون",
+      "logosDownload":      "تحميل الشعارات"
+    },
+    "aboutLinks": {
+      "team":               "فريقنا",
+      "standards":          "معاييرنا",
+      "sociallyResponsible":"المسؤولية الاجتماعية",
+      "contact":            "اتصل بنا"
+    }
   }
 }
