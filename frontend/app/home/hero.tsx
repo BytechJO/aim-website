@@ -2,28 +2,56 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen">
+    <section className="relative h-screen overflow-hidden">
       <Image
         src="/homeImg/hero.svg"
-        alt="Printing Company"
+        alt="Hero"
         fill
-        className="absolute inset-0 object-cover"
+        priority
+        className="object-contain md:object-cover object-center"
       />
-      <div className="absolute inset-0 bg-black/40" />
 
-      <div className="relative z-10 flex h-full items-center">
-        <div className="mx-auto max-w-7xl px-6">
-          <h2 className="mb-4 text-2xl text-white">We print books perfectly</h2>
+      {/* Gradients */}
+      <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/10" />
+      <div className="absolute inset-0 bg-black/20" />
 
-          <h1 className="mb-6 text-7xl font-light text-white">perfectly</h1>
+      {/* Content */}
+      <div className="relative z-10 h-full mt-3 sm:mt-4 md:mt-5">
+        <div className=" mx-auto h-full flex items-center px-4 sm:px-2 md:px-4 lg:px-20">
+          <div className="w-full lg:w-fit flex flex-col items-center lg:items-start text-center lg:text-left">
+            {" "}
+            {/* We print books */}
+            <h2 className="text-[52px] sm:text-[42px] md:text-[56px] lg:text-[70px] leading-none font-light text-white">
+              We print books
+            </h2>
+            {/* perfectly */}
+            <h1 className="text-[72px] sm:text-[68px] md:text-[88px] lg:text-[110px]  font-light text-white p-0">
+              perfectly
+            </h1>
+            {/* Subtitle */}
+            <p className="text-white text-sm sm:text-base md:text-lg max-w-md">
+              respecting the nature and caring about your needs
+            </p>
+            {/* CTA + Rating */}
+            <div className="flex flex-col items-center sm:flex-row sm:items-center gap-4 sm:gap-5 mt-6 sm:mt-8 md:mt-10">
+              {" "}
+              {/* Explore Button */}
+              <button className="h-15 sm:h-13.75 w-90 sm:w-auto sm:min-w-50 md:min-w-74.75 rounded-full bg-black text-white  cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] text-[18px] md:text-[21px]">
+                {" "}
+                Explore
+              </button>
+              {/* Rating */}
+              <div className="flex flex-col justify-center items-center sm:items-start bg-white rounded-full px-5 h-15 sm:h-13.75 w-90 sm:w-auto sm:min-w-50 md:min-w-74.75 cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] md:pl-7.5">
+                <div className="flex items-center justify-center sm:justify-start gap-0.5 text-[22px] sm:text-[18px] text-blue-600 leading-none">
+                  ★★★★★
+                </div>
 
-          <p className="mb-8 max-w-md text-white">
-            respecting the nature and caring about your needs
-          </p>
-
-          <button className="rounded-full bg-black px-8 py-3 text-white">
-            Explore
-          </button>
+                <span className="text-center sm:text-left text-[16px] sm:text-[14px] text-gray-600 leading-none mt-0.5 sm:mt-1">
+                  See 215 independent reviews on Google
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
