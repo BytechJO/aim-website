@@ -5,5 +5,23 @@
     "subtitle": "نحترم الطبيعة ونهتم باحتياجاتك",
     "explore": "اكتشف",
     "reviews": "اطّلع على 215 تقييم على Google"
+  },
+  "products": {
+    "See what your print could look like": "شاهد كيف يمكن أن تبدو مطبوعاتك",
+    "Explore our products and services": "استكشف منتجاتنا وخدماتنا"
+  },
+  "StorySection": {
+    "title": "بين رفوف الكتب تبدأ الرحلات التي لا تنتهي، وتولد الأفكار التي تغيّر العالم.",
+    "description": "نؤمن بأن كل كتاب يحمل قصة تستحق أن تُقرأ، وفكرة تستحق أن تُكتشف. هنا تجد المعرفة والإلهام والمتعة في مكان واحد.",
+    "Library Team": "فريق المكتبة",
+    "Contact Us": "اتصل بنا"
+  },
+  "ReviewsSection": {
+    "Read our clients’ reviews": "ماذا يقول عملاؤنا عنا",
+    "215 independent reviews on Google": "215 تقييمًا مستقلاً على Google",
+    "See all the reviews on Google": "شاهد جميع التقييمات على Google",
+    "Want to have your book printed?": "هل ترغب في طباعة كتابك؟",
+    "bannerDescription": "هل أنت مؤلف وناشر في نفس الوقت، لكنك لا تعرف من أين تبدأ؟ اكتشف ما يمكننا تقديمه.",
+    "Find out more about self-publishing": "اكتشف المزيد عن النشر الذاتي"
   }
 }
