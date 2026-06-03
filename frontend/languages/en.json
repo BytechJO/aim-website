@@ -30,33 +30,37 @@
       "greenBook": "Green Book"
     },
     "products": {
-      "hardcoverThreadSewn":     { "hl": "Hardcover",          "basic": "thread sewn" },
-      "hardcoverPerfectBound":   { "hl": "Hardcover",          "basic": "perfect bound" },
-      "softcoverThreadSewn":     { "hl": "Softcover",          "basic": "thread sewn" },
-      "softcoverPerfectBound":   { "hl": "Softcover",          "basic": "perfect bound" },
-      "softcoverSaddleStitched": { "hl": "Softcover",          "basic": "saddle stitched" },
-      "halfBinding":             { "hl": "Half-binding",       "basic": "" },
-      "flexoBinding":            { "hl": "Flexo binding",      "basic": "" },
-      "spiralBinding":           { "hl": "Spiral binding",     "basic": "" },
-      "openSpineBinding":        { "hl": "Open-spine binding", "basic": "" },
-      "swissBinding":            { "hl": "Swiss binding",      "basic": "" }
+      "hardcoverThreadSewn": { "hl": "Hardcover", "basic": "thread sewn" },
+      "hardcoverPerfectBound": { "hl": "Hardcover", "basic": "perfect bound" },
+      "softcoverThreadSewn": { "hl": "Softcover", "basic": "thread sewn" },
+      "softcoverPerfectBound": { "hl": "Softcover", "basic": "perfect bound" },
+      "softcoverSaddleStitched": {
+        "hl": "Softcover",
+        "basic": "saddle stitched"
+      },
+      "halfBinding": { "hl": "Half-binding", "basic": "" },
+      "flexoBinding": { "hl": "Flexo binding", "basic": "" },
+      "spiralBinding": { "hl": "Spiral binding", "basic": "" },
+      "openSpineBinding": { "hl": "Open-spine binding", "basic": "" },
+      "swissBinding": { "hl": "Swiss binding", "basic": "" }
     },
     "guideLinks": {
       "preparingMaterials": "Preparing materials for digital printing",
-      "glossary":           "Glossary",
-      "bookPaper":          "Book paper",
-      "blog":               "Blog",
-      "videoTutorials":     "Video tutorials",
-      "faq":                "Frequently asked questions",
-      "generalTerms":       "General terms of cooperation",
-      "logosDownload":      "Logos download"
+      "glossary": "Glossary",
+      "bookPaper": "Book paper",
+      "blog": "Blog",
+      "videoTutorials": "Video tutorials",
+      "faq": "Frequently asked questions",
+      "generalTerms": "General terms of cooperation",
+      "logosDownload": "Logos download"
     },
     "aboutLinks": {
-      "team":               "About us team",
-      "standards":          "Our standards",
-      "sociallyResponsible":"Socially responsible",
-      "contact":            "Contact"
+      "team": "About us team",
+      "standards": "Our standards",
+      "sociallyResponsible": "Socially responsible",
+      "contact": "Contact"
     }
+  },
 
   "products": {
     "See what your print could look like": "See what your print could look like",
