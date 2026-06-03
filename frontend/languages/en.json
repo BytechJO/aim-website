@@ -79,5 +79,41 @@
     "Want to have your book printed?": "Want to have your book printed?",
     "bannerDescription": "Are you an author and a publisher at the same time, but you don't know how to get started? Check out what we can offer.",
     "Find out more about self-publishing": "Find out more about self-publishing"
+  },
+  "SpecialSection": {
+    "title": "What makes us special",
+    "card1Title": "Digital book printing – intended for publishing companies and self-publishers",
+    "card1Description": "We aim our offer both at experienced professional publishers and individuals who have just set off on their journey into publishing.",
+    "card3Title": "PRINTING PROCESS",
+    "card3Description": "FROM A TO Z",
+    "card4Title": "ENVIRONMENTALLY FRIENDLY INKS",
+    "card4Description": "The importance of using environmentally friendly inks in the printing industry is to reduce negative impacts on children, reduce environmental impact, and promote sustainable practices.By using environmentally friendly inks, the printing industry can significantly reduce carbon emissions,",
+    "card5Title": "RECYCLED PAPER",
+    "card5Description": "Aim and Ambition is committed to the  principle of  environmental sustainability, and is constantly working to  develop its printers to use recycled paper to reduce  its  impact on children,",
+    "learnMoreButton": "Learn More",
+    "readMoreButton": "Read on",
+    "exploreButton": "Explore"
+  },
+  "NewsSection": {
+    "title": "News",
+    "mainNewsTitle": "Konica Minolta Accurio Press C6100",
+    "mainNewsDescription": "In late 2019, we welcomed the always-distinguished digital printing machines from Konica Minolta, the leader in digital printing.",
+    "sideNews1Title": "KM-1e is the latest machine to join our FLEET",
+    "sideNews2Title": "With us, your printing has no limits",
+    "sideNews2Description": "from a single copy to a million, we’ve got you covered!",
+    "readMore": "Read More"
+  },
+  "InstagramSection": {
+    "Instagram": "Instagram",
+    "Follow us": "Follow us",
+    "View on Instagram": "View on Instagram"
+  },
+  "ContactSection": {
+    "p1": "Looking for the right printer for your book?",
+    "p2": "Let’s talk",
+    "p3": "We’re happy to advise, answer your questions and provide a quote. Contact us!",
+    "p4": "You can also write to us:",
+    "leaveButton":"Leave a message",
+    "callButton":"Call us"
   }
 }
