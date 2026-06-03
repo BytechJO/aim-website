@@ -1,6 +1,7 @@
+"use client";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
-
+import { motion } from "framer-motion";
 export default function ProductsSection() {
   const t = useTranslations("products");
   const locale = useLocale();
@@ -89,7 +90,13 @@ export default function ProductsSection() {
   return (
     <section className="py-15">
       <div className="max-w-[95%] mx-auto px-4 lg:px-8">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-10"
+        >
           <h2 className="text-3xl lg:text-7xl font-light text-[#202543] max-w-210">
             {t("See what your print could look like")}
           </h2>
@@ -109,7 +116,7 @@ export default function ProductsSection() {
               />
             </span>
           </button>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {products.map((item) => (

@@ -30,32 +30,32 @@
       "greenBook": "الكتاب الأخضر"
     },
     "products": {
-      "hardcoverThreadSewn":     { "hl": "مجلد فاخر",       "basic": "مخيط بالخيط" },
-      "hardcoverPerfectBound":   { "hl": "مجلد فاخر",       "basic": "لصق مثالي" },
-      "softcoverThreadSewn":     { "hl": "غلاف ناعم",       "basic": "مخيط بالخيط" },
-      "softcoverPerfectBound":   { "hl": "غلاف ناعم",       "basic": "لصق مثالي" },
-      "softcoverSaddleStitched": { "hl": "غلاف ناعم",       "basic": "خياطة السرج" },
-      "halfBinding":             { "hl": "نصف تجليد",       "basic": "" },
-      "flexoBinding":            { "hl": "تجليد فليكسو",    "basic": "" },
-      "spiralBinding":           { "hl": "تجليد حلزوني",    "basic": "" },
-      "openSpineBinding":        { "hl": "تجليد مفتوح",     "basic": "" },
-      "swissBinding":            { "hl": "تجليد سويسري",    "basic": "" }
+      "hardcoverThreadSewn": { "hl": "مجلد فاخر", "basic": "مخيط بالخيط" },
+      "hardcoverPerfectBound": { "hl": "مجلد فاخر", "basic": "لصق مثالي" },
+      "softcoverThreadSewn": { "hl": "غلاف ناعم", "basic": "مخيط بالخيط" },
+      "softcoverPerfectBound": { "hl": "غلاف ناعم", "basic": "لصق مثالي" },
+      "softcoverSaddleStitched": { "hl": "غلاف ناعم", "basic": "خياطة السرج" },
+      "halfBinding": { "hl": "نصف تجليد", "basic": "" },
+      "flexoBinding": { "hl": "تجليد فليكسو", "basic": "" },
+      "spiralBinding": { "hl": "تجليد حلزوني", "basic": "" },
+      "openSpineBinding": { "hl": "تجليد مفتوح", "basic": "" },
+      "swissBinding": { "hl": "تجليد سويسري", "basic": "" }
     },
     "guideLinks": {
       "preparingMaterials": "تحضير المواد للطباعة الرقمية",
-      "glossary":           "المسرد",
-      "bookPaper":          "ورق الكتب",
-      "blog":               "المدونة",
-      "videoTutorials":     "دروس فيديو",
-      "faq":                "الأسئلة الشائعة",
-      "generalTerms":       "الشروط العامة للتعاون",
-      "logosDownload":      "تحميل الشعارات"
+      "glossary": "المسرد",
+      "bookPaper": "ورق الكتب",
+      "blog": "المدونة",
+      "videoTutorials": "دروس فيديو",
+      "faq": "الأسئلة الشائعة",
+      "generalTerms": "الشروط العامة للتعاون",
+      "logosDownload": "تحميل الشعارات"
     },
     "aboutLinks": {
-      "team":               "فريقنا",
-      "standards":          "معاييرنا",
-      "sociallyResponsible":"المسؤولية الاجتماعية",
-      "contact":            "اتصل بنا"
+      "team": "فريقنا",
+      "standards": "معاييرنا",
+      "sociallyResponsible": "المسؤولية الاجتماعية",
+      "contact": "اتصل بنا"
     }
   },
   "products": {
@@ -75,5 +75,41 @@
     "Want to have your book printed?": "هل ترغب في طباعة كتابك؟",
     "bannerDescription": "هل أنت مؤلف وناشر في نفس الوقت، لكنك لا تعرف من أين تبدأ؟ اكتشف ما يمكننا تقديمه.",
     "Find out more about self-publishing": "اكتشف المزيد عن النشر الذاتي"
+  },
+  "SpecialSection": {
+    "title": "ما الذي يجعلنا مميزين",
+    "exploreButton": "استكشف",
+    "card1Title": "طباعة الكتب الرقمية - مخصصة لشركات النشر والناشرين الذاتيين",
+    "card1Description": "نستهدف عرضنا لكل من الناشرين المحترفين ذوي الخبرة والأفراد الذين بدأوا للتو رحلتهم في عالم النشر.",
+    "card3Title": "عملية الطباعة",
+    "card3Description": "من الألف إلى الياء",
+    "card4Title": "الأحبار الصديقة للبيئة",
+    "card4Description": "تكمن أهمية استخدام الأحبار الصديقة للبيئة في صناعة الطباعة في الحد من الآثار السلبية على الأطفال، وتقليل الأثر البيئي، وتعزيز الممارسات المستدامة. وباستخدام الأحبار الصديقة للبيئة، تستطيع صناعة الطباعة خفض انبعاثات الكربون بشكل ملحوظ.",
+    "learnMoreButton": "تعرف على المزيد",
+    "card5Title": "الورق المعاد تدويره",
+    "card5Description": "تلتزم Aim and Ambition بمبدأ الاستدامة البيئية، وتعمل باستمرار على تطوير طابعاتها لاستخدام الورق المعاد تدويره لتقليل تأثيرها على الأطفال.",
+    "readMoreButton": "اقرأ المزيد"
+  },
+  "NewsSection": {
+    "title": "الأخبار",
+    "mainNewsTitle": "Konica Minolta Accurio Press C6100",
+    "mainNewsDescription": "في أواخر عام 2019، استقبلنا آلات الطباعة الرقمية المتميزة دائمًا من Konica Minolta، الرائدة في مجال الطباعة الرقمية.",
+    "sideNews1Title": "KM-1e هي أحدث آلة تنضم إلى أسطولنا",
+    "sideNews2Title": "معنا، لا حدود لطباعة",
+    "sideNews2Description": "من نسخة واحدة إلى مليون نسخة، نحن نوفر لك كل ما تحتاجه !",
+    "readMore": "اقرأ المزيد"
+  },
+  "InstagramSection": {
+    "Instagram": "إنستغرام",
+    "Follow us": "تابعنا",
+    "View on Instagram": "عرض على إنستغرام"
+  },
+  "ContactSection": {
+    "p1": "هل تبحث عن المطبعة المناسبة لكتابك؟",
+    "p2": "دعنا نتحدث",
+    "p3": "يسعدنا تقديم المشورة والإجابة على أسئلتك وتزويدك بعرض سعر. تواصل معنا!",
+    "p4": "يمكنك أيضًا مراسلتنا عبر البريد الإلكتروني:",
+    "leaveButton": "اترك رسالة",
+    "callButton": "اتصل بنا"
   }
 }

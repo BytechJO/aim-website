@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
-
+import { motion } from "framer-motion";
 export default function ReviewsSection() {
   const t = useTranslations("ReviewsSection");
   const locale = useLocale();
@@ -106,7 +106,13 @@ export default function ReviewsSection() {
     <section className="py-20 overflow-hidden">
       <div className="w-full lg:max-w-[80%] mx-auto px-4 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6 mb-16"
+        >
           <div>
             <h2 className="text-4xl lg:text-7xl font-light text-[#202543] ">
               {t("Read our clients’ reviews")}
@@ -132,7 +138,7 @@ export default function ReviewsSection() {
               />
             </span>
           </button>
-        </div>
+        </motion.div>
 
         {/* MOBILE */}
         <div
