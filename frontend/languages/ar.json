@@ -22,6 +22,7 @@
     "ourProducts": "منتجاتنا",
     "haveQuestions": "هل لديك أسئلة؟",
     "getAnswers": "احصل على إجابات.",
+    "Language": "اللغة",
     "categories": {
       "binding": "التجليد",
       "enhancement": "التحسين",
@@ -115,5 +116,30 @@
   "HeroSelfPublishing": {
     "title": "Self-publishing",
     "description": "Over the last few years we have seen a growing interest in this type of publishing. More and more people develop and print their books independently, without relying on professional publishing companies, and then they sell them using social media or own websites, often outside traditional sales channels, such as bookstores. Our printing house supports independent creators whatever their output is: family memoirs, calendars or professionally-targeted planners, notebooks for social media followers, children's stories or their first novel. We provide not only high-quality printing, but also expert advice at every stage of production."
+  },
+  "footer": {
+    "quickLinks": "روابط سريعة",
+    "forYou": "من أجلك",
+    "help": "المساعدة",
+    "leaveNumber": "اترك رقمك وسنتواصل معك",
+    "certificates": "الشهادات",
+    "newsletterTitle": "اشترك في نشرتنا الإخبارية",
+    "newsletterDesc": "ابقَ على اطلاع بأحدث خدماتنا ونصائحنا وأخبارنا!",
+    "privacyAccept": "بالتسجيل فإنك توافق على",
+    "privacyPolicy": "سياسة الخصوصية",
+    "emailPlaceholder": "عنوان بريدك الإلكتروني",
+    "rightsReserved": "AIM © 2026. جميع الحقوق محفوظة.",
+    "aboutUs": "من نحن",
+    "services": "الخدمات",
+    "profile": "الملف التعريفي",
+
+    "coverGenerator": "مولد الأغلفة",
+    "logosDownload": "تحميل الشعارات",
+    "bookPlus": "Book+",
+    "greenBook": "الكتاب الأخضر",
+
+    "faq": "الأسئلة الشائعة",
+    "basicQualityStandards": "معايير الجودة الأساسية",
+    "generalTerms": "الشروط العامة للتعاون"
   }
 }

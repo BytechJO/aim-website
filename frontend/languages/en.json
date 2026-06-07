@@ -20,8 +20,9 @@
     "searchPlaceholder": "Enter what you are looking for",
     "explore": "Explore",
     "ourProducts": "Our products",
-    "haveQuestions": "Have questions?",
+    "haveQuestions": "Have a questions?",
     "getAnswers": "Get answers.",
+    "Language": "Language",
     "categories": {
       "binding": "Binding",
       "enhancement": "Enhancement",
@@ -113,7 +114,32 @@
     "p2": "Let’s talk",
     "p3": "We’re happy to advise, answer your questions and provide a quote. Contact us!",
     "p4": "You can also write to us:",
-    "leaveButton":"Leave a message",
-    "callButton":"Call us"
+    "leaveButton": "Leave a message",
+    "callButton": "Call us"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "forYou": "For you",
+    "help": "Help",
+    "leaveNumber": "Leave your number and we'll call back",
+    "certificates": "Certificates",
+    "newsletterTitle": "Sign up for our newsletter",
+    "newsletterDesc": "Stay up-to-date with our offerings, tips and news!",
+    "privacyAccept": "By signing up you accept our",
+    "privacyPolicy": "Privacy policy",
+    "emailPlaceholder": "Your email address",
+    "rightsReserved": "AIM © 2026. All rights reserved.",
+    "aboutUs": "About Us",
+    "services": "Services",
+    "profile": "Profile",
+
+    "coverGenerator": "Cover Generator",
+    "logosDownload": "Logos Download",
+    "bookPlus": "Book+",
+    "greenBook": "Green Book",
+
+    "faq": "Frequently Asked Questions",
+    "basicQualityStandards": "Basic Quality Standards",
+    "generalTerms": "General Terms of Cooperation"
   }
 }

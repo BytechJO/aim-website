@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
@@ -12,50 +12,45 @@ const LOCALES = [
   { code: "ar", label: "العربية", flag: "🇸🇦" },
 ] as const;
 
-const quickLinks = [
-  { label: "About Us",  href: "/about" },
-  { label: "Service",   href: "/services" },
-  { label: "Profile",   href: "/profile" },
-];
-
-const forYouLinks = [
-  { label: "Cover generator",  href: "/cover-generator" },
-  { label: "Logos download",   href: "/logos-download" },
-  { label: "Book+",            href: "/book-plus" },
-  { label: "GREEN BOOK",       href: "/green-book" },
-];
-
-const helpLinks = [
-  { label: "Frequently asked questions", href: "/faq" },
-  { label: "Frequently asked questions", href: "/faq" },
-  { label: "Basic quality standards",    href: "/quality" },
-];
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const fadeUp = (delay = 0) => ({
-  hidden:  { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE, delay } },
+  hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: EASE, delay },
+  },
 });
 
 const staggerList = {
-  hidden:  {},
+  hidden: {},
   visible: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
 };
 
 const listItem = {
-  hidden:  { opacity: 0, x: -10 },
+  hidden: { opacity: 0, x: -10 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.45, ease: EASE } },
 };
 
 const dropdownAnim = {
-  hidden:  { opacity: 0, y: 8,  scale: 0.96 },
-  visible: { opacity: 1, y: 0,  scale: 1,    transition: { duration: 0.2, ease: EASE } },
-  exit:    { opacity: 0, y: 6,  scale: 0.96, transition: { duration: 0.14 } },
+  hidden: { opacity: 0, y: 8, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.2, ease: EASE },
+  },
+  exit: { opacity: 0, y: 6, scale: 0.96, transition: { duration: 0.14 } },
 };
 
 function NavColumn({
-  title, links, fontClass, delay, inView,
+  title,
+  links,
+  fontClass,
+  delay,
+  inView,
 }: {
   title: string;
   links: { label: string; href: string }[];
@@ -69,7 +64,7 @@ function NavColumn({
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
     >
-      <h3 className="font-inter font-semibold text-[18px] leading-[24px] underline text-black mb-5">
+      <h3 className="font-inter font-semibold text-[18px] leading-6 underline text-black mb-5">
         {title}
       </h3>
       <motion.ul
@@ -82,7 +77,7 @@ function NavColumn({
           <motion.li key={i} variants={listItem}>
             <Link href={item.href}>
               <motion.span
-                className={`inline-block ${fontClass} font-medium text-[14px] leading-[24px] text-[#2C2C2C]`}
+                className={`inline-block ${fontClass} font-medium text-[14px] leading-6 text-[#2C2C2C]`}
                 whileHover={{ x: 5, color: "#000" }}
                 transition={{ duration: 0.18 }}
               >
@@ -97,14 +92,31 @@ function NavColumn({
 }
 
 export default function Footer() {
-  const [email,    setEmail]    = useState("");
+  const [email, setEmail] = useState("");
   const [langOpen, setLangOpen] = useState(false);
+  const t = useTranslations("footer");
+  const quickLinks = [
+    { label: t("aboutUs"), href: "/about" },
+    { label: t("services"), href: "/services" },
+    { label: t("profile"), href: "/profile" },
+  ];
 
-  const locale   = useLocale();
-  const router   = useRouter();
+  const forYouLinks = [
+    { label: t("coverGenerator"), href: "/cover-generator" },
+    { label: t("logosDownload"), href: "/logos-download" },
+    { label: t("bookPlus"), href: "/book-plus" },
+    { label: t("greenBook"), href: "/green-book" },
+  ];
+  const helpLinks = [
+    { label: t("faq"), href: "/faq" },
+    { label: t("generalTerms"), href: "/general-terms-of-cooperation" },
+    { label: t("basicQualityStandards"), href: "/quality" },
+  ];
+  const locale = useLocale();
+  const router = useRouter();
   const pathname = usePathname();
 
-  const ref    = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const switchLocale = (next: string) => {
@@ -114,66 +126,88 @@ export default function Footer() {
     setLangOpen(false);
   };
 
-  const currentLang = LOCALES.find(l => l.code === locale) ?? LOCALES[0];
+  const currentLang = LOCALES.find((l) => l.code === locale) ?? LOCALES[0];
 
   return (
     <footer ref={ref} className="bg-[#F6F6F6] w-full mt-auto overflow-hidden">
-
       {/* ── Main content ─────────────────────────────────────────────────── */}
-      <div className="max-w-[1920px] mx-auto px-8 sm:px-16 xl:px-[120px] pt-[100px] lg:pt-[143px] pb-16">
-
+      <div className="max-w-480 mx-auto px-8 sm:px-16 xl:px-30 pt-25 lg:pt-35.75 pb-16">
         {/* Row 1: logo + contact | nav columns */}
         <div className="flex flex-col lg:flex-row justify-between gap-16 lg:gap-8">
-
           {/* Left: logo · contact · certs */}
           <motion.div
-            className="flex flex-col min-w-[280px]"
+            className="flex flex-col min-w-70"
             variants={fadeUp(0)}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
           >
-            <motion.div whileHover={{ scale: 1.03 }} transition={{ duration: 0.2 }}>
-              <Image src="/logo.svg" alt="AIM Digital Press" width={170} height={68} priority />
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Image
+                src="/logo.svg"
+                alt="AIM Digital Press"
+                width={170}
+                height={68}
+                priority
+              />
             </motion.div>
 
             <div className="flex flex-col mt-8">
               <motion.a
                 href="tel:+"
-                className="font-inter font-medium text-[22px] leading-[45px] underline text-black"
+                className="font-inter font-medium text-[22px] leading-11.25 underline text-black"
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
               >
-                Leave your number and we'll call back
+                {t("leaveNumber")}
               </motion.a>
               <motion.a
-                href="mailto:kontakt@totem.com.pl"
-                className="font-inter font-medium text-[22px] leading-[45px] underline text-black"
+                href="mailto:contact@aim.com.pl"
+                className="font-inter font-medium text-[22px] leading-11.25 underline text-black"
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
               >
-                kontakt@totem.com.pl
+                contact@aim.com.pl
               </motion.a>
             </div>
 
             {/* Certificates */}
             <div className="mt-6">
-              <p className="font-inter font-medium text-[12px] leading-[24px] text-[#2C2C2C] mb-3">
-                Certificates
+              <p className="font-inter font-medium text-[12px] leading-6 text-[#2C2C2C] mb-3">
+                {t("certificates")}
               </p>
+
               <div className="flex items-center gap-4">
                 {[
-                  { w: "w-[91px]", h: "h-[68px]", label: "CERTIFIED" },
-                  { w: "w-[114px]", h: "h-[45px]", label: "ISO 9001:2015" },
+                  {
+                    src: "/certified.svg",
+                    alt: "Certified",
+                    w: 91,
+                    h: 68,
+                  },
+                  {
+                    src: "/iso9001.svg",
+                    alt: "ISO 9001:2015",
+                    w: 114,
+                    h: 45,
+                  },
                 ].map((cert) => (
                   <motion.div
-                    key={cert.label}
-                    className={`${cert.w} ${cert.h} bg-[#e0e0e0] rounded-lg flex items-center justify-center cursor-default`}
-                    whileHover={{ y: -4, boxShadow: "0 8px 20px rgba(0,0,0,0.12)" }}
+                    key={cert.alt}
+                    whileHover={{
+                      y: -4,
+                      boxShadow: "0 8px 20px rgba(0,0,0,0.12)",
+                    }}
                     transition={{ duration: 0.22 }}
                   >
-                    <span className="text-[10px] text-[#555] font-medium text-center leading-tight px-2">
-                      {cert.label}
-                    </span>
+                    <Image
+                      src={cert.src}
+                      alt={cert.alt}
+                      width={cert.w}
+                      height={cert.h}
+                    />
                   </motion.div>
                 ))}
               </div>
@@ -182,16 +216,36 @@ export default function Footer() {
 
           {/* Right: nav columns */}
           <div className="flex flex-wrap gap-12 lg:gap-20 xl:gap-28">
-            <NavColumn title="Quick Links" links={quickLinks}  fontClass="font-inter"         delay={0.10} inView={inView} />
-            <NavColumn title="For you"    links={forYouLinks} fontClass="font-inter"         delay={0.16} inView={inView} />
-            <NavColumn title="Help"       links={helpLinks}   fontClass="font-plus-jakarta" delay={0.22} inView={inView} />
+            <NavColumn
+              title={t("quickLinks")}
+              links={quickLinks}
+              fontClass="font-inter"
+              delay={0.1}
+              inView={inView}
+            />
+            <NavColumn
+              title={t("forYou")}
+              links={forYouLinks}
+              fontClass="font-inter"
+              delay={0.16}
+              inView={inView}
+            />
+            <NavColumn
+              title={t("help")}
+              links={helpLinks}
+              fontClass="font-plus-jakarta"
+              delay={0.22}
+              inView={inView}
+            />
           </div>
         </div>
 
         {/* Row 2: Newsletter ─────────────────────────────────────────────── */}
         <motion.div
-          className="mt-[100px] lg:mt-[120px] rounded-2xl px-8 lg:px-10 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative overflow-hidden"
-          style={{ background: "linear-gradient(90deg, #F8E586 47.02%, #EE8461 100%)" }}
+          className="mt-25 lg:mt-30 rounded-2xl px-8 lg:px-10 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative overflow-hidden"
+          style={{
+            background: "linear-gradient(90deg, #F8E586 47.02%, #EE8461 100%)",
+          }}
           variants={fadeUp(0.28)}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -204,27 +258,36 @@ export default function Footer() {
                 "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.28) 50%, transparent 65%)",
             }}
             animate={{ x: ["-120%", "220%"] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", repeatDelay: 2.5 }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+              repeatDelay: 2.5,
+            }}
           />
 
           <div className="relative z-10">
-            <h3 className="font-inter font-medium text-[22px] leading-[49px] text-black">
-              Sign up for our newsletter
+            <h3 className="font-inter font-medium text-[22px] leading-12.25 text-black">
+              {t("newsletterTitle")}{" "}
             </h3>
             <p className="font-inter font-medium text-[15px] text-black -mt-2">
-              Stay up-to-date with our offerings, tips and news!
+              {t("newsletterDesc")}{" "}
             </p>
             <p className="font-inter font-normal text-[10px] text-black mt-1">
-              By signing up you accept our{" "}
-              <Link href="/privacy" className="underline hover:opacity-70 transition-opacity">
-                Privacy policy
-              </Link>.
+              {t("privacyAccept")}{" "}
+              <Link
+                href="/privacy"
+                className="underline hover:opacity-70 transition-opacity"
+              >
+                {t("privacyPolicy")}{" "}
+              </Link>
+              .
             </p>
           </div>
 
           {/* Email input */}
           <motion.div
-            className="flex items-center bg-white rounded-full w-full sm:w-[368px] h-[60px] px-5 gap-2 shrink-0 relative z-10"
+            className="flex items-center bg-white rounded-full w-full sm:w-92 h-15 px-5 gap-2 shrink-0 relative z-10"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
@@ -232,19 +295,36 @@ export default function Footer() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Your email address"
+              placeholder={t("emailPlaceholder")}
               className="flex-1 bg-transparent outline-none font-inter text-[14px] text-gray-600 placeholder:text-gray-400 min-w-0"
             />
             <motion.button
               aria-label="Subscribe"
               className="w-10 h-10 shrink-0 rounded-full border-[1.5px] border-[#3F6EE8] flex items-center justify-center text-[#3F6EE8] bg-transparent"
-              whileHover={{ backgroundColor: "#3F6EE8", color: "#fff", scale: 1.1, borderColor: "#3F6EE8" }}
+              whileHover={{
+                backgroundColor: "#3F6EE8",
+                color: "#fff",
+                scale: 1.1,
+                borderColor: "#3F6EE8",
+              }}
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.2 }}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8H13M13 8L9 4M13 8L9 12"
-                  stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+                 className="rtl:rotate-180"
+              >
+                <path
+                  d="M3 8H13M13 8L9 4M13 8L9 12"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </motion.button>
           </motion.div>
@@ -261,7 +341,13 @@ export default function Footer() {
             {
               label: "Facebook",
               icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                 </svg>
               ),
@@ -269,26 +355,57 @@ export default function Footer() {
             {
               label: "Instagram",
               icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                   <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none" />
+                  <circle
+                    cx="17.5"
+                    cy="6.5"
+                    r="0.75"
+                    fill="currentColor"
+                    stroke="none"
+                  />
                 </svg>
               ),
             },
             {
               label: "YouTube",
               icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
                   <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-                  <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+                  <polygon
+                    fill="white"
+                    points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"
+                  />
                 </svg>
               ),
             },
             {
               label: "LinkedIn",
               icon: (
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                   <rect x="2" y="9" width="4" height="12" />
                   <circle cx="4" cy="4" r="2" />
@@ -319,49 +436,61 @@ export default function Footer() {
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
       >
-        <div className="max-w-[1920px] mx-auto px-8 sm:px-16 xl:px-[207px] py-5 flex items-center justify-between gap-4 flex-wrap">
-
+        <div className="max-w-480 mx-auto px-8 sm:px-16 xl:px-51.75 py-5 flex items-center justify-between gap-4 flex-wrap">
           <motion.a
             href="/privacy"
-            className="font-montserrat font-semibold text-[18px] leading-[24px] underline text-[#707070]"
+            className="font-montserrat font-semibold text-[18px] leading-6 underline text-[#707070]"
             whileHover={{ color: "#333" }}
             transition={{ duration: 0.18 }}
           >
-            Privacy policy
+            {t("privacyPolicy")}
           </motion.a>
 
           {/* Language switcher */}
-          <div
-            className="relative"
-            onMouseLeave={() => setLangOpen(false)}
-          >
+          <div className="relative" onMouseLeave={() => setLangOpen(false)}>
             <motion.button
               className="flex items-center gap-2 cursor-pointer group"
-              onClick={() => setLangOpen(v => !v)}
+              onClick={() => setLangOpen((v) => !v)}
               onMouseEnter={() => setLangOpen(true)}
               whileHover={{ scale: 1.04 }}
               transition={{ duration: 0.18 }}
               aria-label="Switch language"
             >
               {/* Globe icon */}
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="#919191" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#919191"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <circle cx="12" cy="12" r="10" />
                 <line x1="2" y1="12" x2="22" y2="12" />
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
               </svg>
 
-              <span className="font-montserrat font-semibold text-[15px] leading-[24px] text-[#707070] group-hover:text-[#444] transition-colors">
+              <span className="font-montserrat font-semibold text-[15px] leading-6 text-[#707070] group-hover:text-[#444] transition-colors">
                 {currentLang.label}
               </span>
 
               <motion.svg
-                width="10" height="6" viewBox="0 0 10 6" fill="none"
+                width="10"
+                height="6"
+                viewBox="0 0 10 6"
+                fill="none"
                 animate={{ rotate: langOpen ? 180 : 0 }}
                 transition={{ duration: 0.22 }}
               >
-                <path d="M1 1L5 5L9 1" stroke="#919191" strokeWidth="1.5"
-                  strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M1 1L5 5L9 1"
+                  stroke="#919191"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </motion.svg>
             </motion.button>
 
@@ -374,14 +503,16 @@ export default function Footer() {
                   initial="hidden"
                   animate="visible"
                   exit="exit"
-                  className="absolute bottom-full mb-2 left-0 bg-white border border-gray-200 shadow-xl rounded-xl overflow-hidden z-50 min-w-[150px]"
+                  className="absolute bottom-full mb-2 left-0 bg-white border border-gray-200 shadow-xl rounded-xl overflow-hidden z-50 min-w-37.5"
                 >
                   {LOCALES.map((l, i) => (
                     <motion.button
                       key={l.code}
                       onClick={() => switchLocale(l.code)}
                       className={`flex items-center gap-3 w-full px-4 py-3 text-left text-sm transition-colors hover:bg-gray-50 ${
-                        locale === l.code ? "font-semibold text-black bg-gray-50" : "text-gray-600"
+                        locale === l.code
+                          ? "font-semibold text-black bg-gray-50"
+                          : "text-gray-600"
                       }`}
                       initial={{ opacity: 0, x: -6 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -407,7 +538,7 @@ export default function Footer() {
             </AnimatePresence>
           </div>
 
-          <span className="font-montserrat font-semibold text-[18px] leading-[24px] underline text-[#707070]">
+          <span dir="ltr" className="font-montserrat font-semibold text-[18px] leading-6 underline text-[#707070]">
             AIM © 2026. All rights reserved.
           </span>
         </div>
