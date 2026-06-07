@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 export default function SpecialSection() {
   const t = useTranslations("SpecialSection");
   const locale = useLocale();
@@ -16,7 +17,10 @@ export default function SpecialSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-4xl lg:text-7xl font-light text-[#202543] md:mb-14"
+          className={`
+    ${locale === "en" ? "font-adamina" : "font-cairo"}
+    text-4xl lg:text-7xl font-light text-[#202543] md:mb-14
+  `}
         >
           {t("title")}
         </motion.h2>
@@ -100,9 +104,12 @@ export default function SpecialSection() {
                   {t("card1Description")}
                 </p>
 
-                <button className="mt-2 w-fit px-12 py-4 rounded-full bg-black text-white hover:bg-[#514D4D] cursor-pointer">
+                <Link
+                  href="/self-publishing"
+                  className="mt-2 w-fit px-12 py-4 rounded-full bg-black text-white hover:bg-[#514D4D] cursor-pointer inline-block"
+                >
                   {t("exploreButton")}
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -125,9 +132,12 @@ export default function SpecialSection() {
                   </div>
 
                   <div className="flex justify-center mt-8">
-                    <button className="px-8 py-3 rounded-full bg-black text-white w-45 hover:bg-[#514D4D] cursor-pointer">
+                    <Link
+                      href="/about"
+                      className="px-8 py-3 rounded-full bg-black text-white w-45 hover:bg-[#514D4D] cursor-pointer inline-flex items-center justify-center"
+                    >
                       {t("exploreButton")}
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -181,9 +191,12 @@ export default function SpecialSection() {
                     {t("card5Description")}
                   </p>
 
-                  <button className="mt-10 w-fit px-10 py-4 rounded-full bg-black text-white hover:bg-[#514D4D] cursor-pointer">
+                  <Link
+                    href="/about"
+                    className="mt-10 w-fit px-10 py-4 rounded-full bg-black text-white hover:bg-[#514D4D] cursor-pointer inline-flex items-center justify-center"
+                  >
                     {t("readMoreButton")}
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

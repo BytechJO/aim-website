@@ -29,7 +29,9 @@ export default function ContactSection() {
                   : "Planning to self-publish?"}
               </p>
 
-              <h2 className="mt-4 text-5xl lg:text-7xl font-light text-[#202543]">
+              <h2
+                className={`${locale === "en" ? "font-adamina" : "font-cairo"} mt-4 text-5xl lg:text-7xl font-light text-[#202543]`}
+              >
                 {isArabic ? "لنتحدث" : "Let’s talk"}
               </h2>
 

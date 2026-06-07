@@ -2,6 +2,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 export default function ProductsSection() {
   const t = useTranslations("products");
   const locale = useLocale();
@@ -97,13 +98,23 @@ export default function ProductsSection() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-10"
         >
-          <h2 className="text-3xl lg:text-7xl font-light text-[#202543] max-w-210">
+          <h2
+            className={`
+    ${locale === "en" ? "font-adamina" : "font-cairo"}
+    text-3xl lg:text-[55px]
+    font-light text-[#202543] max-w-200
+  `}
+          >
             {t("See what your print could look like")}
           </h2>
 
-          <button className="flex items-center gap-2 text-[17px] font-medium mt-4 lg:mt-6">
+          <Link
+            href="/services"
+            className="group flex items-center gap-2 text-[17px] font-medium mt-4 lg:mt-6 cursor-pointer"
+          >
             {t("Explore our products and services")}
-            <span className="w-10 h-6 rounded-full bg-[#E8B090] flex items-center justify-center">
+
+            <span className="w-10 h-6 rounded-full bg-[#E8B090] flex items-center justify-center transition-colors duration-300 group-hover:bg-[#359DDA]">
               <Image
                 src={
                   locale === "ar"
@@ -115,7 +126,7 @@ export default function ProductsSection() {
                 height={10}
               />
             </span>
-          </button>
+          </Link>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">

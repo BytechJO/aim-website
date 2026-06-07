@@ -141,5 +141,73 @@
     "faq": "Frequently Asked Questions",
     "basicQualityStandards": "Basic Quality Standards",
     "generalTerms": "General Terms of Cooperation"
+  },
+  "StandardsHero": {
+    "title": "Our standards",
+    "description": "A book is much more than a mere useful object to us. It is an artefact engaging a number of senses: sight, touch and smell. That is why we care that the perception and impressions of the books we print are as good as possible and unforgettable. For us, every book is special and deserves the best quality."
+  },
+  "StandardsSection": {
+    "item1": {
+      "title": "Perfect quality",
+      "description": "When printing books, we spare no effort to make them beautiful, long-lasting, modern-looking and timeless at the same time. We are aware that product and service quality are some of the key decisive factors when choosing the printing company."
+    },
+    "item2": {
+      "title": "Sound customer relations",
+      "description": "When contacting our customers and building business relations with our suppliers, we always strive for the highest standards. Every day, we take carefully considered measures aiming to meet our customers' needs and expectations, thus leading to their complete satisfaction."
+    },
+    "item3": {
+      "title": "Continued growth",
+      "description": "This is all achieved by systematically raising standards, employing highly-qualified personnel, investing in state-of-the-art printing and bookbinding equipment and building good relations with our partners."
+    }
+  },
+  "AttentionToDetail": {
+    "title": "Attention to detail",
+    "description": "In our printing company the quality of print is controlled at various stages of production and on many levels.",
+
+    "card1": {
+      "title": "Initial inspection",
+      "description": "The first verification takes place at the Prepress Department, where files submitted for production are checked for correctness. They undergo a technical review and are checked for compliance with the order. Any remarks or comments are then included in a soft proof and a report."
+    },
+
+    "card2": {
+      "title": "Proof",
+      "description": "If requested, we can provide a proof on a plano sheet or a hard proof, in which case the customer can see what their publication will look like in the flesh."
+    },
+
+    "card3": {
+      "title": "Subsequent verification",
+      "description": "At each of the stages that follow: printing, binding and preparing the products for shipment, checks continue to prevent any mistakes, to ensure timely delivery of the product, and to guarantee that the product is just what the customer expects, conforming to standards and specifications."
+    },
+
+    "card4": {
+      "title": "Consistency",
+      "description": "We also make sure that quality consistency is maintained when a customer orders a reprint. This is possible thanks to regular calibration of our printing presses and specialised monitors according to applicable ISO standards, as well as because we make digital backup copies of print parameters."
+    }
+  },
+  "InnovativeTechnologies": {
+    "title": "Innovative technologies",
+    "description": "In our printing house digital methods are used not only for careful and precise printing, but also for neat and expert binding. In order to achieve the best possible results we employ the latest, state-of-the-art technologies.",
+
+    "printing": "Printing",
+
+    "screen": {
+      "title": "SCREEN",
+      "description": "We have the fastest digital roll-to-roll printing presses using, such as Screen TruePress Jet520HD - for life-like photographic quality. They print on both offset and coated paper, using new generation pigment ink, and guarantee crisp details and smooth colour gradients."
+    },
+
+    "konica": {
+      "title": "KONICA MINOLTA",
+      "description": "Our stock of machines includes sheet-fed systems, for example AccurioJet KM-1. It is an ultra-modern inkjet solution developed by Konica Minolta, ensuring quality that surpasses offset print and enabling the use of both standard offset substrates and textured media, synthetics and high-density stock."
+    },
+
+    "canon": {
+      "title": "CANON",
+      "description": "We also use four high-performance monochrome systems Canon varioPRINT 6330 TITAN. They produce remarkably high resolution images and perfect registration."
+    },
+
+    "ricoh": {
+      "title": "RICOH",
+      "description": "Last but not least, there are two Ricoh Pro C9200 sheet-fed presses that we mainly use for printing covers. The machines enable us to achieve high print quality with vivid and lifelike colours and smooth colour gradients."
+    }
   }
 }

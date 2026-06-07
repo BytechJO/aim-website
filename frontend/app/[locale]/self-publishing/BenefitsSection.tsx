@@ -2,13 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Adamina } from "next/font/google";
 import { useLocale } from "next-intl";
 
-const adamina = Adamina({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 export default function BenefitsSection() {
   const [expanded, setExpanded] = useState<number | null>(null);
@@ -333,9 +328,11 @@ export default function BenefitsSection() {
         <div className="max-w-[95%] mx-auto px-4 lg:px-8">
           {/* Heading with line-by-line animation */}
           <h2
-            className={`${adamina.className} text-center text-3xl lg:text-6xl  mb-10 md:mb-20 ${
-              isVisible ? "heading-visible" : "heading-enter"
-            }`}
+            className={`
+    ${locale === "en" ? "font-adamina" : "font-cairo"}
+    text-center text-3xl lg:text-6xl mb-10 md:mb-20
+    ${isVisible ? "heading-visible" : "heading-enter"}
+  `}
             style={{ animationDelay: "0ms" }}
           >
             <span

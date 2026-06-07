@@ -117,12 +117,14 @@ export default function InstagramSection() {
       <div className="w-full lg:max-w-[80%] mx-auto px-4 lg:px-8 ">
         {/* Header */}
         <div className="flex justify-between items-center mb-16">
-          <h2 className="text-4xl lg:text-7xl font-light text-[#202543] leading-none">
+          <h2
+            className={`${locale === "en" ? "font-adamina" : "font-cairo"} text-4xl lg:text-7xl font-light text-[#202543] leading-none`}
+          >
             {t("Instagram")}
           </h2>
 
           <Link
-            href="https://instagram.com"
+            href="https://www.instagram.com/aim.ambition.press/"
             target="_blank"
             className={`flex items-center gap-2 text-sm underline underline-offset-6 ${
               isArabic ? "flex-row-reverse" : ""
