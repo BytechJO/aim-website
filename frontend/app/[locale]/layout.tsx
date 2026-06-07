@@ -6,6 +6,8 @@ import {
   Montserrat,
   Plus_Jakarta_Sans,
   Charm,
+  Adamina,
+  Cairo,
 } from "next/font/google";
 import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
@@ -38,7 +40,15 @@ const charm = Charm({
   subsets: ["latin"],
   weight: ["400", "700"],
 });
-
+const adamina = Adamina({
+  variable: "--font-adamina",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic"],
+});
 export const metadata: Metadata = {
   title: "AIM Website",
   description: "We print books perfectly",
@@ -59,7 +69,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
-      className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${montserrat.variable} ${plusJakartaSans.variable} ${charm.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${montserrat.variable} ${plusJakartaSans.variable} ${charm.variable} ${adamina.variable} ${cairo.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages}>

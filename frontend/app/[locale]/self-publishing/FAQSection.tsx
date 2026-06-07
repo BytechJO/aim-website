@@ -1,15 +1,10 @@
 "use client";
 
-import { Adamina } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useLocale } from "next-intl";
 
-const adamina = Adamina({
-  weight: "400",
-  subsets: ["latin"],
-});
 export default function FAQSection() {
   const locale = useLocale();
   const isArabic = locale === "ar";
@@ -75,7 +70,10 @@ export default function FAQSection() {
           {/* Title */}
           <div>
             <motion.h2
-              className={`${adamina.className} text-3xl lg:text-6xl font-light leading-[1.1] text-[#202543]`}
+              className={`
+  ${locale === "en" ? "font-adamina" : "font-cairo"}
+  text-3xl lg:text-6xl font-light leading-[1.1] text-[#202543]
+`}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}

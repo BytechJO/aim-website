@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 export default function StorySection() {
   const t = useTranslations("StorySection");
@@ -36,10 +37,12 @@ export default function StorySection() {
               </p>
 
               <p className="mt-8 text-sm text-white/70">{t("Library Team")}</p>
-
-              <button className="mt-10 w-fit bg-white text-black rounded-full px-12 py-4 font-medium hover:scale-[1.02] transition">
+              <Link
+                href="/contact"
+                className="mt-10 w-fit bg-white text-black rounded-full px-12 py-4 font-medium hover:scale-[1.02] transition inline-block"
+              >
                 {t("Contact Us")}
-              </button>
+              </Link>
             </div>
 
             {/* Right Image */}

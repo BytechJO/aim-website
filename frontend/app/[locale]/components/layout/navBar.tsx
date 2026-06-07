@@ -147,15 +147,19 @@ function Chevron({ open, size = 12 }: { open: boolean; size?: number }) {
 function TopLink({
   href,
   children,
+  active = false,
 }: {
   href: string;
   children: React.ReactNode;
+  active?: boolean;
 }) {
   const [hov, setHov] = useState(false);
   return (
     <Link
       href={href}
-      className="relative flex items-center px-5 h-19.25 text-[15px] font-semibold text-[#222222] hover:text-black transition-colors"
+      className={`relative flex items-center px-5 h-19.25 text-[15px] font-semibold transition-colors ${
+        active ? "text-black" : "text-[#222222] hover:text-black"
+      }`}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
     >
@@ -163,7 +167,7 @@ function TopLink({
       <motion.span
         className="absolute bottom-4 left-5 right-5 h-[1.5px] bg-black origin-left"
         initial={{ scaleX: 0 }}
-        animate={{ scaleX: hov ? 1 : 0 }}
+        animate={{ scaleX: active || hov ? 1 : 0 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
       />
     </Link>
@@ -385,15 +389,25 @@ export default function NavBar() {
               </li>
 
               <li className="h-full">
-                <TopLink href={lp("/self-publishing")}>
+                <TopLink
+                  href={lp("/self-publishing")}
+                  active={pathname === lp("/self-publishing")}
+                >
                   {t("selfPublishing")}
                 </TopLink>
               </li>
               <li className="h-full">
-                <TopLink href={lp("/about")}>{t("aboutUs")}</TopLink>
+                <TopLink href={lp("/about")} active={pathname === lp("/about")}>
+                  {t("aboutUs")}
+                </TopLink>
               </li>
               <li className="h-full">
-                <TopLink href={lp("/contact")}>{t("contactUs")}</TopLink>
+                <TopLink
+                  href={lp("/contact")}
+                  active={pathname === lp("/contact")}
+                >
+                  {t("contactUs")}
+                </TopLink>
               </li>
             </ul>
           </nav>

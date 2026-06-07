@@ -30,7 +30,7 @@ export default function NewsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-4xl lg:text-7xl font-light text-[#202543] mb-10"
+          className={`${locale === "en" ? "font-adamina" : "font-cairo"} text-4xl lg:text-7xl font-light text-[#202543] mb-10`}
         >
           {t("title")}
         </motion.div>

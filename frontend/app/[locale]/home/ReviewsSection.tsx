@@ -103,7 +103,7 @@ export default function ReviewsSection() {
     });
   };
   return (
-    <section className="py-20 overflow-hidden">
+    <section id="reviews" className="py-20 overflow-hidden">
       <div className="w-full lg:max-w-[80%] mx-auto px-4 lg:px-8">
         {/* Header */}
         <motion.div
@@ -114,7 +114,9 @@ export default function ReviewsSection() {
           className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6 mb-16"
         >
           <div>
-            <h2 className="text-4xl lg:text-7xl font-light text-[#202543] ">
+            <h2
+              className={`${locale === "en" ? "font-adamina" : "font-cairo"} text-4xl lg:text-[50px] text-[#202543]`}
+            >
               {t("Read our clients’ reviews")}
             </h2>
 
@@ -126,9 +128,10 @@ export default function ReviewsSection() {
             </div>
           </div>
 
-          <button className="flex items-center gap-2 text-[16px] font-medium mb-10">
+          <button className="group flex items-center gap-2 text-[16px] font-medium mb-10 cursor-pointer">
             {t("See all the reviews on Google")}
-            <span className="w-10 h-6 rounded-full bg-[#E8B090] flex items-center justify-center">
+
+            <span className="w-10 h-6 rounded-full bg-[#E8B090] flex items-center justify-center transition-colors duration-300 group-hover:bg-[#359DDA] ">
               <Image
                 src="/homeImg/arrowRight.svg"
                 alt="Arrow"
@@ -277,7 +280,7 @@ export default function ReviewsSection() {
               </div>
 
               <Link
-                href="#"
+                href="self-publishing"
                 className="inline-flex items-center justify-center bg-white rounded-full px-10 py-5 text-lg font-medium text-[#202543] hover:scale-105 transition-all duration-300"
               >
                 {t("Find out more about self-publishing")}

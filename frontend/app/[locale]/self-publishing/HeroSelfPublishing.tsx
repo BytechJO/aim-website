@@ -1,11 +1,8 @@
 import { useLocale } from "next-intl";
-import { Adamina } from "next/font/google";
 
 import Image from "next/image";
-const adamina = Adamina({
-  weight: "400",
-  subsets: ["latin"],
-});
+import Link from "next/link";
+
 export default function HeroSelfPublishing() {
   const locale = useLocale();
   const isArabic = locale === "ar";
@@ -16,7 +13,9 @@ export default function HeroSelfPublishing() {
           {/* Left Content */}
           <div>
             <h1
-              className={`${adamina.className} text-5xl lg:text-7xl text-black`}
+              className={`${
+                locale === "en" ? "font-adamina" : "font-cairo"
+              } text-5xl lg:text-7xl text-black`}
             >
               {isArabic ? "النشر الذاتي" : "Self-publishing"}
             </h1>
@@ -31,9 +30,12 @@ export default function HeroSelfPublishing() {
               websites, often outside traditional sales channels.`}
             </p>
 
-            <button className="mt-12 px-10 py-4 rounded-full bg-[#285FE7] text-white text-lg w-70 h-14 hover:bg-[#5585FD] cursor-pointer">
+            <Link
+              href="/services"
+              className="mt-12 px-10 py-4 rounded-full bg-[#285FE7] text-white text-lg w-70 h-14 hover:bg-[#5585FD] cursor-pointer inline-flex items-center justify-center"
+            >
               {isArabic ? "اطلع على منتجاتنا" : "View our products"}
-            </button>
+            </Link>
           </div>
 
           {/* Right Images */}
