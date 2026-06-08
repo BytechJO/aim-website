@@ -675,7 +675,7 @@ export default function NavBar() {
                   <div
                     className="absolute inset-0"
                     style={{
-                      backgroundImage: "url('/businesspeople.svg')",
+                      backgroundImage: "url('/businesspeople.png')",
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",

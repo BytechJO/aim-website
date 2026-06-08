@@ -44,40 +44,36 @@ export default function HeroSelfPublishing() {
             <div className="flex flex-col gap-3">
               <div>
                 <Image
-                  src="/self-publishing/top-left.svg"
+                  src="/self-publishing/top-left.png"
                   alt=""
                   width={500}
                   height={500}
-                  className="w-full h-auto"
                 />
               </div>
 
               <Image
-                src="/self-publishing/bottom-left.svg"
+                src="/self-publishing/bottom-left.png"
                 alt=""
                 width={500}
                 height={500}
-                className="w-full h-auto"
               />
             </div>
 
             {/* Right Column */}
             <div className="flex flex-col gap-3 mt-10">
               <Image
-                src="/self-publishing/top-right.svg"
+                src="/self-publishing/top-right.png"
                 alt=""
                 width={500}
                 height={500}
-                className="w-full h-auto"
               />
 
               {/* Bottom Right */}
               <Image
-                src="/self-publishing/bottom-right.svg"
+                src="/self-publishing/bottom-right.png"
                 alt=""
                 width={500}
                 height={500}
-                className="w-full h-auto"
               />
             </div>
           </div>
