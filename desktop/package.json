@@ -11,7 +11,7 @@
     "electron": "^42.3.3"
   },
   "devDependencies": {
-    "electron-builder": "^25.1.8"
+    "electron-builder": "^26.15.2"
   },
   "build": {
     "appId": "com.aim.desktop",
@@ -29,6 +29,7 @@
     },
     "files": [
       "main.js",
+      "dashboard.html",
       "package.json"
     ]
   }
