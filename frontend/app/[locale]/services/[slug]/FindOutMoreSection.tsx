@@ -42,7 +42,7 @@ export default function FindOutMoreSection({
 
       <div
         id="gallery"
-        className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-[50%]"
+        className="grid grid-cols-3 md:grid-cols-3 gap-4 md:max-w-[50%]"
       >
         {images.map((src, index) => (
           <a
@@ -61,7 +61,7 @@ export default function FindOutMoreSection({
           </a>
         ))}
       </div>
-      <div className="mt-10 max-w-[50%]">
+      <div className="mt-10 md:max-w-[50%]">
         <h3 className="text-[24px] font-semibold text-black mb-4">
           {isArabic ? "صديق للبيئة" : "Eco-friendly"}
         </h3>

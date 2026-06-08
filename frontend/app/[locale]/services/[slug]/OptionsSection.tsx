@@ -33,7 +33,7 @@ export default function OptionsSection({ options }: OptionsProps) {
   const isArabic = locale === "ar";
 
   return (
-    <section className="max-w-[50%]">
+    <section className="md:max-w-[50%]">
       <h2 className="text-[35px] font-semibold text-black mb-8">
         {locale === "ar" ? "الخيارات" : "Options"}
       </h2>
