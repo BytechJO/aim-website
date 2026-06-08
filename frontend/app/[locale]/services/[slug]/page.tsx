@@ -107,7 +107,7 @@ It is perfect for high-class, sophisticated publications, especially art and pho
   return (
     <>
       <ProductDetails {...product} />
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="md:max-w-7xl mx-auto px-6">
         <FindOutMoreSection
           images={product.findOutMoreImages}
           description={product.ecofriendly}
