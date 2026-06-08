@@ -14,7 +14,7 @@ export default function RelatedProductsSection() {
       title_ar: "غلاف مقوى",
       subtitle_en: "perfect bound",
       subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book.png",
     },
     {
       id: 3,
@@ -23,7 +23,7 @@ export default function RelatedProductsSection() {
       title_ar: "غلاف ورقي",
       subtitle_en: "thread sewn",
       subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book1.png",
     },
   ];
   const locale = useLocale();

@@ -385,7 +385,7 @@ export default function BenefitsSection() {
               }}
             >
               <Image
-                src="/self-publishing/book-open.svg"
+                src="/self-publishing/book-open.png"
                 alt="Book"
                 fill
                 className={`object-contain ${isArabic ? "-scale-x-100" : ""}`}
@@ -603,7 +603,7 @@ export default function BenefitsSection() {
                         }}
                       >
                         <Image
-                          src="/self-publishing/hand-money.svg"
+                          src="/self-publishing/hand-money.png"
                           alt="Hand"
                           width={240}
                           height={90}

@@ -42,12 +42,12 @@ It is perfect for high-class, sophisticated publications, especially art and pho
     },
     model3d: "/models/Book (Blue).glb",
     findOutMoreImages: [
-      "/services/1.svg",
-      "/services/2.svg",
-      "/services/1.svg",
-      "/services/2.svg",
-      "/services/1.svg",
-      "/services/2.svg",
+      "/services/1.png",
+      "/services/2.png",
+      "/services/1.png",
+      "/services/2.png",
+      "/services/1.png",
+      "/services/2.png",
     ],
     ecofriendly: {
       ar: "إن استخدام المواد المناسبة مثل الورق المعاد تدويره ومواد الأغلفة غير المطلية، بالإضافة إلى المكونات الطبيعية مثل خيوط القطن أو القنب، يجعل الكتاب قابلاً للتحلل الحيوي بالكامل.",

@@ -12,7 +12,7 @@ export default function ContactSection() {
             {/* Image */}
             <div className="relative h-75 lg:h-105">
               <Image
-                src="/self-publishing/contact-section.svg"
+                src="/self-publishing/contact-section.png"
                 alt="Contact"
                 fill
                 className={`object-contain

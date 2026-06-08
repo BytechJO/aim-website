@@ -18,7 +18,7 @@ export default function NewsSection() {
       id: 2,
       title: t("sideNews2Title"),
       description: t("sideNews2Description"),
-      image: "/homeImg/news-small-2.svg",
+      image: "/homeImg/news-small-2.png",
     },
   ];
 

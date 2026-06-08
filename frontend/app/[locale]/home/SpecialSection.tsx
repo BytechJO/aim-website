@@ -164,7 +164,7 @@ export default function SpecialSection() {
               <div>
                 <div className="relative h-120 w-full overflow-hidden">
                   <Image
-                    src="/homeImg/special2.svg"
+                    src="/homeImg/special2.png"
                     alt="Tree"
                     fill
                     className="object-cover md:object-contain"
