@@ -14,7 +14,7 @@ export default function ProductsSection() {
       title_ar: "غلاف مقوى",
       subtitle_en: "thread sewn",
       subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book.png",
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ export default function ProductsSection() {
       title_ar: "غلاف مقوى",
       subtitle_en: "perfect bound",
       subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book1.png",
     },
     {
       id: 3,
@@ -32,7 +32,7 @@ export default function ProductsSection() {
       title_ar: "غلاف ورقي",
       subtitle_en: "thread sewn",
       subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book.png",
     },
     {
       id: 4,
@@ -41,7 +41,7 @@ export default function ProductsSection() {
       title_ar: "غلاف ورقي",
       subtitle_en: "perfect bound",
       subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book1.png",
     },
     {
       id: 5,
@@ -50,7 +50,7 @@ export default function ProductsSection() {
       title_ar: "غلاف ورقي",
       subtitle_en: "saddle stitched",
       subtitle_ar: "تدبيس سرجي",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book.png",
     },
     {
       id: 6,
@@ -59,7 +59,7 @@ export default function ProductsSection() {
       title_ar: "تجليد نصفي",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book1.png",
     },
     {
       id: 7,
@@ -68,7 +68,7 @@ export default function ProductsSection() {
       title_ar: "تجليد فليكسو",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book.png",
     },
     {
       id: 8,
@@ -77,7 +77,7 @@ export default function ProductsSection() {
       title_ar: "تجليد حلزوني",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book1.png",
     },
     {
       id: 9,
@@ -86,7 +86,7 @@ export default function ProductsSection() {
       title_ar: "تجليد مفتوح الظهر",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book.png",
     },
     {
       id: 10,
@@ -95,7 +95,7 @@ export default function ProductsSection() {
       title_ar: "تجليد سويسري",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book1.png",
     },
   ];
   return (
@@ -128,8 +128,8 @@ export default function ProductsSection() {
               <Image
                 src={
                   locale === "ar"
-                    ? "/homeImg/arrowLeft.svg"
-                    : "/homeImg/arrowRight.svg"
+                    ? "/homeImg/arrowLeft.png"
+                    : "/homeImg/arrowRight.png"
                 }
                 alt="Arrow"
                 width={20}
