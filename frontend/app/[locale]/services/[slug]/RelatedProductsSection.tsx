@@ -4,15 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 
-type Product = {
-  id: number;
-  slug: string;
-  title_en: string;
-  title_ar: string;
-  subtitle_en: string;
-  subtitle_ar: string;
-  image: string;
-};
 
 export default function RelatedProductsSection() {
   const relatedProducts = [
@@ -54,7 +45,7 @@ export default function RelatedProductsSection() {
             href={`/services/${product.slug}`}
             className="group"
           >
-            <div className="relative w-[200px] h-[200px] overflow-hidden">
+            <div className="relative w-50 h-50 overflow-hidden">
               <Image
                 src={product.image}
                 alt={isArabic ? product.title_ar : product.title_en}
