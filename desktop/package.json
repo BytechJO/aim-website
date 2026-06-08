@@ -1,0 +1,36 @@
+{
+  "name": "aim-desktop",
+  "version": "1.0.0",
+  "description": "AIM Desktop App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "dependencies": {
+    "electron": "^42.3.3"
+  },
+  "devDependencies": {
+    "electron-builder": "^26.15.2"
+  },
+  "build": {
+    "appId": "com.aim.desktop",
+    "productName": "AIM",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "files": [
+      "main.js",
+      "dashboard.html",
+      "package.json"
+    ]
+  }
+}
