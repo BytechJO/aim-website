@@ -19,7 +19,7 @@ export default function ContactSection() {
           {/* الصورة */}
           <div className="relative h-75 md:h-150">
             <Image
-              src="/homeImg/contact.svg"
+              src="/homeImg/contact.png"
               alt="Contact card"
               fill
               className="object-contain"
