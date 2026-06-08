@@ -9,83 +9,93 @@ export default function ProductsSection() {
   const products = [
     {
       id: 1,
+      slug: "hardcover-thread-sewn",
       title_en: "Hardcover",
       title_ar: "غلاف مقوى",
       subtitle_en: "thread sewn",
       subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book.png",
     },
     {
       id: 2,
+      slug: "hardcover-perfect-bound",
       title_en: "Hardcover",
       title_ar: "غلاف مقوى",
       subtitle_en: "perfect bound",
       subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book1.png",
     },
     {
       id: 3,
+      slug: "softcover-thread-sewn",
       title_en: "Softcover",
       title_ar: "غلاف ورقي",
       subtitle_en: "thread sewn",
       subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book.png",
     },
     {
       id: 4,
+      slug: "softcover-perfect-bound",
       title_en: "Softcover",
       title_ar: "غلاف ورقي",
       subtitle_en: "perfect bound",
       subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book1.png",
     },
     {
       id: 5,
+      slug: "softcover-saddle-stitched",
       title_en: "Softcover",
       title_ar: "غلاف ورقي",
       subtitle_en: "saddle stitched",
       subtitle_ar: "تدبيس سرجي",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book.png",
     },
     {
       id: 6,
+      slug: "half-binding",
       title_en: "Half-binding",
       title_ar: "تجليد نصفي",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book1.png",
     },
     {
       id: 7,
+      slug: "flexo-binding",
       title_en: "Flexo binding",
       title_ar: "تجليد فليكسو",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book.png",
     },
     {
       id: 8,
+      slug: "spiral-binding",
       title_en: "Spiral binding",
       title_ar: "تجليد حلزوني",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book1.png",
     },
     {
       id: 9,
+      slug: "open-spine-binding",
       title_en: "Open-spine binding",
       title_ar: "تجليد مفتوح الظهر",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book.png",
     },
     {
       id: 10,
+      slug: "swiss-binding",
       title_en: "Swiss binding",
       title_ar: "تجليد سويسري",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.svg",
+      image: "/homeImg/book1.png",
     },
   ];
   return (
@@ -118,8 +128,8 @@ export default function ProductsSection() {
               <Image
                 src={
                   locale === "ar"
-                    ? "/homeImg/arrowLeft.svg"
-                    : "/homeImg/arrowRight.svg"
+                    ? "/homeImg/arrowLeft.png"
+                    : "/homeImg/arrowRight.png"
                 }
                 alt="Arrow"
                 width={20}
@@ -131,28 +141,34 @@ export default function ProductsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {products.map((item) => (
-            <div key={item.id}>
-              <div className="relative h-100 md:h-70 overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={item.title_en}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+            <Link
+              key={item.id}
+              href={`/services/${item.slug}`}
+              className="group block"
+            >
+              <div>
+                <div className="relative h-100 md:h-70 overflow-hidden">
+                  <Image
+                    src={item.image}
+                    alt={item.title_en}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
 
-              <div className="mt-4 flex flex-col gap-2">
-                <p className="text-[20px]">
-                  {locale === "ar" ? item.title_ar : item.title_en}
-                </p>
-
-                {(locale === "ar" ? item.subtitle_ar : item.subtitle_en) && (
-                  <p className="text-[18px]">
-                    {locale === "ar" ? item.subtitle_ar : item.subtitle_en}
+                <div className="mt-4 flex flex-col gap-2">
+                  <p className="text-[20px] font-bold group-hover:text-[#204DBE]">
+                    {locale === "ar" ? item.title_ar : item.title_en}
                   </p>
-                )}
+
+                  {(locale === "ar" ? item.subtitle_ar : item.subtitle_en) && (
+                    <p className="text-[18px]">
+                      {locale === "ar" ? item.subtitle_ar : item.subtitle_en}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

@@ -55,7 +55,7 @@ export default function AttentionToDetailSection() {
           className="relative mx-auto mt-14 max-w-[960px]"
         >
           <Image
-            src="/standards/attention-collage.svg"
+            src="/standards/attention-collage.png"
             alt="Printing process collage"
             width={960}
             height={380}
