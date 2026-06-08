@@ -9,8 +9,8 @@ export default function PublishingBanner() {
 
   return (
     <section className="relative z-10 -mb-24">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="max-w-4xl mx-auto rounded-b-sm bg-linear-to-r from-[#EEE27D] to-[#EE8C6C] px-12 py-10 shadow-lg">
+      <div className="max-w-full md:max-w-7xl mx-auto md:px-6">
+        <div className="max-w-full md:max-w-4xl mx-auto rounded-b-sm bg-linear-to-r from-[#EEE27D] to-[#EE8C6C] px-12 py-10 shadow-lg">
           <h2 className="text-4xl font-semibold text-[#1E1E1E] mb-4">
             {isArabic
               ? "للناشرين والنشر الذاتي"

@@ -22,7 +22,7 @@ export default function ExamplesSection({ images }: { images: string[] }) {
   }, []);
 
   return (
-    <section className="py-24 max-w-7xl mx-auto">
+    <section className="py-24 max-w-7xl mx-auto px-6">
       <h2 className="font-adamina text-[56px] text-black mb-3">
         {locale === "ar" ? "أمثلة" : "Examples"}
       </h2>
@@ -36,7 +36,26 @@ export default function ExamplesSection({ images }: { images: string[] }) {
           ? "بعض الأمثلة على منتجاتنا بهذا النوع من التجليد"
           : "Some examples of our products with this type of binding"}
       </p>
-      <div id="examples-gallery" className="grid grid-cols-12 gap-3 h-105">
+      {/* Mobile */}
+      <div id="examples-gallery" className="grid grid-cols-3 gap-3 md:hidden">
+        {images.map((img, index) => (
+          <a
+            key={index}
+            href={img}
+            data-pswp-width="1600"
+            data-pswp-height="1600"
+            className="relative aspect-square overflow-hidden"
+          >
+            <Image src={img} alt="" fill className="object-cover" />
+          </a>
+        ))}
+      </div>
+
+      {/* Desktop */}
+      <div
+        id="examples-gallery"
+        className="hidden md:grid grid-cols-12 gap-3 h-105"
+      >
         <a
           href={images[0]}
           data-pswp-width="1600"
@@ -51,7 +70,6 @@ export default function ExamplesSection({ images }: { images: string[] }) {
           />
         </a>
 
-        {/* 4 صور بالنص */}
         <div className="col-span-4 h-full grid grid-cols-2 grid-rows-2 gap-3">
           {images.slice(1, 5).map((img, index) => (
             <a
@@ -71,7 +89,6 @@ export default function ExamplesSection({ images }: { images: string[] }) {
           ))}
         </div>
 
-        {/* الصورة الكبيرة اليمين */}
         <a
           href={images[5]}
           data-pswp-width="1600"
@@ -86,7 +103,6 @@ export default function ExamplesSection({ images }: { images: string[] }) {
           />
         </a>
 
-        {/* العمود الأخير */}
         <div className="col-span-2 h-full flex flex-col gap-3">
           {images.slice(6, 8).map((img, index) => (
             <a
