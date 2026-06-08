@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Adamina&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
 <style>
 /* ══════════════════════════════════════════════════
    TOKENS
@@ -256,7 +257,8 @@ input,select,textarea,button{font-family:'Inter',sans-serif}
 }
 .ni:hover{color:var(--dark);background:var(--bg)}
 .ni.on{color:var(--dark);border-left-color:var(--dark);background:var(--bg);font-weight:600}
-.ni-ic{width:18px;text-align:center;font-size:15px;font-style:normal;flex-shrink:0}
+.ni-ic{width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-style:normal;color:inherit}
+.ni-ic svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 .nbadge{
   margin-left:auto;
   background:var(--err);color:#fff;
@@ -393,6 +395,119 @@ tbody tr:hover td{background:rgba(246,246,246,.8)}
 /* LOADING */
 .loading{padding:48px;text-align:center;color:var(--muted);animation:fadeIn .3s ease both}
 .spin{width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--gold2);border-radius:50%;animation:spin .6s linear infinite;display:inline-block;margin-bottom:10px}
+
+/* WIDE MODAL */
+.mo-wide{width:720px!important}
+
+/* FORM SECTION HEADER */
+.fsec{
+  font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.13em;
+  color:var(--muted);padding:14px 0 8px;
+  border-bottom:1px solid var(--border);margin-bottom:16px;
+  font-family:'Montserrat',sans-serif;
+}
+
+/* IMAGE PREVIEW */
+.img-prev{margin-top:8px;min-height:0;transition:all .2s}
+.img-prev img{max-width:200px;max-height:130px;border-radius:8px;border:1px solid var(--border);object-fit:cover;display:block}
+.img-prev .ip-err{font-size:11px;color:var(--err);padding:4px 0}
+.img-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.img-grid img{width:68px;height:68px;border-radius:6px;border:1px solid var(--border);object-fit:cover}
+
+/* NOTIFICATION PILL in sidebar */
+.notif-pill{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 12px;border-radius:var(--r);
+  background:var(--bg);border:1px solid var(--border);
+  cursor:pointer;font-size:12px;font-weight:600;color:var(--text3);
+  position:relative;transition:all .15s;margin-bottom:8px;
+  user-select:none;
+}
+.notif-pill:hover{border-color:var(--border-dark);background:var(--white)}
+.notif-dot{width:7px;height:7px;border-radius:50%;background:var(--dim);flex-shrink:0;transition:background .3s}
+.notif-dot.live{background:#22C55E;box-shadow:0 0 6px rgba(34,197,94,.5)}
+.notif-count{
+  margin-left:auto;background:var(--err);color:#fff;
+  font-size:9px;font-weight:800;min-width:16px;height:16px;
+  border-radius:8px;display:none;align-items:center;justify-content:center;
+  padding:0 4px;font-family:'Montserrat',sans-serif;
+}
+
+/* NOTIFICATION PANEL */
+.notif-panel{
+  position:fixed;bottom:88px;left:14px;width:232px;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-card);box-shadow:var(--shadow-lg);
+  z-index:60;display:none;overflow:hidden;
+  animation:scaleIn .2s cubic-bezier(.22,.68,0,1.2) both;
+  transform-origin:bottom left;
+}
+.notif-panel.on{display:block}
+.notif-ph{
+  padding:12px 16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;font-weight:700;color:var(--dark);
+}
+.notif-clr{font-size:10px;color:var(--muted);background:none;border:none;cursor:pointer;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.notif-clr:hover{color:var(--err)}
+.notif-list{max-height:260px;overflow-y:auto}
+.notif-item{
+  padding:11px 16px;border-bottom:1px solid var(--border);
+  font-size:11px;color:var(--text3);line-height:1.4;
+  animation:fadeUp .2s ease both;
+}
+.notif-item:last-child{border-bottom:none}
+.notif-time{color:var(--dim);font-size:10px;margin-top:2px;font-weight:400}
+.notif-empty{padding:24px 16px;text-align:center;color:var(--dim);font-size:11px}
+
+/* ══════════════════════════════════════════════════
+   UPLOAD ZONES
+══════════════════════════════════════════════════ */
+.upzone{
+  border:1.5px dashed var(--border);border-radius:var(--r);
+  background:var(--bg);cursor:pointer;transition:all .18s;
+  min-height:100px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.upzone:hover,.upzone.drag{border-color:var(--blue);background:rgba(40,95,231,.04)}
+.upzone-in{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:20px;width:100%;text-align:center;position:relative}
+.up-ic-wrap{width:36px;height:36px;border-radius:50%;background:var(--white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:2px}
+.up-ic-wrap svg{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.up-txt{font-size:12px;font-weight:600;color:var(--text3)}
+.up-hint{font-size:10px;color:var(--dim);letter-spacing:.03em}
+.up-preview{max-width:100%;max-height:160px;border-radius:6px;object-fit:contain;display:block;margin:0 auto}
+.up-rm{
+  margin-top:8px;
+  background:transparent;border:1px solid rgba(160,5,16,.25);
+  color:var(--err);border-radius:var(--r-btn);
+  font-size:10px;font-weight:700;padding:4px 12px;cursor:pointer;
+  font-family:'Montserrat',sans-serif;letter-spacing:.04em;
+  transition:all .15s;
+}
+.up-rm:hover{background:var(--err-bg)}
+.up-loading{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:12px;padding:20px}
+/* Multi-image array grid */
+.arr-grid{display:flex;flex-wrap:wrap;gap:8px;padding:4px 0}
+.arr-item{position:relative;width:72px;height:72px;border-radius:8px;overflow:hidden;border:1px solid var(--border);flex-shrink:0}
+.arr-thumb{width:100%;height:100%;object-fit:cover;display:block}
+.arr-rm{
+  position:absolute;top:3px;right:3px;
+  width:18px;height:18px;border-radius:50%;
+  background:rgba(10,10,10,.7);color:#fff;
+  border:none;font-size:10px;font-weight:800;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  line-height:1;transition:background .15s;
+}
+.arr-rm:hover{background:var(--err)}
+.arr-add{
+  width:72px;height:72px;border-radius:8px;
+  border:1.5px dashed var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;cursor:pointer;transition:all .15s;color:var(--muted);flex-shrink:0;
+}
+.arr-add:hover{border-color:var(--blue);color:var(--blue);background:rgba(40,95,231,.04)}
+.arr-add-ic{font-size:18px;font-weight:300;line-height:1}
+.arr-add span:last-child{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-family:'Montserrat',sans-serif}
 
 /* SKELETON */
 .skel{
@@ -555,26 +670,40 @@ tbody tr:hover td{background:rgba(246,246,246,.8)}
     </div>
     <nav class="sb-nav">
       <div class="nlabel">Overview</div>
-      <div class="ni on" onclick="sec('overview')" data-s="overview"><i class="ni-ic">◈</i>Dashboard</div>
+      <div class="ni on" onclick="sec('overview')" data-s="overview"><i class="ni-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></i>Dashboard</div>
       <div class="nlabel">Content</div>
-      <div class="ni" onclick="sec('products')" data-s="products"><i class="ni-ic">📦</i>Products</div>
-      <div class="ni" onclick="sec('reviews')" data-s="reviews"><i class="ni-ic">★</i>Reviews</div>
-      <div class="ni" onclick="sec('instagram')" data-s="instagram"><i class="ni-ic">◻</i>Instagram</div>
+      <div class="ni" onclick="sec('products')" data-s="products"><i class="ni-ic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></i>Products</div>
+      <div class="ni" onclick="sec('reviews')" data-s="reviews"><i class="ni-ic"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></i>Reviews</div>
+      <div class="ni" onclick="sec('instagram')" data-s="instagram"><i class="ni-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></i>Instagram</div>
       <div class="nlabel">Inbox</div>
       <div class="ni" onclick="sec('contact')" data-s="contact">
-        <i class="ni-ic">✉</i>Contact
+        <i class="ni-ic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></i>Contact
         <span class="nbadge" id="bc" style="display:none">0</span>
       </div>
-      <div class="ni" onclick="sec('newsletter')" data-s="newsletter"><i class="ni-ic">◉</i>Newsletter</div>
+      <div class="ni" onclick="sec('newsletter')" data-s="newsletter"><i class="ni-ic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></i>Newsletter</div>
       <div class="nlabel" id="adminLabel" style="display:none">Admin</div>
       <div class="ni" id="niAdmins" onclick="sec('admins')" data-s="admins" style="display:none">
-        <i class="ni-ic">👤</i>Users
+        <i class="ni-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></i>Users
         <span class="nbadge" id="ba" style="display:none">0</span>
       </div>
     </nav>
     <div class="sb-foot">
+      <div class="notif-pill" id="notifPill" onclick="toggleNotifPanel()">
+        <span class="notif-dot" id="notifDot"></span>
+        <span>Live Events</span>
+        <span class="notif-count" id="notifCount">0</span>
+      </div>
       <button class="btn btn-ghost btn-sm btn-full" onclick="doLogout()">Sign Out</button>
     </div>
+  </div>
+
+  <!-- NOTIFICATION PANEL -->
+  <div id="notifPanel" class="notif-panel">
+    <div class="notif-ph">
+      <span>Notifications</span>
+      <button class="notif-clr" onclick="clearNotifs()">Clear</button>
+    </div>
+    <div id="notifList" class="notif-list"><div class="notif-empty">No events yet</div></div>
   </div>
 
   <!-- MAIN -->
@@ -693,7 +822,7 @@ tbody tr:hover td{background:rgba(246,246,246,.8)}
 // ════════════════════════════════════════════
 //  STATE
 // ════════════════════════════════════════════
-const S={token:null,role:null,user:null,cf:'all',af:'all',contacts:[],admins:[],cache:{}};
+const S={token:null,role:null,user:null,cf:'all',af:'all',contacts:[],admins:[],cache:{},notifs:[]};
 const BASE='http://localhost:3000/api';
 
 // ════════════════════════════════════════════
@@ -736,7 +865,8 @@ async function doLogin(){
 function showErr(m){ const e=g('lerr'); e.textContent=m; e.classList.add('on'); }
 
 function doLogout(){
-  S.token=null;S.role=null;S.user=null;S.cache={};
+  disconnectSocket();
+  S.token=null;S.role=null;S.user=null;S.cache={};S.notifs=[];
   g('le').value=''; g('lp').value='';
   showView('vLogin');
 }
@@ -757,6 +887,7 @@ function enterApp(){
     g('niAdmins').style.display='flex'; g('adminLabel').style.display='block';
   }else{ re.textContent='Admin'; re.className='sb-urole r-admin'; }
   sec('overview'); loadOverview();
+  connectSocket();
 }
 
 // ════════════════════════════════════════════
@@ -871,16 +1002,18 @@ function renderProds(data){
   const el=g('prod-c');
   if(!data.length){ el.innerHTML=empty('📦','No products yet. Add your first one.'); return; }
   el.innerHTML=`<div class="tw"><table>
-    <thead><tr><th>Image</th><th>Title</th><th>Slug</th><th>Swatch</th><th>Order</th><th>Status</th><th>Actions</th></tr></thead>
+    <thead><tr><th>Image</th><th>Title</th><th>Slug</th><th>Description</th><th>Options</th><th>Eco</th><th>Order</th><th>Status</th><th>Actions</th></tr></thead>
     <tbody>${data.map(p=>`<tr>
       <td>${p.image_url?`<img class="thumb" src="${esc(p.image_url)}" onerror="this.parentNode.innerHTML='<div class=tp>📦</div>'">`:`<div class="tp">📦</div>`}</td>
-      <td>
+      <td style="min-width:130px">
         <div style="font-weight:600;color:var(--dark)">${esc(p.title_en)}</div>
         <div style="color:var(--muted);font-size:11px">${esc(p.title_ar)}</div>
         ${p.subtitle_en?`<div style="color:var(--dim);font-size:10px;margin-top:1px">${esc(p.subtitle_en)}</div>`:''}
       </td>
       <td><span class="mono">${esc(p.slug)}</span></td>
-      <td>${p.swatch_color?`<div style="display:flex;align-items:center;gap:6px"><div class="swatch" style="background:${esc(p.swatch_color)}"></div><span class="mono">${esc(p.swatch_color)}</span></div>`:'<span style="color:var(--dim)">—</span>'}</td>
+      <td><div class="trunc" style="max-width:160px;color:var(--muted);font-size:11px">${esc(p.description_en||'—')}</div></td>
+      <td style="font-size:11px;color:var(--muted)">${[p.format_min_en,p.thickness_min_en,p.materials_en].filter(Boolean).length?`<span class="badge b-new">${[p.format_min_en&&'Format',p.thickness_min_en&&'Thick',p.materials_en&&'Mat'].filter(Boolean).join(' · ')}</span>`:'<span style="color:var(--dim)">—</span>'}</td>
+      <td>${p.eco_friendly_en?`<span class="badge b-on">Eco ✓</span>`:'<span style="color:var(--dim)">—</span>'}</td>
       <td style="color:var(--muted)">${p.sort_order}</td>
       <td><span class="badge ${p.is_active?'b-on':'b-off'}">${p.is_active?'Active':'Off'}</span></td>
       <td class="acts">
@@ -890,27 +1023,145 @@ function renderProds(data){
     </tr>`).join('')}
     </tbody></table></div>`;
 }
+
+function imgPreview(inputId,previewId){
+  const url=(g(inputId)?.value||'').trim();
+  const prev=g(previewId); if(!prev) return;
+  if(!url){prev.innerHTML='';return;}
+  prev.innerHTML=`<div class="img-prev"><img src="${esc(url)}" onerror="this.parentNode.innerHTML='<span class=ip-err>Image not found</span>'"></div>`;
+}
+function imgGridPreview(taId,gridId){
+  const urls=(g(taId)?.value||'').split('\n').map(u=>u.trim()).filter(Boolean);
+  const grid=g(gridId); if(!grid) return;
+  if(!urls.length){grid.innerHTML='';return;}
+  grid.innerHTML=`<div class="img-grid">${urls.map(url=>`<img src="${esc(url)}" onerror="this.style.display='none'" title="${esc(url)}">`).join('')}</div>`;
+}
+
 function openProd(id){
   const e=id?(S.cache.products||[]).find(x=>x.id===id):null;
-  modal(id?'Edit Product':'New Product',`
-    <div class="frow"><div class="fg"><label>Title (English) *</label><input id="f1" value="${esc(e?.title_en||'')}"></div><div class="fg"><label>Title (Arabic) *</label><input id="f2" value="${esc(e?.title_ar||'')}"></div></div>
-    <div class="frow" style="margin-top:14px"><div class="fg"><label>Subtitle (EN)</label><input id="f3" value="${esc(e?.subtitle_en||'')}"></div><div class="fg"><label>Subtitle (AR)</label><input id="f4" value="${esc(e?.subtitle_ar||'')}"></div></div>
-    <div class="fg" style="margin-top:14px"><label>Slug *</label><input id="f5" value="${esc(e?.slug||'')}" placeholder="hardcover-thread-sewn"></div>
-    <div class="fg"><label>Image URL *</label><input id="f6" value="${esc(e?.image_url||'')}" placeholder="/homeImg/book.svg"></div>
-    <div class="frow"><div class="fg"><label>Swatch Color</label><input id="f7" value="${esc(e?.swatch_color||'')}" placeholder="#A0522D"></div><div class="fg"><label>Category ID</label><input id="f8" type="number" value="${e?.category_id||''}"></div></div>
-    <div class="frow" style="margin-top:14px"><div class="fg"><label>Sort Order</label><input id="f9" type="number" value="${e?.sort_order??0}"></div><div class="fg"><label>Active</label><select id="f10"><option value="true" ${e?.is_active!==false?'selected':''}>Yes</option><option value="false" ${e?.is_active===false?'selected':''}>No</option></select></div></div>
-  `,[
+
+  const body=`
+    <div class="fsec">Basic Info</div>
+    <div class="frow">
+      <div class="fg"><label>Title (English) *</label><input id="fp-ten" value="${esc(e?.title_en||'')}"></div>
+      <div class="fg"><label>Title (Arabic) *</label><input id="fp-tar" value="${esc(e?.title_ar||'')}" dir="rtl"></div>
+    </div>
+    <div class="frow" style="margin-top:14px">
+      <div class="fg"><label>Subtitle (EN)</label><input id="fp-sen" value="${esc(e?.subtitle_en||'')}"></div>
+      <div class="fg"><label>Subtitle (AR)</label><input id="fp-sar" value="${esc(e?.subtitle_ar||'')}" dir="rtl"></div>
+    </div>
+    <div class="frow" style="margin-top:14px">
+      <div class="fg"><label>Slug *</label><input id="fp-slug" value="${esc(e?.slug||'')}" placeholder="hardcover-thread-sewn"></div>
+      <div class="fg"><label>Category ID</label><input id="fp-cat" type="number" value="${e?.category_id||''}"></div>
+    </div>
+    <div class="frow" style="margin-top:14px">
+      <div class="fg"><label>Sort Order</label><input id="fp-ord" type="number" value="${e?.sort_order??0}"></div>
+      <div class="fg"><label>Active</label><select id="fp-act"><option value="true" ${e?.is_active!==false?'selected':''}>Yes</option><option value="false" ${e?.is_active===false?'selected':''}>No</option></select></div>
+    </div>
+    <div class="fg" style="margin-top:14px">
+      <label>Swatch Color</label>
+      <input id="fp-swt" value="${esc(e?.swatch_color||'')}" placeholder="#A0522D">
+    </div>
+
+    <div class="fsec">Content</div>
+    <div class="frow">
+      <div class="fg"><label>Description (EN)</label><textarea id="fp-den" rows="3">${esc(e?.description_en||'')}</textarea></div>
+      <div class="fg"><label>Description (AR)</label><textarea id="fp-dar" rows="3" dir="rtl">${esc(e?.description_ar||'')}</textarea></div>
+    </div>
+    <div class="frow" style="margin-top:14px">
+      <div class="fg"><label>Best Use (EN)</label><textarea id="fp-buen" rows="2">${esc(e?.best_use_en||'')}</textarea></div>
+      <div class="fg"><label>Best Use (AR)</label><textarea id="fp-buar" rows="2" dir="rtl">${esc(e?.best_use_ar||'')}</textarea></div>
+    </div>
+    <div class="frow" style="margin-top:14px">
+      <div class="fg"><label>Eco-Friendly (EN)</label><input id="fp-ecen" value="${esc(e?.eco_friendly_en||'')}"></div>
+      <div class="fg"><label>Eco-Friendly (AR)</label><input id="fp-ecar" value="${esc(e?.eco_friendly_ar||'')}" dir="rtl"></div>
+    </div>
+
+    <div class="fsec">Images</div>
+    <div class="fg">
+      <label>Card Image *</label>
+      ${upZoneHtml('fp-img',e?.image_url||'')}
+    </div>
+    <div class="fg">
+      <label>Model 3D Path</label>
+      <input id="fp-m3d" value="${esc(e?.model_3d||'')}" placeholder="/models/book.glb">
+    </div>
+    <div class="fg">
+      <label>Find Out More Images</label>
+      ${arrZoneHtml('fp-foi',e?.find_out_more_images||[])}
+    </div>
+    <div class="fg">
+      <label>Example Images</label>
+      ${arrZoneHtml('fp-exi',e?.example_images||[])}
+    </div>
+
+    <div class="fsec">Options — Format</div>
+    <div class="frow">
+      <div class="fg"><label>Format Min (EN)</label><input id="fp-fmnen" value="${esc(e?.format_min_en||'')}"></div>
+      <div class="fg"><label>Format Min (AR)</label><input id="fp-fmnar" value="${esc(e?.format_min_ar||'')}" dir="rtl"></div>
+    </div>
+    <div class="frow" style="margin-top:14px">
+      <div class="fg"><label>Format Max (EN)</label><input id="fp-fmxen" value="${esc(e?.format_max_en||'')}"></div>
+      <div class="fg"><label>Format Max (AR)</label><input id="fp-fmxar" value="${esc(e?.format_max_ar||'')}" dir="rtl"></div>
+    </div>
+
+    <div class="fsec">Options — Thickness</div>
+    <div class="frow">
+      <div class="fg"><label>Thickness Min (EN)</label><input id="fp-tmnen" value="${esc(e?.thickness_min_en||'')}"></div>
+      <div class="fg"><label>Thickness Min (AR)</label><input id="fp-tmnar" value="${esc(e?.thickness_min_ar||'')}" dir="rtl"></div>
+    </div>
+    <div class="frow" style="margin-top:14px">
+      <div class="fg"><label>Thickness Max (EN)</label><input id="fp-tmxen" value="${esc(e?.thickness_max_en||'')}"></div>
+      <div class="fg"><label>Thickness Max (AR)</label><input id="fp-tmxar" value="${esc(e?.thickness_max_ar||'')}" dir="rtl"></div>
+    </div>
+
+    <div class="fsec">Options — Materials / Extras / Enhancements</div>
+    <div class="frow">
+      <div class="fg"><label>Materials (EN)</label><textarea id="fp-maten" rows="2">${esc(e?.materials_en||'')}</textarea></div>
+      <div class="fg"><label>Materials (AR)</label><textarea id="fp-matar" rows="2" dir="rtl">${esc(e?.materials_ar||'')}</textarea></div>
+    </div>
+    <div class="frow" style="margin-top:14px">
+      <div class="fg"><label>Extras (EN)</label><textarea id="fp-exten" rows="2">${esc(e?.extras_en||'')}</textarea></div>
+      <div class="fg"><label>Extras (AR)</label><textarea id="fp-extar" rows="2" dir="rtl">${esc(e?.extras_ar||'')}</textarea></div>
+    </div>
+    <div class="frow" style="margin-top:14px">
+      <div class="fg"><label>Enhancements (EN)</label><textarea id="fp-ehen" rows="2">${esc(e?.enhancements_en||'')}</textarea></div>
+      <div class="fg"><label>Enhancements (AR)</label><textarea id="fp-ehar" rows="2" dir="rtl">${esc(e?.enhancements_ar||'')}</textarea></div>
+    </div>`;
+
+  modal(id?'Edit Product':'New Product',body,[
     {l:'Cancel',c:'btn-ghost',a:closeModal},
     {l:id?'Save Changes':'Create Product',c:'btn-dark',a:()=>saveProd(id)}
-  ]);
+  ],{wide:true});
 }
 async function saveProd(id){
-  const b={title_en:v('f1'),title_ar:v('f2'),subtitle_en:v('f3'),subtitle_ar:v('f4'),slug:v('f5'),image_url:v('f6'),swatch_color:v('f7')||null,category_id:v('f8')?+v('f8'):null,sort_order:+v('f9')||0,is_active:v('f10')==='true'};
-  if(!b.title_en||!b.title_ar||!b.slug||!b.image_url){toast('Please fill all required fields (*)','err');return;}
+  let foiLines=[]; try{foiLines=JSON.parse(g('fp-foi')?.value||'[]');}catch{}
+  let exiLines=[]; try{exiLines=JSON.parse(g('fp-exi')?.value||'[]');}catch{}
+  const b={
+    title_en:v('fp-ten'), title_ar:v('fp-tar'),
+    subtitle_en:v('fp-sen')||null, subtitle_ar:v('fp-sar')||null,
+    slug:v('fp-slug'),
+    category_id:v('fp-cat')?+v('fp-cat'):null,
+    sort_order:+v('fp-ord')||0, is_active:v('fp-act')==='true',
+    swatch_color:v('fp-swt')||null, image_url:v('fp-img'),
+    description_en:v('fp-den')||null, description_ar:v('fp-dar')||null,
+    best_use_en:v('fp-buen')||null, best_use_ar:v('fp-buar')||null,
+    eco_friendly_en:v('fp-ecen')||null, eco_friendly_ar:v('fp-ecar')||null,
+    model_3d:v('fp-m3d')||null,
+    find_out_more_images:foiLines, example_images:exiLines,
+    format_min_en:v('fp-fmnen')||null, format_min_ar:v('fp-fmnar')||null,
+    format_max_en:v('fp-fmxen')||null, format_max_ar:v('fp-fmxar')||null,
+    thickness_min_en:v('fp-tmnen')||null, thickness_min_ar:v('fp-tmnar')||null,
+    thickness_max_en:v('fp-tmxen')||null, thickness_max_ar:v('fp-tmxar')||null,
+    materials_en:v('fp-maten')||null, materials_ar:v('fp-matar')||null,
+    extras_en:v('fp-exten')||null, extras_ar:v('fp-extar')||null,
+    enhancements_en:v('fp-ehen')||null, enhancements_ar:v('fp-ehar')||null,
+  };
+  if(!b.title_en||!b.title_ar||!b.slug||!b.image_url){toast('Please fill Title EN, Title AR, Slug and Card Image (*)','err');return;}
   try{
     if(id) await api(`/products/${id}`,{method:'PUT',body:JSON.stringify(b)});
     else await api('/products',{method:'POST',body:JSON.stringify(b)});
-    closeModal(); toast(id?'Product updated successfully':'Product created','ok'); loadProducts();
+    closeModal(); toast(id?'Product updated':'Product created','ok'); loadProducts();
   }catch(e){toast(e.message,'err');}
 }
 
@@ -997,7 +1248,7 @@ function renderIG(data){
 function openIG(id){
   const e=id?(S.cache.ig||[]).find(x=>x.id===id):null;
   modal(id?'Edit Post':'New Instagram Post',`
-    <div class="fg"><label>Image URL *</label><input id="f1" value="${esc(e?.image_url||'')}" placeholder="/homeImg/instagram/post1.svg"></div>
+    <div class="fg"><label>Image *</label>${upZoneHtml('ig-img',e?.image_url||'')}</div>
     <div class="fg"><label>Caption *</label><textarea id="f2">${esc(e?.caption||'')}</textarea></div>
     <div class="frow">
       <div class="fg"><label>Post Date *</label><input id="f3" type="date" value="${e?.post_date||''}"></div>
@@ -1011,7 +1262,7 @@ function openIG(id){
   ]);
 }
 async function saveIG(id){
-  const b={image_url:v('f1'),caption:v('f2'),post_date:v('f3'),instagram_link:v('f5'),sort_order:+v('f4')||0,is_active:v('f6')==='true'};
+  const b={image_url:v('ig-img'),caption:v('f2'),post_date:v('f3'),instagram_link:v('f5'),sort_order:+v('f4')||0,is_active:v('f6')==='true'};
   if(!b.image_url||!b.caption||!b.post_date||!b.instagram_link){toast('Please fill all required fields','err');return;}
   try{
     if(id) await api(`/instagram/${id}`,{method:'PUT',body:JSON.stringify(b)});
@@ -1167,7 +1418,7 @@ function del(res,id,label){
 // ════════════════════════════════════════════
 //  MODAL
 // ════════════════════════════════════════════
-function modal(title,body,btns=[]){
+function modal(title,body,btns=[],opts={}){
   g('moT').textContent=title;
   g('moB').innerHTML=body;
   const f=g('moF'); f.innerHTML='';
@@ -1176,6 +1427,8 @@ function modal(title,body,btns=[]){
     el.className=`btn ${b.c}`; el.innerHTML=b.l; el.onclick=b.a;
     f.appendChild(el);
   });
+  const mo=document.querySelector('.mo');
+  if(opts.wide) mo.classList.add('mo-wide'); else mo.classList.remove('mo-wide');
   const ov=g('mov'); ov.style.display='flex';
   requestAnimationFrame(()=>ov.classList.add('on'));
   setTimeout(()=>{ const inp=g('moB').querySelector('input'); if(inp) inp.focus(); },300);
@@ -1211,6 +1464,177 @@ function fmtDate(d){ if(!d) return '—'; return new Date(d).toLocaleDateString(
 function setBadge(id,n){ const el=g(id); if(!el) return; el.textContent=n; el.style.display=n>0?'flex':'none'; }
 function empty(ic,txt){ return `<div class="empty"><div class="empty-ic">${ic}</div><div class="empty-txt">${txt}</div></div>`; }
 function err(msg){ return `<div class="empty"><div class="empty-ic">⚠️</div><div class="empty-txt">${esc(msg)}</div></div>`; }
+
+// ════════════════════════════════════════════
+//  FILE UPLOAD
+// ════════════════════════════════════════════
+const UP_SVG=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>`;
+
+function upZoneView(id,url){
+  if(url) return `<img src="${esc(url)}" class="up-preview" onerror="this.style.opacity='.3'"><button class="up-rm" onclick="event.stopPropagation();clearUp('${id}')">✕ Remove</button>`;
+  return `<div class="up-ic-wrap">${UP_SVG}</div><div class="up-txt">Click or drag to upload</div><div class="up-hint">PNG · JPG · SVG · WebP — max 15 MB</div>`;
+}
+
+function upZoneHtml(id,currentUrl){
+  return `<div class="upzone" id="${id}-z" onclick="triggerUp('${id}')" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="dropUp(event,'${id}')">
+    <input type="file" id="${id}-fi" accept="image/*,.svg" hidden onchange="handleUp('${id}')">
+    <input type="hidden" id="${id}" value="${esc(currentUrl||'')}">
+    <div class="upzone-in" id="${id}-view">${upZoneView(id,currentUrl||'')}</div>
+  </div>`;
+}
+
+function triggerUp(id){ g(id+'-fi')?.click(); }
+function dropUp(ev,id){
+  ev.preventDefault(); g(id+'-z')?.classList.remove('drag');
+  const file=ev.dataTransfer?.files?.[0]; if(file) doUpload(id,file);
+}
+function handleUp(id){
+  const fi=g(id+'-fi'); if(!fi?.files?.[0]) return; doUpload(id,fi.files[0]); fi.value='';
+}
+async function doUpload(id,file){
+  const view=g(id+'-view');
+  if(view) view.innerHTML=`<div class="up-loading"><div class="spin"></div><span>Uploading…</span></div>`;
+  const fd=new FormData(); fd.append('file',file);
+  try{
+    const r=await fetch(BASE+'/upload',{method:'POST',headers:{'Authorization':`Bearer ${S.token}`},body:fd});
+    const d=await r.json();
+    if(!r.ok) throw new Error(d.error||'Upload failed');
+    const inp=g(id); if(inp) inp.value=d.url;
+    if(view) view.innerHTML=upZoneView(id,d.url);
+    toast('Image uploaded','ok');
+  }catch(e){
+    if(view) view.innerHTML=upZoneView(id,'');
+    toast('Upload failed: '+e.message,'err');
+  }
+}
+function clearUp(id){
+  const inp=g(id); if(inp) inp.value='';
+  const view=g(id+'-view'); if(view) view.innerHTML=upZoneView(id,'');
+}
+
+function renderArrGrid(id,urls){
+  const items=(urls||[]).map((url,i)=>`<div class="arr-item"><img class="arr-thumb" src="${esc(url)}" onerror="this.style.opacity='.3'"><button class="arr-rm" onclick="removeArrItem('${id}',${i})">✕</button></div>`).join('');
+  return items+`<label class="arr-add"><input type="file" accept="image/*,.svg" hidden onchange="addArrItem(this,'${id}')"><span class="arr-add-ic">+</span><span>Add</span></label>`;
+}
+async function addArrItem(input,id){
+  if(!input.files?.[0]) return;
+  const file=input.files[0]; input.value='';
+  const fd=new FormData(); fd.append('file',file);
+  try{
+    const r=await fetch(BASE+'/upload',{method:'POST',headers:{'Authorization':`Bearer ${S.token}`},body:fd});
+    const d=await r.json();
+    if(!r.ok) throw new Error(d.error||'Upload failed');
+    const hi=g(id); let arr=[]; try{arr=JSON.parse(hi.value||'[]');}catch{}
+    arr.push(d.url); hi.value=JSON.stringify(arr);
+    const grid=g(id+'-grid'); if(grid) grid.innerHTML=renderArrGrid(id,arr);
+    toast('Image added','ok');
+  }catch(e){ toast('Upload failed: '+e.message,'err'); }
+}
+function removeArrItem(id,idx){
+  const hi=g(id); let arr=[]; try{arr=JSON.parse(hi.value||'[]');}catch{}
+  arr.splice(idx,1); hi.value=JSON.stringify(arr);
+  const grid=g(id+'-grid'); if(grid) grid.innerHTML=renderArrGrid(id,arr);
+}
+function arrZoneHtml(id,urls){
+  const safe=Array.isArray(urls)?urls:(typeof urls==='string'?JSON.parse(urls||'[]'):[]);
+  return `<input type="hidden" id="${id}" value="${esc(JSON.stringify(safe))}"><div id="${id}-grid" class="arr-grid">${renderArrGrid(id,safe)}</div>`;
+}
+
+// ════════════════════════════════════════════
+//  SOCKET.IO — REAL-TIME EVENTS
+// ════════════════════════════════════════════
+let _socket=null;
+let _notifOpen=false;
+
+function connectSocket(){
+  if(typeof io==='undefined') return;
+  try{
+    _socket=io('http://localhost:3000',{auth:{token:S.token},reconnection:true,reconnectionDelay:2000});
+    _socket.on('connect',()=>{
+      g('notifDot')?.classList.add('live');
+    });
+    _socket.on('disconnect',()=>{
+      g('notifDot')?.classList.remove('live');
+    });
+    _socket.on('connect_error',()=>{
+      g('notifDot')?.classList.remove('live');
+    });
+    _socket.on('new_contact',(data)=>{
+      const msg=`New inquiry from ${data.name||'someone'} (${data.inquiry_type||'general'})`;
+      addNotif(msg,'contact');
+      toast(msg,'inf');
+      const bc=g('bc'); if(bc){ const n=(parseInt(bc.textContent)||0)+1; bc.textContent=n; bc.style.display='flex'; }
+      if(S.cur==='contact') loadContact();
+    });
+    _socket.on('new_subscriber',(data)=>{
+      const msg=`New newsletter subscriber: ${data.email||''}`;
+      addNotif(msg,'newsletter');
+      toast(msg,'inf');
+      if(S.cur==='newsletter') loadNews();
+    });
+  }catch(ex){ console.warn('Socket init failed:',ex); }
+}
+
+function disconnectSocket(){
+  if(_socket){ _socket.disconnect(); _socket=null; }
+  g('notifDot')?.classList.remove('live');
+}
+
+function playNotifSound(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    [[660,0,0.12],[880,0.13,0.12],[1100,0.26,0.18]].forEach(([freq,start,dur])=>{
+      const osc=ctx.createOscillator();
+      const gain=ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type='sine';
+      osc.frequency.setValueAtTime(freq,ctx.currentTime+start);
+      gain.gain.setValueAtTime(0,ctx.currentTime+start);
+      gain.gain.linearRampToValueAtTime(0.22,ctx.currentTime+start+0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+start+dur);
+      osc.start(ctx.currentTime+start);
+      osc.stop(ctx.currentTime+start+dur);
+    });
+  }catch(e){}
+}
+
+function addNotif(text,type){
+  S.notifs.unshift({text,type,time:new Date()});
+  if(S.notifs.length>30) S.notifs.pop();
+  renderNotifs();
+  playNotifSound();
+  const cnt=g('notifCount');
+  if(cnt){ const n=(parseInt(cnt.textContent)||0)+1; cnt.textContent=n; cnt.style.display='flex'; }
+}
+
+function renderNotifs(){
+  const list=g('notifList'); if(!list) return;
+  if(!S.notifs.length){ list.innerHTML='<div class="notif-empty">No events yet</div>'; return; }
+  list.innerHTML=S.notifs.map(n=>`<div class="notif-item">
+    <div>${esc(n.text)}</div>
+    <div class="notif-time">${n.time.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}</div>
+  </div>`).join('');
+}
+
+function toggleNotifPanel(){
+  _notifOpen=!_notifOpen;
+  const p=g('notifPanel');
+  if(p) p.classList.toggle('on',_notifOpen);
+}
+
+function clearNotifs(){
+  S.notifs=[];
+  renderNotifs();
+  const cnt=g('notifCount');
+  if(cnt){ cnt.textContent='0'; cnt.style.display='none'; }
+}
+
+// close notification panel when clicking outside
+document.addEventListener('click',(e)=>{
+  if(_notifOpen && !e.target.closest('#notifPanel') && !e.target.closest('#notifPill')){
+    _notifOpen=false; g('notifPanel')?.classList.remove('on');
+  }
+});
 
 // keyboard
 g('lp').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
