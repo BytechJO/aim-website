@@ -306,55 +306,7 @@ export default function NavBar() {
         {/* ── Main bar — h-[77px] ────────────────────────────────────────── */}
         <div className="flex items-center h-19.25 w-full pr-0">
           {/* Hamburger */}
-          <div className="lg:hidden px-4">
-            <motion.button
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-label="Toggle menu"
-              whileTap={{ scale: 0.9 }}
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                {menuOpen ? (
-                  <motion.svg
-                    key="x"
-                    width="22"
-                    height="22"
-                    viewBox="0 0 22 22"
-                    fill="none"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <path
-                      d="M2 2L20 20M20 2L2 20"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </motion.svg>
-                ) : (
-                  <motion.svg
-                    key="m"
-                    width="22"
-                    height="18"
-                    viewBox="0 0 22 18"
-                    fill="none"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <path
-                      d="M1 1H21M1 9H21M1 17H21"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </motion.svg>
-                )}
-              </AnimatePresence>
-            </motion.button>
-          </div>
+          
 
           {/* Logo */}
           <div className="shrink-0 px-4 lg:px-8">
@@ -491,7 +443,7 @@ export default function NavBar() {
           </AnimatePresence>
 
           {/* ── Tools ─────────────────────────────────────────────────────── */}
-          <div className="ml-auto flex items-center gap-4 pr-4">
+          <div className="ms-auto flex items-center gap-4 pr-4">
             {/* Let's talk — w-[136px] h-[44px] Montserrat 600 21px */}
             <motion.div
               whileHover={{ scale: 1.03 }}
@@ -588,6 +540,55 @@ export default function NavBar() {
                 height={20}
               />
             </Link>
+            <div className="lg:hidden px-4">
+            <motion.button
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label="Toggle menu"
+              whileTap={{ scale: 0.9 }}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {menuOpen ? (
+                  <motion.svg
+                    key="x"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 22 22"
+                    fill="none"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <path
+                      d="M2 2L20 20M20 2L2 20"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </motion.svg>
+                ) : (
+                  <motion.svg
+                    key="m"
+                    width="22"
+                    height="18"
+                    viewBox="0 0 22 18"
+                    fill="none"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <path
+                      d="M1 1H21M1 9H21M1 17H21"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </motion.svg>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </div>
           </div>
         </div>
 
