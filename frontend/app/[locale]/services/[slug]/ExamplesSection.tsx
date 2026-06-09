@@ -54,7 +54,7 @@ export default function ExamplesSection({ images }: { images: string[] }) {
       {/* Desktop */}
       <div
         id="examples-gallery"
-        className="hidden md:grid grid-cols-12 gap-3 h-105"
+        className="hidden md:grid grid-cols-12 gap-3 h-90"
       >
         <a
           href={images[0]}
@@ -70,8 +70,8 @@ export default function ExamplesSection({ images }: { images: string[] }) {
           />
         </a>
 
-        <div className="col-span-4 h-full grid grid-cols-2 grid-rows-2 gap-3">
-          {images.slice(1, 5).map((img, index) => (
+        <div className="col-span-4 h-full grid grid-cols-3 grid-rows-2 gap-3">
+          {images.slice(1, 7).map((img, index) => (
             <a
               key={index}
               href={img}
@@ -90,13 +90,13 @@ export default function ExamplesSection({ images }: { images: string[] }) {
         </div>
 
         <a
-          href={images[5]}
+          href={images[7]}
           data-pswp-width="1600"
           data-pswp-height="1600"
           className="col-span-3 relative h-full overflow-hidden"
         >
           <Image
-            src={images[5]}
+            src={images[7]}
             alt=""
             fill
             className="object-cover hover:scale-105 transition duration-500"
@@ -104,7 +104,7 @@ export default function ExamplesSection({ images }: { images: string[] }) {
         </a>
 
         <div className="col-span-2 h-full flex flex-col gap-3">
-          {images.slice(6, 8).map((img, index) => (
+          {images.slice(8, 10).map((img, index) => (
             <a
               key={index}
               href={img}
