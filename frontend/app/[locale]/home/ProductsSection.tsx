@@ -14,7 +14,7 @@ export default function ProductsSection() {
       title_ar: "غلاف مقوى",
       subtitle_en: "thread sewn",
       subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/book.png",
+      image: "/homeImg/product/hardcover-thread-sewn.png",
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ export default function ProductsSection() {
       title_ar: "غلاف مقوى",
       subtitle_en: "perfect bound",
       subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/book1.png",
+      image: "/homeImg/product/hardcover-perfect-bound.webp",
     },
     {
       id: 3,
@@ -32,7 +32,7 @@ export default function ProductsSection() {
       title_ar: "غلاف ورقي",
       subtitle_en: "thread sewn",
       subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/book.png",
+      image: "/homeImg/product/miekka_szyta_gif.gif",
     },
     {
       id: 4,
@@ -41,7 +41,7 @@ export default function ProductsSection() {
       title_ar: "غلاف ورقي",
       subtitle_en: "perfect bound",
       subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/book1.png",
+      image: "/homeImg/product/softcover-perfect-bound.webp",
     },
     {
       id: 5,
@@ -50,7 +50,7 @@ export default function ProductsSection() {
       title_ar: "غلاف ورقي",
       subtitle_en: "saddle stitched",
       subtitle_ar: "تدبيس سرجي",
-      image: "/homeImg/book.png",
+      image: "/homeImg/product/softcover-saddle-stitched.webp",
     },
     {
       id: 6,
@@ -59,7 +59,7 @@ export default function ProductsSection() {
       title_ar: "تجليد نصفي",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book1.png",
+      image: "/homeImg/product/half-binding.webp",
     },
     {
       id: 7,
@@ -68,7 +68,7 @@ export default function ProductsSection() {
       title_ar: "تجليد فليكسو",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.png",
+      image: "/homeImg/product/flexo-binding.gif",
     },
     {
       id: 8,
@@ -77,7 +77,7 @@ export default function ProductsSection() {
       title_ar: "تجليد حلزوني",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book1.png",
+      image: "/homeImg/product/spiral-binding.webp",
     },
     {
       id: 9,
@@ -86,7 +86,7 @@ export default function ProductsSection() {
       title_ar: "تجليد مفتوح الظهر",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.png",
+      image: "/homeImg/product/open-spine-binding.webp",
     },
     {
       id: 10,
@@ -95,7 +95,7 @@ export default function ProductsSection() {
       title_ar: "تجليد سويسري",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book1.png",
+      image: "/homeImg/product/swiss-binding.webp",
     },
   ];
   return (
@@ -147,12 +147,12 @@ export default function ProductsSection() {
               className="group block"
             >
               <div>
-                <div className="relative h-100 md:h-70 overflow-hidden">
+                <div className="relative h-100 md:h-65 overflow-hidden">
                   <Image
                     src={item.image}
                     alt={item.title_en}
                     fill
-                    className="object-cover"
+                    className="object-covertransition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
 

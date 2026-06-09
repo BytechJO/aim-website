@@ -21,39 +21,54 @@ const PRODUCT_KEYS = [
   {
     key: "hardcoverThreadSewn",
     href: "/services/hardcover-thread-sewn",
-    color: "#A0522D",
+    image: "/homeImg/product/hardcover-thread-sewn.png",
   },
   {
     key: "hardcoverPerfectBound",
     href: "/services/hardcover-perfect-bound",
-    color: "#4A6FA5",
+    image: "/homeImg/product/hardcover-perfect-bound.webp",
   },
   {
     key: "softcoverThreadSewn",
     href: "/services/softcover-thread-sewn",
-    color: "#6B8F71",
+    image: "/homeImg/product/miekka_szyta_gif.gif",
   },
   {
     key: "softcoverPerfectBound",
     href: "/services/softcover-perfect-bound",
-    color: "#C9A84C",
+    image: "/homeImg/product/softcover-perfect-bound.webp",
   },
   {
     key: "softcoverSaddleStitched",
     href: "/services/softcover-saddle-stitched",
-    color: "#7B9EA6",
+    image: "/homeImg/product/softcover-saddle-stitched.webp",
   },
-  { key: "halfBinding", href: "/services/half-binding", color: "#9C7B4E" },
-  { key: "flexoBinding", href: "/services/flexo-binding", color: "#8B3A3A" },
-  { key: "spiralBinding", href: "/services/spiral-binding", color: "#5A5A6E" },
+  {
+    key: "halfBinding",
+    href: "/services/half-binding",
+    image: "/homeImg/product/half-binding.webp",
+  },
+  {
+    key: "flexoBinding",
+    href: "/services/flexo-binding",
+    image: "/homeImg/product/flexo-binding.gif",
+  },
+  {
+    key: "spiralBinding",
+    href: "/services/spiral-binding",
+    image: "/homeImg/product/spiral-binding.webp",
+  },
   {
     key: "openSpineBinding",
     href: "/services/open-spine-binding",
-    color: "#3A7D5E",
+    image: "/homeImg/product/open-spine-binding.webp",
   },
-  { key: "swissBinding", href: "/services/swiss-binding", color: "#7A3030" },
+  {
+    key: "swissBinding",
+    href: "/services/swiss-binding",
+    image: "/homeImg/product/swiss-binding.webp",
+  },
 ] as const;
-
 const LOCALES = ["en", "ar"] as const;
 
 // ─── Animations ──────────────────────────────────────────────────────────────
@@ -206,9 +221,8 @@ export default function NavBar() {
     hl: t(`products.${p.key}.hl`),
     basic: t(`products.${p.key}.basic`),
     href: p.href,
-    color: p.color,
+    image: p.image,
   }));
-
   const lp = (path: string) => `/${locale}${path}`;
   const switchLocale = (next: string) => {
     const segs = pathname.split("/");
@@ -306,7 +320,6 @@ export default function NavBar() {
         {/* ── Main bar — h-[77px] ────────────────────────────────────────── */}
         <div className="flex items-center h-19.25 w-full pr-0">
           {/* Hamburger */}
-          
 
           {/* Logo */}
           <div className="shrink-0 px-4 lg:px-8">
@@ -452,7 +465,7 @@ export default function NavBar() {
             >
               <Link
                 href={lp("/contact")}
-                className="inline-flex items-center justify-center w-34 h-11 bg-[#0F0F0F] text-white rounded-full font-montserrat font-semibold text-[21px] leading-6 hover:bg-[#2a2a2a] transition-colors whitespace-nowrap"
+                className="inline-flex items-center justify-center w-34 h-11 bg-[#0F0F0F] text-white rounded-full font-montserrat font-semibold text-[16px] leading-6 hover:bg-[#2a2a2a] transition-colors whitespace-nowrap"
               >
                 {t("letsTalk")}
               </Link>
@@ -541,54 +554,54 @@ export default function NavBar() {
               />
             </Link>
             <div className="lg:hidden px-4">
-            <motion.button
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-label="Toggle menu"
-              whileTap={{ scale: 0.9 }}
-            >
-              <AnimatePresence mode="wait" initial={false}>
-                {menuOpen ? (
-                  <motion.svg
-                    key="x"
-                    width="22"
-                    height="22"
-                    viewBox="0 0 22 22"
-                    fill="none"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <path
-                      d="M2 2L20 20M20 2L2 20"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </motion.svg>
-                ) : (
-                  <motion.svg
-                    key="m"
-                    width="22"
-                    height="18"
-                    viewBox="0 0 22 18"
-                    fill="none"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <path
-                      d="M1 1H21M1 9H21M1 17H21"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </motion.svg>
-                )}
-              </AnimatePresence>
-            </motion.button>
-          </div>
+              <motion.button
+                onClick={() => setMenuOpen((v) => !v)}
+                aria-label="Toggle menu"
+                whileTap={{ scale: 0.9 }}
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  {menuOpen ? (
+                    <motion.svg
+                      key="x"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 22 22"
+                      fill="none"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <path
+                        d="M2 2L20 20M20 2L2 20"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </motion.svg>
+                  ) : (
+                    <motion.svg
+                      key="m"
+                      width="22"
+                      height="18"
+                      viewBox="0 0 22 18"
+                      fill="none"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <path
+                        d="M1 1H21M1 9H21M1 17H21"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                      />
+                    </motion.svg>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+            </div>
           </div>
         </div>
 
@@ -669,11 +682,17 @@ export default function NavBar() {
                         >
                           {/* 40×40 thumbnail */}
                           <motion.div
-                            className="w-10 h-10 shrink-0 rounded-sm"
-                            style={{ backgroundColor: p.color }}
+                            className="w-10 h-10 shrink-0 rounded-sm overflow-hidden"
                             whileHover={{ scale: 1.08 }}
-                            transition={{ duration: 0.14 }}
-                          />
+                          >
+                            <Image
+                              src={p.image}
+                              alt={p.hl}
+                              width={40}
+                              height={40}
+                              className="w-full h-full object-cover"
+                            />
+                          </motion.div>
                           <span className="min-w-0 leading-none">
                             <span className="block font-inter font-medium text-[15px] leading-8 text-[#3A3A3A] group-hover:underline underline-offset-2 truncate">
                               {p.hl}

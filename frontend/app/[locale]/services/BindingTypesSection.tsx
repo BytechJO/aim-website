@@ -17,7 +17,7 @@ export default function BindingTypesSection() {
       title_ar: "غلاف مقوى",
       subtitle_en: "thread sewn",
       subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/book.png",
+      image: "/homeImg/product/hardcover-thread-sewn.png",
     },
     {
       id: 2,
@@ -26,16 +26,16 @@ export default function BindingTypesSection() {
       title_ar: "غلاف مقوى",
       subtitle_en: "perfect bound",
       subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/book1.png",
+      image: "/homeImg/product/hardcover-perfect-bound.webp",
     },
     {
       id: 3,
-      slug: "Softcover-thread-sewn",
+      slug: "softcover-thread-sewn",
       title_en: "Softcover",
       title_ar: "غلاف ورقي",
       subtitle_en: "thread sewn",
       subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/book.png",
+      image: "/homeImg/product/miekka_szyta_gif.gif",
     },
     {
       id: 4,
@@ -44,7 +44,7 @@ export default function BindingTypesSection() {
       title_ar: "غلاف ورقي",
       subtitle_en: "perfect bound",
       subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/book1.png",
+      image: "/homeImg/product/softcover-perfect-bound.webp",
     },
     {
       id: 5,
@@ -53,7 +53,7 @@ export default function BindingTypesSection() {
       title_ar: "غلاف ورقي",
       subtitle_en: "saddle stitched",
       subtitle_ar: "تدبيس سرجي",
-      image: "/homeImg/book.png",
+      image: "/homeImg/product/softcover-saddle-stitched.webp",
     },
     {
       id: 6,
@@ -62,7 +62,7 @@ export default function BindingTypesSection() {
       title_ar: "تجليد نصفي",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book1.png",
+      image: "/homeImg/product/half-binding.webp",
     },
     {
       id: 7,
@@ -71,7 +71,7 @@ export default function BindingTypesSection() {
       title_ar: "تجليد فليكسو",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.png",
+      image: "/homeImg/product/flexo-binding.gif",
     },
     {
       id: 8,
@@ -80,7 +80,7 @@ export default function BindingTypesSection() {
       title_ar: "تجليد حلزوني",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book1.png",
+      image: "/homeImg/product/spiral-binding.webp",
     },
     {
       id: 9,
@@ -89,7 +89,7 @@ export default function BindingTypesSection() {
       title_ar: "تجليد مفتوح الظهر",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book.png",
+      image: "/homeImg/product/open-spine-binding.webp",
     },
     {
       id: 10,
@@ -98,7 +98,7 @@ export default function BindingTypesSection() {
       title_ar: "تجليد سويسري",
       subtitle_en: "",
       subtitle_ar: "",
-      image: "/homeImg/book1.png",
+      image: "/homeImg/product/swiss-binding.webp",
     },
   ];
 
