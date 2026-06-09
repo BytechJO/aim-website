@@ -47,7 +47,7 @@ export default function ContactSection() {
                 </button>
 
                 <button className="px-15 py-3 rounded-full bg-white text-black border border-gray-200 cursor-pointer transition-all duration-300 hover:bg-[#E1D8D8]   hover:scale-105">
-                  {isArabic ? "النشر الذاتي" : "Self-publishing"}
+                  {isArabic ? "اتصل بنا" : "Call us"}
                 </button>
               </div>
 

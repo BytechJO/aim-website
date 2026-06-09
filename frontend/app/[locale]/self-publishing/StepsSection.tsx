@@ -2,6 +2,7 @@
 import { useLocale } from "next-intl";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function StepsSection() {
   const locale = useLocale();
@@ -80,9 +81,12 @@ export default function StepsSection() {
 
               <div className="mt-auto">
                 {step.button ? (
-                  <button className="mt-8 bg-[#285FE7] text-white rounded-full px-10 py-3 hover:bg-[#517DE9] cursor-pointer">
-                    {isArabic ? "هيا نتحدث" : "Let&apos;s talk"}
-                  </button>
+                  <Link
+                    href="/contact"
+                    className="inline-block mt-8 bg-[#285FE7] text-white rounded-full px-10 py-3 hover:bg-[#517DE9] cursor-pointer"
+                  >
+                    {isArabic ? "هيا نتحدث" : "Let's talk"}
+                  </Link>
                 ) : (
                   step.description && (
                     <div className="flex items-center justify-between mt-8">

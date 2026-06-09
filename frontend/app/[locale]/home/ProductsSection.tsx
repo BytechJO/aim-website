@@ -128,8 +128,8 @@ export default function ProductsSection() {
               <Image
                 src={
                   locale === "ar"
-                    ? "/homeImg/arrowLeft.png"
-                    : "/homeImg/arrowRight.png"
+                    ? "/homeImg/arrowLeft.svg"
+                    : "/homeImg/arrowRight.svg"
                 }
                 alt="Arrow"
                 width={20}

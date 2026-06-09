@@ -222,7 +222,12 @@ export default function NavBar() {
     setLangOpen(false);
     setMenuOpen(false);
   }, [pathname]);
-
+  const isServicesActive =
+    CATEGORY_KEYS.some((item) => pathname === lp(item.href)) ||
+    PRODUCT_KEYS.some((item) => pathname === lp(item.href));
+  const activeCategory = CATEGORY_KEYS.find(
+    (item) => pathname === lp(item.href),
+  )?.key;
   return (
     <header className="fixed w-full bg-white z-50 border-b border-gray-100">
       <div className="w-full mx-auto lg:max-w-[95%]">
@@ -379,12 +384,23 @@ export default function NavBar() {
                 onMouseLeave={closeServices}
               >
                 <motion.button
-                  className="flex items-center gap-1.5 px-5 h-full text-[15px] font-semibold text-[#222222] hover:text-black transition-colors"
+                  className={`relative flex items-center gap-1.5 px-5 h-full text-[15px] font-semibold transition-colors ${
+                    isServicesActive
+                      ? "text-black"
+                      : "text-[#222222] hover:text-black"
+                  }`}
                   onClick={() => setServicesOpen((v) => !v)}
                   whileTap={{ scale: 0.98 }}
                 >
                   {t("ourServices")}
                   <Chevron open={servicesOpen} />
+
+                  <motion.span
+                    className="absolute bottom-4 left-5 right-5 h-[1.5px] bg-black origin-left"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: isServicesActive ? 1 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  />
                 </motion.button>
               </li>
 
@@ -613,7 +629,11 @@ export default function NavBar() {
                       >
                         <Link
                           href={lp(c.href)}
-                          className="block py-1.5 font-inter font-medium text-[13px] leading-8 text-black hover:opacity-60 transition-opacity"
+                          className={`block py-1.5 font-inter font-medium text-[13px] leading-8 transition-all ${
+                            activeCategory === CATEGORY_KEYS[i].key
+                              ? "text-[#D42A26]"
+                              : "text-black hover:opacity-60"
+                          }`}
                           onClick={() => setServicesOpen(false)}
                         >
                           {c.label}

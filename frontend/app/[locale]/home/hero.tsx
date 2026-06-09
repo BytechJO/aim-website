@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Hero() {
   const t = useTranslations("hero");
@@ -62,9 +63,11 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.45 }}
               className="flex flex-col items-center sm:flex-row sm:items-center gap-4 sm:gap-5 mt-6 sm:mt-8 md:mt-10"
             >
-              <button className="h-15 sm:h-13.75 w-90 sm:w-auto sm:min-w-50 md:min-w-74.75 rounded-full bg-black text-white cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] text-[18px] md:text-[21px]">
-                {t("explore")}
-              </button>
+              <Link href="/services">
+                <button className="h-15 sm:h-13.75 w-90 sm:w-auto sm:min-w-50 md:min-w-74.75 rounded-full bg-black text-white cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] text-[18px] md:text-[21px]">
+                  {t("explore")}
+                </button>
+              </Link>
               <div
                 onClick={() =>
                   document
