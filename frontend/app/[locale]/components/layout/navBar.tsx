@@ -17,58 +17,6 @@ const CATEGORY_KEYS = [
   { key: "greenBook", href: "/green-book" },
 ] as const;
 
-const PRODUCT_KEYS = [
-  {
-    key: "hardcoverThreadSewn",
-    href: "/services/hardcover-thread-sewn",
-    image: "/homeImg/product/hardcover-thread-sewn.png",
-  },
-  {
-    key: "hardcoverPerfectBound",
-    href: "/services/hardcover-perfect-bound",
-    image: "/homeImg/product/hardcover-perfect-bound.webp",
-  },
-  {
-    key: "softcoverThreadSewn",
-    href: "/services/softcover-thread-sewn",
-    image: "/homeImg/product/miekka_szyta_gif.gif",
-  },
-  {
-    key: "softcoverPerfectBound",
-    href: "/services/softcover-perfect-bound",
-    image: "/homeImg/product/softcover-perfect-bound.webp",
-  },
-  {
-    key: "softcoverSaddleStitched",
-    href: "/services/softcover-saddle-stitched",
-    image: "/homeImg/product/softcover-saddle-stitched.webp",
-  },
-  {
-    key: "halfBinding",
-    href: "/services/half-binding",
-    image: "/homeImg/product/half-binding.webp",
-  },
-  {
-    key: "flexoBinding",
-    href: "/services/flexo-binding",
-    image: "/homeImg/product/flexo-binding.gif",
-  },
-  {
-    key: "spiralBinding",
-    href: "/services/spiral-binding",
-    image: "/homeImg/product/spiral-binding.webp",
-  },
-  {
-    key: "openSpineBinding",
-    href: "/services/open-spine-binding",
-    image: "/homeImg/product/open-spine-binding.webp",
-  },
-  {
-    key: "swissBinding",
-    href: "/services/swiss-binding",
-    image: "/homeImg/product/swiss-binding.webp",
-  },
-] as const;
 const LOCALES = ["en", "ar"] as const;
 
 // ─── Animations ──────────────────────────────────────────────────────────────
@@ -195,6 +143,7 @@ export default function NavBar() {
   const t = useTranslations("nav");
 
   const [searchOpen, setSearchOpen] = useState(false);
+  const [products, setProducts] = useState<any[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -204,7 +153,16 @@ export default function NavBar() {
   const router = useRouter();
   const pathname = usePathname();
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const res = await fetch("http://localhost:3000/api/products");
+      const data = await res.json();
 
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
   const openServices = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setServicesOpen(true);
@@ -217,11 +175,11 @@ export default function NavBar() {
     label: t(`categories.${c.key}`),
     href: c.href,
   }));
-  const products = PRODUCT_KEYS.map((p) => ({
-    hl: t(`products.${p.key}.hl`),
-    basic: t(`products.${p.key}.basic`),
-    href: p.href,
-    image: p.image,
+  const menuProducts = products.map((p) => ({
+    hl: locale === "ar" ? p.title_ar : p.title_en,
+    basic: locale === "ar" ? p.subtitle_ar : p.subtitle_en,
+    href: `/services/${p.slug}`,
+    image: p.image_url,
   }));
   const lp = (path: string) => `/${locale}${path}`;
   const switchLocale = (next: string) => {
@@ -238,7 +196,7 @@ export default function NavBar() {
   }, [pathname]);
   const isServicesActive =
     CATEGORY_KEYS.some((item) => pathname === lp(item.href)) ||
-    PRODUCT_KEYS.some((item) => pathname === lp(item.href));
+    pathname.startsWith(`/${locale}/services/`);
   const activeCategory = CATEGORY_KEYS.find(
     (item) => pathname === lp(item.href),
   )?.key;
@@ -673,7 +631,7 @@ export default function NavBar() {
                     initial="hidden"
                     animate="visible"
                   >
-                    {products.map((p) => (
+                    {menuProducts.map((p) => (
                       <motion.li key={p.href} variants={rowItem}>
                         <Link
                           href={lp(p.href)}

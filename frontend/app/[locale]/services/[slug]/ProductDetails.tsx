@@ -50,7 +50,7 @@ export default function ProductDetails({
           <p className="text-gray-700">{isArabic ? bestUse.ar : bestUse.en}</p>
         </div>
 
-        <Book3D modelUrl={model3d} />
+        {model3d && <Book3D modelUrl={model3d} />}
       </div>
     </section>
   );
