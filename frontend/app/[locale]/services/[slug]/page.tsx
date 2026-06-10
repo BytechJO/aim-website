@@ -1,3 +1,4 @@
+import { ENDPOINTS } from "@/app/api/endpoints";
 import ContactSection from "./ContactSection";
 import ExamplesSection from "./ExamplesSection";
 import FAQSection from "./FAQSection";
@@ -15,7 +16,7 @@ export default async function ProductPage({
   await params;
   const { slug } = await params;
 
-  const res = await fetch(`http://localhost:3000/api/products/${slug}`, {
+  const res = await fetch(ENDPOINTS.PRODUCT(slug), {
     cache: "no-store",
   });
 
