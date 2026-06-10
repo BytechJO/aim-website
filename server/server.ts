@@ -1,3 +1,4 @@
+
 import express from "express";
 import http from "http";
 import dotenv from "dotenv";
@@ -13,6 +14,23 @@ import contactRoutes from "./src/routes/contact.routes";
 import newsletterRoutes from "./src/routes/newsletter.routes";
 import uploadRoutes, { uploadsDir } from "./src/routes/upload.routes";
 import cors from "cors";
+import express from 'express';
+import http from 'http';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { initDB } from './src/DB/initDB';
+import { seedSuperAdmin } from './src/DB/seedSuperAdmin';
+import { initSocket } from './src/socket';
+import authRoutes from './src/routes/auth.routes';
+import adminRoutes from './src/routes/admins.routes';
+import productRoutes from './src/routes/products.routes';
+import reviewRoutes from './src/routes/reviews.routes';
+import instagramRoutes from './src/routes/instagram.routes';
+import contactRoutes from './src/routes/contact.routes';
+import newsletterRoutes from './src/routes/newsletter.routes';
+import uploadRoutes from './src/routes/upload.routes';
+import analyticsRoutes from './src/routes/analytics.routes';
+
 dotenv.config();
 
 const app = express();
@@ -31,6 +49,22 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/instagram", instagramRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/newsletter", newsletterRoutes);
+app.use(cors({
+  origin: process.env.FRONTEND_URL || '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+app.use(express.json());
+
+app.use('/api/auth', authRoutes);
+app.use('/api/upload', uploadRoutes);
+app.use('/api/admins', adminRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/instagram', instagramRoutes);
+app.use('/api/contact', contactRoutes);
+app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 initDB()
   .then(() => seedSuperAdmin())
