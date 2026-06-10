@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
+import { ENDPOINTS } from "@/app/api/endpoints";
 
 // ─── Route data ──────────────────────────────────────────────────────────────
 
@@ -155,7 +156,7 @@ export default function NavBar() {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch("http://localhost:3000/api/products");
+      const res = await fetch(ENDPOINTS.PRODUCTS);
       const data = await res.json();
 
       setProducts(data);

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ENDPOINTS } from "@/app/api/endpoints";
 interface Product {
   id: number;
   slug: string;
@@ -20,7 +21,7 @@ export default function ProductsSection() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch("http://localhost:3000/api/products");
+      const res = await fetch(ENDPOINTS.PRODUCTS);
       const data = await res.json();
 
       setProducts(data);
