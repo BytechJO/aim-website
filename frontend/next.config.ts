@@ -3,6 +3,13 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      { source: '/:locale/events', destination: '/:locale', permanent: false },
+      { source: '/events', destination: '/', permanent: false },
+    ];
+  },
+};
 
 export default withNextIntl(nextConfig);
