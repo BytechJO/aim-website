@@ -3,101 +3,32 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+interface Product {
+  id: number;
+  slug: string;
+  title_en: string;
+  title_ar: string;
+  subtitle_en: string;
+  subtitle_ar: string;
+  image_url: string;
+}
 export default function ProductsSection() {
   const t = useTranslations("products");
   const locale = useLocale();
-  const products = [
-    {
-      id: 1,
-      slug: "hardcover-thread-sewn",
-      title_en: "Hardcover",
-      title_ar: "غلاف مقوى",
-      subtitle_en: "thread sewn",
-      subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/product/hardcover-thread-sewn.png",
-    },
-    {
-      id: 2,
-      slug: "hardcover-perfect-bound",
-      title_en: "Hardcover",
-      title_ar: "غلاف مقوى",
-      subtitle_en: "perfect bound",
-      subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/product/hardcover-perfect-bound.webp",
-    },
-    {
-      id: 3,
-      slug: "softcover-thread-sewn",
-      title_en: "Softcover",
-      title_ar: "غلاف ورقي",
-      subtitle_en: "thread sewn",
-      subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/product/miekka_szyta_gif.gif",
-    },
-    {
-      id: 4,
-      slug: "softcover-perfect-bound",
-      title_en: "Softcover",
-      title_ar: "غلاف ورقي",
-      subtitle_en: "perfect bound",
-      subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/product/softcover-perfect-bound.webp",
-    },
-    {
-      id: 5,
-      slug: "softcover-saddle-stitched",
-      title_en: "Softcover",
-      title_ar: "غلاف ورقي",
-      subtitle_en: "saddle stitched",
-      subtitle_ar: "تدبيس سرجي",
-      image: "/homeImg/product/softcover-saddle-stitched.webp",
-    },
-    {
-      id: 6,
-      slug: "half-binding",
-      title_en: "Half-binding",
-      title_ar: "تجليد نصفي",
-      subtitle_en: "",
-      subtitle_ar: "",
-      image: "/homeImg/product/half-binding.webp",
-    },
-    {
-      id: 7,
-      slug: "flexo-binding",
-      title_en: "Flexo binding",
-      title_ar: "تجليد فليكسو",
-      subtitle_en: "",
-      subtitle_ar: "",
-      image: "/homeImg/product/flexo-binding.gif",
-    },
-    {
-      id: 8,
-      slug: "spiral-binding",
-      title_en: "Spiral binding",
-      title_ar: "تجليد حلزوني",
-      subtitle_en: "",
-      subtitle_ar: "",
-      image: "/homeImg/product/spiral-binding.webp",
-    },
-    {
-      id: 9,
-      slug: "open-spine-binding",
-      title_en: "Open-spine binding",
-      title_ar: "تجليد مفتوح الظهر",
-      subtitle_en: "",
-      subtitle_ar: "",
-      image: "/homeImg/product/open-spine-binding.webp",
-    },
-    {
-      id: 10,
-      slug: "swiss-binding",
-      title_en: "Swiss binding",
-      title_ar: "تجليد سويسري",
-      subtitle_en: "",
-      subtitle_ar: "",
-      image: "/homeImg/product/swiss-binding.webp",
-    },
-  ];
+  const [products, setProducts] = useState<Product[]>([]);
+ 
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const res = await fetch("http://localhost:3000/api/products");
+      const data = await res.json();
+
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
   return (
     <section className="py-15">
       <div className="max-w-[95%] mx-auto px-4 lg:px-8">
@@ -149,7 +80,7 @@ export default function ProductsSection() {
               <div>
                 <div className="relative h-100 md:h-65 overflow-hidden">
                   <Image
-                    src={item.image}
+                    src={item.image_url}
                     alt={item.title_en}
                     fill
                     className="object-covertransition-transform duration-700 group-hover:scale-105"
