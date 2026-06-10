@@ -13,98 +13,90 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   await params;
+  const { slug } = await params;
 
+  const res = await fetch(`http://localhost:3000/api/products/${slug}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Product not found");
+  }
+
+  const data = await res.json();
   const product = {
     title: {
-      en: "Hardcover",
-      ar: "غلاف مقوى",
+      en: data.title_en,
+      ar: data.title_ar,
     },
-    cardImage: "/products/hardcover-card.webp",
+
+    cardImage: data.image_url,
+
     subtitle: {
-      en: "thread sewn",
-      ar: "مخيط بالخيط",
+      en: data.subtitle_en || "",
+      ar: data.subtitle_ar || "",
     },
 
     description: {
-      en: `Extremely durable, robust and the most processed form of binding, guaranteed to last for many years of use. The pages (folded sheets) are bound with threads and the book block is protected by a hard board case covered with hard-wearing material. Optionally, foam can be used in the case to make the cover soft to touch.
-
-It is perfect for high-class, sophisticated publications, especially art and photo albums, premium planners, and any books inspired by old prints and manuscripts, such as reprints and facsimiles.`,
-
-      ar: `يُعد هذا النوع من التجليد من أكثر أنواع التجليد متانةً وقوةً وتطورًا، وهو مصمم ليدوم لسنوات طويلة من الاستخدام. تُخاط الصفحات (الملازم المطوية) بالخيط، بينما تُحمى كتلة الكتاب بغلاف صلب مصنوع من ألواح مقواة ومغطى بمواد عالية التحمل. ويمكن إضافة طبقة إسفنجية داخل الغلاف لمنحه ملمسًا ناعمًا وفاخرًا.
-
-يُعد خيارًا مثاليًا للمنشورات الراقية والفاخرة، وخاصة الكتب الفنية وألبومات الصور والمخططات المميزة، بالإضافة إلى الكتب المستوحاة من المطبوعات والمخطوطات القديمة مثل النسخ المطابقة للأصل وإعادة الطباعة.`,
+      en: data.description_en,
+      ar: data.description_ar,
     },
 
     bestUse: {
-      en: "fiction, poetry, albums, textbooks, calendars and planners, scientific and professional publications, collector’s publications",
+      en: data.best_use_en,
+      ar: data.best_use_ar,
+    },
 
-      ar: "الروايات، الشعر، الألبومات، الكتب الدراسية، التقويمات والمخططات، المنشورات العلمية والمهنية، والإصدارات المخصصة لهواة الاقتناء",
-    },
-    model3d: "/models/Book (Blue).glb",
-    findOutMoreImages: [
-      "/services/1.webp",
-      "/services/2.webp",
-      "/services/3.webp",
-      "/services/4.webp",
-      "/services/5.webp",
-      "/services/6.webp",
-    ],
+    model3d: data.model_3d,
+
+    findOutMoreImages: data.find_out_more_images || [],
+
     ecofriendly: {
-      ar: "إن استخدام المواد المناسبة مثل الورق المعاد تدويره ومواد الأغلفة غير المطلية، بالإضافة إلى المكونات الطبيعية مثل خيوط القطن أو القنب، يجعل الكتاب قابلاً للتحلل الحيوي بالكامل.",
-      en: "The use of appropriate materials (e.g. wastepaper, non-coated cover materials) and natural components (e.g. cotton or hemp threads) makes the book completely biodegradable.",
+      en: data.eco_friendly_en,
+      ar: data.eco_friendly_ar,
     },
+
     options: {
       format: {
         min: {
-          ar: "100 × 100 مم",
-          en: "100 × 100 mm",
+          en: data.format_min_en,
+          ar: data.format_min_ar,
         },
         max: {
-          ar: "270 × 380 مم (عمودي) / 275 × 210 مم (أفقي)",
-          en: "270 × 380 mm (portrait) / 275 × 210 mm (album)",
+          en: data.format_max_en,
+          ar: data.format_max_ar,
         },
       },
 
       thickness: {
         min: {
-          ar: "4 مم",
-          en: "4 mm",
+          en: data.thickness_min_en,
+          ar: data.thickness_min_ar,
         },
         max: {
-          ar: "65 مم",
-          en: "65 mm",
+          en: data.thickness_max_en,
+          ar: data.thickness_max_ar,
         },
       },
 
       materials: {
-        ar: "تتوفر أنواع مختلفة من الورق بما في ذلك الورق المحبب والقماش والفلين والجلد الصناعي.",
-        en: "Various types of paper are available, including textured paper, cloth, cork and eco-leather.",
+        en: data.materials_en,
+        ar: data.materials_ar,
       },
 
       extras: {
-        ar: "يمكننا استخدام ألوان خيوط مختلفة للأوراق، وأوراق داخلية مطبوعة أو مصبوغة بالكامل، وعمود فقري مستقيم أو منحني (بسماكة تصل إلى 13 مم). وبحسب الاستخدام المقصود لمنشورك، يمكننا إضافة، على سبيل المثال، شريط إغلاق أو حامل أقلام (مثالي للمخططات والمنظمات والدفاتر)، وفواصل كتب ملونة، وواقيات زوايا. أما بالنسبة للألبومات والكتب الأدبية، فنوصي بأغلفة واقية من الغبار وأشرطة تثبيت.",
-        en: "We can use different thread colours for the sheets, printed or mass-dyed end papers, and straight or rounded spine (up to 13 mm thickness). Depending on the intended use of your publication, we can add, for example, a band closure or a pen holder (ideal for planners, organizers and notebooks), bound bookmarks in various colours, and corner protectors. For albums and belles lettres, we recommend dust wrappers and wraparound bands. ",
+        en: data.extras_en,
+        ar: data.extras_ar,
       },
 
       enhancements: {
-        ar: "يمكن تحسين مظهر الكتاب ذي الغلاف المقوى من خلال تحسينات الغلاف. في حالة الكتب ذات الأغلفة المقواة، نوصي تحديدًا بالختم الساخن باستخدام رقائق معدنية، والنقش البارز، والتلميع الموضعي. بالإضافة إلى ذلك، لحماية الغلاف وإطالة عمره، نوصي بالتغليف.",
-        en: "The appeal of a book in a hard case can be improved by cover enhancements. In the case of hardcovers, we particularly recommend hot stamping with metallized foil, debossing and spot varnishing. Additionally, to protect the cover and extend its durability, we recommend lamination. ",
+        en: data.enhancements_en,
+        ar: data.enhancements_ar,
       },
     },
-    exampleImages: [
-      "/services/examples/1.webp",
-      "/services/examples/2.webp",
-      "/services/examples/3.webp",
-      "/services/examples/4.webp",
-      "/services/examples/5.webp",
-      "/services/examples/6.webp",
-      "/services/examples/7.webp",
-      "/services/examples/8.webp",
-      "/services/examples/9.webp",
-      "/services/examples/10.webp",
-    ],
-  };
 
+    exampleImages: data.example_images || [],
+  };
   return (
     <>
       <ProductDetails {...product} />
