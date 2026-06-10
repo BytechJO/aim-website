@@ -1,40 +1,54 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import { OrbitControls, useGLTF, Bounds, Center } from "@react-three/drei";
+import { Suspense, useEffect } from "react";
 
 function Model({ modelUrl }: { modelUrl: string }) {
   const { scene } = useGLTF(modelUrl);
 
   return (
-    <primitive
-      object={scene}
-      scale={2.5}
-      onPointerOver={() => {
-        document.body.style.cursor = "grab";
-      }}
-      onPointerOut={() => {
-        document.body.style.cursor = "default";
-      }}
-      onPointerDown={() => {
-        document.body.style.cursor = "grabbing";
-      }}
-      onPointerUp={() => {
-        document.body.style.cursor = "grab";
-      }}
-    />
+    <Center>
+      <primitive
+        object={scene}
+        onPointerOver={() => {
+          document.body.style.cursor = "grab";
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = "default";
+        }}
+        onPointerDown={() => {
+          document.body.style.cursor = "grabbing";
+        }}
+        onPointerUp={() => {
+          document.body.style.cursor = "grab";
+        }}
+      />
+    </Center>
   );
 }
 
 export default function Book3D({ modelUrl }: { modelUrl: string }) {
+  useEffect(() => {
+    return () => {
+      document.body.style.cursor = "default";
+    };
+  }, []);
+
   return (
-    <Canvas camera={{ position: [0, 0, 2] }}>
-      <ambientLight intensity={2} />
-      <directionalLight position={[5, 5, 5]} />
+    <div className="w-full h-[500px]">
+      <Canvas camera={{ position: [0, 0, 5], fov: 35 }}>
+        <ambientLight intensity={2} />
+        <directionalLight position={[5, 5, 5]} intensity={2} />
 
-      <Model modelUrl={modelUrl} />
+        <Suspense fallback={null}>
+          <Bounds fit clip observe margin={1.2}>
+            <Model modelUrl={modelUrl} />
+          </Bounds>
+        </Suspense>
 
-      <OrbitControls enableZoom={false} />
-    </Canvas>
+        <OrbitControls enableZoom={false} />
+      </Canvas>
+    </div>
   );
 }

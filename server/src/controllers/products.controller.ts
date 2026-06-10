@@ -7,8 +7,15 @@ export async function getAll(req: Request, res: Response): Promise<void> {
 }
 
 export async function getOne(req: Request, res: Response): Promise<void> {
-  const { rows } = await pool.query('SELECT * FROM products WHERE id = $1', [req.params.id]);
-  if (!rows[0]) { res.status(404).json({ error: 'Not found' }); return; }
+  const { rows } = await pool.query("SELECT * FROM products WHERE slug = $1", [
+    req.params.slug,
+  ]);
+
+  if (!rows[0]) {
+    res.status(404).json({ error: "Not found" });
+    return;
+  }
+
   res.json(rows[0]);
 }
 
