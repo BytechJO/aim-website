@@ -212,6 +212,19 @@ CREATE TABLE IF NOT EXISTS navigation_links (
   updated_at TIMESTAMPTZ  NOT NULL DEFAULT NOW()
 );
 
+-- page_views (anonymous visitor analytics)
+CREATE TABLE IF NOT EXISTS page_views (
+  id          SERIAL       PRIMARY KEY,
+  path        TEXT         NOT NULL,
+  locale      VARCHAR(10),
+  referrer    TEXT,
+  visitor_id  VARCHAR(64),
+  ip          VARCHAR(45),
+  created_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_page_views_created ON page_views (created_at);
+CREATE INDEX IF NOT EXISTS idx_page_views_visitor ON page_views (visitor_id);
+
 -- social_links
 CREATE TABLE IF NOT EXISTS social_links (
   id         SERIAL      PRIMARY KEY,

@@ -66,6 +66,67 @@ input,select,textarea,button{font-family:'Inter',sans-serif}
 @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
 @keyframes toastIn{from{opacity:0;transform:translateY(12px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes toastOut{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(8px) scale(.96)}}
+@keyframes wlFadeOut{to{opacity:0;transform:scale(.95)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes barFill{from{width:0}to{width:100%}}
+@keyframes countIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Welcome Overlay ── */
+#wlOverlay{
+  position:fixed;inset:0;z-index:500;
+  background:#0a0a0a;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  animation:fadeIn .3s ease both;
+}
+#wlOverlay.wl-exit{animation:wlFadeOut .55s cubic-bezier(.4,0,1,1) both;pointer-events:none}
+.wl-logo-wrap{margin-bottom:40px;animation:floatY 2.8s ease-in-out 1s infinite}
+.wl-greeting{
+  font-family:'Adamina',serif;font-size:34px;color:#fff;letter-spacing:-.5px;
+  opacity:0;animation:fadeUp .5s ease .35s both;
+}
+.wl-role-text{
+  font-size:11px;text-transform:uppercase;letter-spacing:.22em;
+  color:rgba(255,255,255,.38);margin-top:10px;
+  opacity:0;animation:fadeUp .45s ease .55s both;
+}
+.wl-bar{
+  width:160px;height:2px;background:rgba(255,255,255,.1);
+  border-radius:2px;margin-top:48px;overflow:hidden;
+  opacity:0;animation:fadeIn .3s ease .7s both;
+}
+.wl-fill{height:100%;width:0;background:linear-gradient(90deg,#F8E586,#EE8461);animation:barFill 1.3s cubic-bezier(.4,0,.2,1) .75s both}
+
+/* ── Staggered overview cards ── */
+.scards .sc{animation:fadeUp .38s ease both}
+.scards .sc:nth-child(1){animation-delay:.04s}
+.scards .sc:nth-child(2){animation-delay:.09s}
+.scards .sc:nth-child(3){animation-delay:.14s}
+.scards .sc:nth-child(4){animation-delay:.19s}
+.scards .sc:nth-child(5){animation-delay:.24s}
+.scards .sc:nth-child(6){animation-delay:.29s}
+.sc-val{animation:countIn .4s ease both}
+
+/* ── Table row stagger ── */
+#mc tbody tr{animation:fadeIn .28s ease both}
+#mc tbody tr:nth-child(1){animation-delay:.03s}
+#mc tbody tr:nth-child(2){animation-delay:.06s}
+#mc tbody tr:nth-child(3){animation-delay:.09s}
+#mc tbody tr:nth-child(4){animation-delay:.12s}
+#mc tbody tr:nth-child(5){animation-delay:.15s}
+#mc tbody tr:nth-child(6){animation-delay:.18s}
+#mc tbody tr:nth-child(7){animation-delay:.21s}
+#mc tbody tr:nth-child(8){animation-delay:.24s}
+#mc tbody tr:nth-child(n+9){animation-delay:.27s}
+
+/* ── Stat mini stagger ── */
+.mstats .ms{animation:fadeUp .35s ease both}
+.mstats .ms:nth-child(1){animation-delay:.04s}
+.mstats .ms:nth-child(2){animation-delay:.09s}
+.mstats .ms:nth-child(3){animation-delay:.14s}
+.mstats .ms:nth-child(4){animation-delay:.19s}
+
+/* ── Banner icon ── */
+.ov-banner-icon{font-size:48px;position:relative;z-index:1;animation:floatY 3s ease-in-out infinite}
 
 /* ══════════════════════════════════════════════════
    VIEWS
@@ -589,6 +650,30 @@ tbody tr:hover td{background:rgba(246,246,246,.8)}
 .ov-banner-sub{font-size:13px;color:rgba(10,10,10,.6);margin-top:4px;position:relative}
 
 /* ══════════════════════════════════════════════════
+   ANALYTICS
+══════════════════════════════════════════════════ */
+.ana-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.ana-stat{background:var(--card);border:1px solid var(--border);border-radius:var(--r-card);padding:20px 22px;animation:fadeUp .35s ease both}
+.ana-stat:nth-child(1){animation-delay:.04s}
+.ana-stat:nth-child(2){animation-delay:.09s}
+.ana-stat:nth-child(3){animation-delay:.14s}
+.ana-stat:nth-child(4){animation-delay:.19s}
+.ana-stat-val{font-size:32px;font-weight:700;color:var(--dark);line-height:1}
+.ana-stat-lbl{font-size:12px;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.5px}
+.ana-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+.ana-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-card);padding:20px 22px;animation:fadeUp .4s ease both}
+.ana-card-title{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:16px;text-transform:uppercase;letter-spacing:.5px}
+.ana-chart{display:flex;align-items:flex-end;gap:4px;height:90px}
+.ana-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.ana-bar{width:100%;background:var(--accent);border-radius:3px 3px 0 0;min-height:2px;transition:height .5s cubic-bezier(.4,0,.2,1)}
+.ana-bar-label{font-size:9px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:28px}
+.ana-table{width:100%;border-collapse:collapse;font-size:13px}
+.ana-table th{text-align:left;padding:6px 8px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+.ana-table td{padding:8px 8px;color:var(--dark);border-bottom:1px solid var(--border)}
+.ana-table tr:last-child td{border-bottom:none}
+.ana-locale-bar{height:6px;border-radius:3px;background:var(--accent);display:inline-block;margin-right:8px;vertical-align:middle;max-width:80px;min-width:4px}
+
+/* ══════════════════════════════════════════════════
    RECENT INQUIRIES CARD
 ══════════════════════════════════════════════════ */
 .section-title{
@@ -681,6 +766,8 @@ tbody tr:hover td{background:rgba(246,246,246,.8)}
         <span class="nbadge" id="bc" style="display:none">0</span>
       </div>
       <div class="ni" onclick="sec('newsletter')" data-s="newsletter"><i class="ni-ic"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></i>Newsletter</div>
+      <div class="nlabel">Insights</div>
+      <div class="ni" onclick="sec('analytics')" data-s="analytics"><i class="ni-ic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></i>Analytics</div>
       <div class="nlabel" id="adminLabel" style="display:none">Admin</div>
       <div class="ni" id="niAdmins" onclick="sec('admins')" data-s="admins" style="display:none">
         <i class="ni-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></i>Users
@@ -784,6 +871,19 @@ tbody tr:hover td{background:rgba(246,246,246,.8)}
       </div>
     </div>
 
+    <!-- ANALYTICS -->
+    <div id="s-analytics" class="sp">
+      <div class="tbar">
+        <span class="tbar-title">Analytics</span>
+        <div class="tbar-acts">
+          <button class="btn btn-ghost btn-sm" onclick="loadAnalytics()">↻ Refresh</button>
+        </div>
+      </div>
+      <div class="sbody">
+        <div id="ana-c"><div class="loading"><div class="spin"></div><br>Loading…</div></div>
+      </div>
+    </div>
+
     <!-- ADMINS -->
     <div id="s-admins" class="sp">
       <div class="tbar">
@@ -879,6 +979,7 @@ function showView(id){ document.querySelectorAll('.view').forEach(v=>v.classList
 function enterApp(){
   showView('vApp');
   const name=S.user?.full_name||S.user?.email||'Admin';
+  showWelcome(name);
   g('sbName').textContent=name;
   g('sbAv').textContent=name[0].toUpperCase();
   const re=g('sbRole');
@@ -900,7 +1001,7 @@ function sec(name){
   const ni=document.querySelector(`[data-s="${name}"]`);
   if(ni) ni.classList.add('on');
   S.cur=name;
-  ({overview:loadOverview,products:loadProducts,reviews:loadReviews,instagram:loadIG,contact:loadContact,newsletter:loadNews,admins:loadAdmins})[name]?.();
+  ({overview:loadOverview,products:loadProducts,reviews:loadReviews,instagram:loadIG,contact:loadContact,newsletter:loadNews,admins:loadAdmins,analytics:loadAnalytics})[name]?.();
 }
 
 // ════════════════════════════════════════════
@@ -925,40 +1026,41 @@ async function loadOverview(){
     const dateStr=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
     el.innerHTML=`
       <div class="ov-banner">
-        <div>
+        <div style="position:relative;z-index:1">
           <div class="ov-banner-title">Good ${now.getHours()<12?'morning':now.getHours()<17?'afternoon':'evening'}, ${(S.user?.full_name||S.user?.email||'Admin').split(' ')[0]}.</div>
           <div class="ov-banner-sub">${dateStr} — Here's your dashboard overview.</div>
         </div>
+        <div class="ov-banner-icon">${now.getHours()<12?'☀️':now.getHours()<17?'🌤️':'🌙'}</div>
       </div>
       <div class="scards">
         <div class="sc" onclick="sec('products')">
           <div class="sc-ic">📦</div>
           <div class="sc-label">Products</div>
-          <div class="sc-val">${pr.length}</div>
+          <div class="sc-val" data-count="${pr.length}">0</div>
           <div class="sc-sub" style="color:var(--ok)">${pr.filter(x=>x.is_active).length} active</div>
         </div>
         <div class="sc" onclick="sec('reviews')">
           <div class="sc-ic">★</div>
           <div class="sc-label">Reviews</div>
-          <div class="sc-val">${rv.length}</div>
+          <div class="sc-val" data-count="${rv.length}">0</div>
           <div class="sc-sub" style="color:var(--ok)">${rv.filter(x=>x.is_active).length} active</div>
         </div>
         <div class="sc" onclick="sec('instagram')">
           <div class="sc-ic">◻</div>
           <div class="sc-label">Instagram</div>
-          <div class="sc-val">${ig.length}</div>
+          <div class="sc-val" data-count="${ig.length}">0</div>
           <div class="sc-sub" style="color:var(--muted)">${ig.filter(x=>x.is_active).length} active</div>
         </div>
         <div class="sc" onclick="sec('contact')">
           <div class="sc-ic">✉</div>
           <div class="sc-label">Inquiries</div>
-          <div class="sc-val">${co.length}</div>
+          <div class="sc-val" data-count="${co.length}">0</div>
           <div class="sc-sub" style="color:${newCo>0?'var(--err)':'var(--muted)'}">${newCo} new</div>
         </div>
         <div class="sc" onclick="sec('newsletter')">
           <div class="sc-ic">◉</div>
           <div class="sc-label">Subscribers</div>
-          <div class="sc-val">${nw.length}</div>
+          <div class="sc-val" data-count="${nw.length}">0</div>
           <div class="sc-sub" style="color:var(--ok)">${nw.filter(x=>!x.unsubscribed_at).length} active</div>
         </div>
         ${S.role==='super_admin'?`<div class="sc" onclick="sec('admins')">
@@ -982,6 +1084,7 @@ async function loadOverview(){
           </tr>`).join('')}
         </tbody></table>
       </div>`:''}`;
+    animCounters();
     if(S.role==='super_admin'){
       api('/admins').then(a=>{ const e=g('ov-ac'); if(e) e.textContent=a.length; }).catch(()=>{});
     }
@@ -1635,6 +1738,128 @@ document.addEventListener('click',(e)=>{
     _notifOpen=false; g('notifPanel')?.classList.remove('on');
   }
 });
+
+// ════════════════════════════════════════════
+//  WELCOME ANIMATION
+// ════════════════════════════════════════════
+// ════════════════════════════════════════════
+//  ANALYTICS
+// ════════════════════════════════════════════
+async function loadAnalytics(){
+  const el=g('ana-c');
+  el.innerHTML='<div class="loading"><div class="spin"></div><br>Loading…</div>';
+  try{
+    const d=await api('/api/analytics');
+    renderAnalytics(el,d);
+  }catch(e){
+    el.innerHTML=`<div class="empty">Failed to load analytics: ${esc(e.message)}</div>`;
+  }
+}
+function renderAnalytics(el,d){
+  // build daily chart (last 14 days)
+  const maxV=Math.max(...d.daily_views.map(r=>r.views),1);
+  const bars=d.daily_views.map(r=>{
+    const pct=Math.round((r.views/maxV)*100);
+    const lbl=r.date?r.date.slice(5):'';
+    return `<div class="ana-bar-wrap">
+      <div class="ana-bar" style="height:${pct}%" title="${r.date}: ${r.views} views"></div>
+      <div class="ana-bar-label">${esc(lbl)}</div>
+    </div>`;
+  }).join('');
+
+  // top pages table
+  const pageRows=d.top_pages.map(r=>`
+    <tr>
+      <td style="word-break:break-all;max-width:260px">${esc(r.path)}</td>
+      <td style="text-align:right;font-weight:600">${r.views.toLocaleString()}</td>
+    </tr>`).join('');
+
+  // locales table
+  const maxLoc=Math.max(...d.top_locales.map(r=>r.views),1);
+  const locRows=d.top_locales.map(r=>{
+    const w=Math.max(4,Math.round((r.views/maxLoc)*80));
+    return `<tr>
+      <td><span class="ana-locale-bar" style="width:${w}px"></span>${esc(r.locale)}</td>
+      <td style="text-align:right;font-weight:600">${r.views.toLocaleString()}</td>
+    </tr>`;
+  }).join('');
+
+  el.innerHTML=`
+    <div class="ana-stats">
+      <div class="ana-stat">
+        <div class="ana-stat-val" data-count="${d.total_views}">0</div>
+        <div class="ana-stat-lbl">Total Views</div>
+      </div>
+      <div class="ana-stat">
+        <div class="ana-stat-val" data-count="${d.unique_visitors}">0</div>
+        <div class="ana-stat-lbl">Unique Visitors</div>
+      </div>
+      <div class="ana-stat">
+        <div class="ana-stat-val" data-count="${d.today_views}">0</div>
+        <div class="ana-stat-lbl">Today</div>
+      </div>
+      <div class="ana-stat">
+        <div class="ana-stat-val" data-count="${d.this_week_views}">0</div>
+        <div class="ana-stat-lbl">This Week</div>
+      </div>
+    </div>
+    <div class="ana-row">
+      <div class="ana-card">
+        <div class="ana-card-title">Daily Views — last 14 days</div>
+        <div class="ana-chart">${bars||'<div class="empty" style="font-size:12px">No data yet</div>'}</div>
+      </div>
+      <div class="ana-card">
+        <div class="ana-card-title">Languages</div>
+        <table class="ana-table"><thead><tr><th>Locale</th><th style="text-align:right">Views</th></tr></thead>
+        <tbody>${locRows||'<tr><td colspan="2">No data</td></tr>'}</tbody></table>
+      </div>
+    </div>
+    <div class="ana-card">
+      <div class="ana-card-title">Top Pages</div>
+      <table class="ana-table"><thead><tr><th>Path</th><th style="text-align:right">Views</th></tr></thead>
+      <tbody>${pageRows||'<tr><td colspan="2">No data yet</td></tr>'}</tbody></table>
+    </div>`;
+  animCounters();
+}
+
+function showWelcome(name){
+  const el=document.createElement('div');
+  el.id='wlOverlay';
+  const fn=esc(name||'Admin');
+  el.innerHTML=`
+    <div class="wl-logo-wrap">
+      <svg width="120" height="72" viewBox="0 0 80 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.1349 16.0698L7.63736 39.6634H0L11.7794 7.63721H18.4992L30.2785 39.6634H22.6412L15.1349 16.0698Z" fill="#fff"/>
+        <path d="M40.9131 7.63721H33.4592V39.6634H40.9131V7.63721Z" fill="#fff"/>
+        <path d="M72.546 39.6634V20.4914L65.5466 34.4291H61.5531L54.5449 20.4914V39.6634H47.0911V7.63721H55.1828L63.5455 24.3712L71.9605 7.63721H79.9999V39.6634H72.546Z" fill="#fff"/>
+        <path d="M18.8837 39.8994H11.6309V47.0999H18.8837V39.8994Z" fill="#F8E586"/>
+      </svg>
+    </div>
+    <div class="wl-greeting">Welcome back, ${fn}</div>
+    <div class="wl-role-text">AIM Digital Press &nbsp;·&nbsp; Admin Dashboard</div>
+    <div class="wl-bar"><div class="wl-fill"></div></div>`;
+  document.body.appendChild(el);
+  setTimeout(()=>{ el.classList.add('wl-exit'); setTimeout(()=>el.remove(),600); },2100);
+}
+
+// ════════════════════════════════════════════
+//  COUNT-UP ANIMATION
+// ════════════════════════════════════════════
+function animCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const target=+(el.dataset.count||0);
+    if(!target){el.textContent='0';return;}
+    const dur=Math.min(900,target*12+500);
+    const t0=performance.now();
+    const step=(now)=>{
+      const p=Math.min((now-t0)/dur,1);
+      const ease=1-(1-p)**3;
+      el.textContent=Math.round(ease*target);
+      if(p<1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+}
 
 // keyboard
 g('lp').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
