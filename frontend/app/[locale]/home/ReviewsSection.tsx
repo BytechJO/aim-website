@@ -104,7 +104,7 @@ export default function ReviewsSection() {
   };
   return (
     <section id="reviews" className="py-20 overflow-hidden">
-      <div className="w-full lg:max-w-[80%] mx-auto px-4 lg:px-8">
+      <div className="max-w-300.5 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}

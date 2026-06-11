@@ -10,7 +10,7 @@ export default function ContactSection() {
   const isArabic = locale === "ar";
   return (
     <section>
-      <div className="max-w-[85%] mx-auto px-4 lg:px-8">
+      <div className="max-w-300.5 mx-auto px-4 sm:px-6 lg:px-8">
         {" "}
         <div
           dir="ltr"
