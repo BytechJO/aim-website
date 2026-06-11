@@ -9,7 +9,7 @@ export const ENDPOINTS = {
 
   PRODUCTS: `${API_BASE_URL}/products`,
   PRODUCT: (slug: string) => `${API_BASE_URL}/products/${slug}`,
-
+  ENHANCEMENTS: `${API_BASE_URL}/enhancements`,
   REVIEWS: `${API_BASE_URL}/reviews`,
   INSTAGRAM: `${API_BASE_URL}/instagram`,
   CONTACT: `${API_BASE_URL}/contact`,

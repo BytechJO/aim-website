@@ -10,7 +10,7 @@ export default function SpecialSection() {
   const isArabic = locale === "ar";
   return (
     <section className="">
-      <div className="max-w-[95%] mx-auto px-4 lg:px-8">
+      <div className="max-w-362.5 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: 60 }}

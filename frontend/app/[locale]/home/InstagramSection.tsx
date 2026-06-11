@@ -114,7 +114,7 @@ export default function InstagramSection() {
   };
   return (
     <section className="py-20 overflow-hidden bg-[#F5F5F5]">
-      <div className="w-full lg:max-w-[80%] mx-auto px-4 lg:px-8 ">
+      <div className="max-w-300.5 mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex justify-between items-center mb-16">
           <h2

@@ -149,7 +149,7 @@ export default function NavBar() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -388,8 +388,46 @@ export default function NavBar() {
                       ))}
                     </div>
                   </li>
+                  {/* Mobile Services Dropdown */}
+                  <li>
+                    <button
+                      onClick={() => setMobileServicesOpen((v) => !v)}
+                      className="w-full flex items-center justify-between px-6 py-4 text-[15px] font-semibold text-[#222222] hover:bg-gray-50"
+                    >
+                      <span>{t("ourServices")}</span>
+                      <Chevron open={mobileServicesOpen} />
+                    </button>
+
+                    <AnimatePresence>
+                      {mobileServicesOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.22 }}
+                          className="overflow-hidden bg-[#F7F7F7]"
+                        >
+                          <Link
+                            href={lp("/services")}
+                            className="block px-10 py-3 text-[14px] font-medium text-[#333] hover:bg-gray-100"
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            {locale === "ar" ? "التجليد" : "Binding"}
+                          </Link>
+
+                          <Link
+                            href={lp("/enhancement")}
+                            className="block px-10 py-3 text-[14px] font-medium text-[#333] hover:bg-gray-100"
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            {locale === "ar" ? "التحسينات" : "Enhancement"}
+                          </Link>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </li>
+
                   {[
-                    { label: t("ourServices"), href: "/services" },
                     { label: t("selfPublishing"), href: "/self-publishing" },
                     { label: t("aboutUs"), href: "/about" },
                     { label: t("contactUs"), href: "/contact" },

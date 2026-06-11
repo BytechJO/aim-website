@@ -23,7 +23,7 @@ export default function StorySection() {
   return (
     <>
       <section className="py-20">
-        <div className="max-w-[95%] mx-auto px-4 lg:px-8">
+        <div className="max-w-362.5 mx-auto px-4 sm:px-6 lg:px-8">
           {" "}
           <div className="grid lg:grid-cols-2 gap-4">
             {/* Left Card */}
