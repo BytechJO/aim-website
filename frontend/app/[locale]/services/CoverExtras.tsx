@@ -5,16 +5,7 @@ import Link from "next/link";
 import { useLocale } from "next-intl";
 import { useState } from "react";
 
-type EnhancementType = {
-  id: number;
-  slug: string;
-  title_en: string;
-  title_ar: string;
-  images: string[];
-  sort_order: number;
-};
-
-type Enhancement = {
+type CoverExtra = {
   id: number;
   slug: string;
   title_en: string;
@@ -23,8 +14,8 @@ type Enhancement = {
   description_ar: string;
   image_url: string[];
   sort_order: number;
-  types: EnhancementType[];
 };
+
 type Card = {
   id: string;
   slug: string;
@@ -33,57 +24,40 @@ type Card = {
   subtitle: string;
 };
 interface Props {
-  enhancements: Enhancement[];
+  coverExtras: CoverExtra[];
 }
 
-export default function EnhancementsGrid({ enhancements }: Props) {
+export default function CoverExtras({ coverExtras }: Props) {
   const locale = useLocale();
   const isArabic = locale === "ar";
-
   const [showAll, setShowAll] = useState(false);
-  const cards: Card[] = enhancements
+  const cards: Card[] = [...coverExtras]
     .sort((a, b) => a.sort_order - b.sort_order)
-    .flatMap((category) => {
-      if (category.types.length > 0) {
-        return [...category.types]
-          .sort((a, b) => a.sort_order - b.sort_order)
-          .map((type) => ({
-            id: `${category.id}-${type.id}`,
-            slug: category.slug,
-            image: type.images?.[0],
-            title: isArabic ? category.title_ar : category.title_en,
-            subtitle: isArabic ? type.title_ar : type.title_en,
-          }));
-      }
-
-      return [
-        {
-          id: String(category.id), // ← مهم
-          slug: category.slug,
-          image: category.image_url?.[0],
-          title: isArabic ? category.title_ar : category.title_en,
-          subtitle: "",
-        },
-      ];
-    });
+    .map((item) => ({
+      id: String(item.id),
+      slug: item.slug,
+      image: item.image_url?.[0],
+      title: isArabic ? item.title_ar : item.title_en,
+      subtitle: "",
+    }));
   const visibleCards = showAll ? cards : cards.slice(0, 6);
 
   return (
-    <section className="bg-[#F3F3F3] py-15">
+    <section className="py-15">
       <div className="max-w-7xl mx-auto px-6 py-15">
         {/* Header */}
         <div className="mb-14">
-          <div className="flex items-center justify-between gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h2
               className={`${
                 locale === "en" ? "font-adamina" : "font-cairo"
               } text-5xl md:text-7xl lg:text-[70px] leading-none text-black`}
             >
-              {isArabic ? "التحسينات" : "Enhancements"}
+              {isArabic ? "إضافات الغلاف" : "Cover Extras"}
             </h2>
 
             <Link
-              href="/enhancement"
+              href={`/${locale}/cover-extras`}
               className="flex items-center gap-3 shrink-0 group"
             >
               <span className="text-[20px] border-b border-black pb-1">
@@ -98,16 +72,17 @@ export default function EnhancementsGrid({ enhancements }: Props) {
 
           <p className="mt-8 text-[18px] lg:text-[20px] leading-[1.7] text-black/85 max-w-275">
             {isArabic
-              ? "نقدم مجموعة واسعة من تحسينات الكتب والطباعة التي تضيف لمسة احترافية وفريدة لمنتجك النهائي."
-              : "One should not judge the book by its cover, but everyone knows how important the first impression is. Print enhancements are one of the ways to make the book more beautiful and memorable."}
+              ? "ستجد العديد من الخيارات الإضافية التي تُحسّن مظهر كتابك وخصائصه، مما يُثري تجربة القارئ وفهمه. تشمل هذه الخيارات حلول تجليد الكتب التي يُمكن إضافتها أو تعديلها في كتابك، وذلك بحسب نوع التجليد المُستخدم، وبما يتناسب مع نوع الكتاب وغرضه وتصميمه الجرافيكي."
+              : "You will find a great deal of additional options which can improve the appearance of your book and its features, thus enhancing the reader’s experience and perception. These options include bookbinding solutions which can be added or modified in your publication, depending on the type of binding used, and adapted to the kind and purpose of the book and its graphic design."}
           </p>
         </div>
+
         {/* Cards */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-12">
           {visibleCards.map((item) => (
             <Link
               key={item.id}
-              href={`/${locale}/enhancement#${item.slug}`}
+              href={`/${locale}/cover-extras#${item.slug}`}
               className="group"
             >
               <div className="relative h-57.5 overflow-hidden bg-white">

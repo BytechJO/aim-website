@@ -3,8 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
-import { useEffect, useState } from "react";
-import { ENDPOINTS } from "@/app/api/endpoints";
+import { useState } from "react";
 interface Product {
   id: number;
   slug: string;
@@ -14,27 +13,15 @@ interface Product {
   subtitle_ar: string;
   image_url: string;
 }
-export default function BindingTypesSection() {
+interface Props {
+  products: Product[];
+}
+
+export default function BindingTypesSection({ products }: Props) {
   const locale = useLocale();
   const isArabic = locale === "ar";
 
-  const [products, setProducts] = useState<Product[]>([]);
-
   const [activeTitle, setActiveTitle] = useState("all");
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch(ENDPOINTS.PRODUCTS);
-        const data = await res.json();
-
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
   const titles = [
     "all",
     ...Array.from(new Set(products.map((product) => product.title_en))),
