@@ -1,12 +1,13 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import EnhancementHero from "./EnhancementHero";
-import EnhancementImages from "./EnhancementImages";
+import CoverExtraImages from "./CoverExtraImages";
 import { useEffect, useState } from "react";
 import { ENDPOINTS } from "@/app/api/endpoints";
+import CoverExtrasHero from "./CoverExtrasHero";
 import Loading from "./loading";
-interface Enhancement {
+
+interface CoverExtra {
   id: number;
   slug: string;
   title_en: string;
@@ -15,29 +16,20 @@ interface Enhancement {
   description_ar: string;
   sort_order: number;
   image_url: string[];
-  images?: string[];
-  types?: {
-    id: number;
-    title_en: string;
-    title_ar: string;
-    description_en?: string;
-    description_ar?: string;
-    images?: string[];
-  }[];
 }
-export default function EnhancementPage() {
+export default function CoverExtraPage() {
   const locale = useLocale();
   const isArabic = locale === "ar";
-  const [enhancements, setEnhancements] = useState<Enhancement[]>([]);
+  const [CoverExtras, setCoverExtras] = useState<CoverExtra[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   useEffect(() => {
-    const fetchEnhancements = async () => {
+    const fetchCoverExtra = async () => {
       try {
-        const res = await fetch(ENDPOINTS.ENHANCEMENTS);
+        const res = await fetch(ENDPOINTS.COVER_EXTRAS);
         const data = await res.json();
 
-        setEnhancements(data);
+        setCoverExtras(data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -45,36 +37,13 @@ export default function EnhancementPage() {
       }
     };
 
-    fetchEnhancements();
+    fetchCoverExtra();
   }, []);
   useEffect(() => {
     if (!search.trim()) return;
 
     const q = search.toLowerCase().trim();
-
-    for (const category of enhancements) {
-      const matchedType = category.types?.find(
-        (type) =>
-          type.title_en.toLowerCase().includes(q) ||
-          type.title_ar.toLowerCase().includes(q),
-      );
-
-      if (matchedType) {
-        const element = document.getElementById(`type-${matchedType.id}`);
-
-        if (element) {
-          const y = element.getBoundingClientRect().top + window.scrollY - 120;
-
-          window.scrollTo({
-            top: y,
-            behavior: "smooth",
-          });
-        }
-        return;
-      }
-    }
-
-    const matchedCategory = enhancements.find(
+    const matchedCategory = CoverExtras.find(
       (category) =>
         category.title_en.toLowerCase().includes(q) ||
         category.title_ar.toLowerCase().includes(q),
@@ -86,10 +55,10 @@ export default function EnhancementPage() {
         block: "start",
       });
     }
-  }, [search, enhancements]);
+  }, [search, CoverExtras]);
 
   useEffect(() => {
-    if (!enhancements.length) return;
+    if (!CoverExtras.length) return;
 
     const hash = window.location.hash.replace("#", "");
 
@@ -117,7 +86,8 @@ export default function EnhancementPage() {
     }, 200);
 
     return () => clearInterval(interval);
-  }, [enhancements]);
+  }, [CoverExtras]);
+
   if (loading) {
     return <Loading />;
   }
@@ -128,7 +98,7 @@ export default function EnhancementPage() {
         <aside className="hidden lg:block w-100 shrink-0 sticky top-18 self-start bg-[#F3F3F3]">
           <div className="p-8">
             <h3 className="text-[16px] mb-3">
-              {isArabic ? "ابحث عن تحسين" : "Find an enhancement"}
+              {isArabic ? "ابحث عن إضافة غلاف" : "Search a cover extra"}
             </h3>
 
             <input
@@ -141,11 +111,11 @@ export default function EnhancementPage() {
 
             <h3 className="text-2xl mt-8 mb-4">
               {" "}
-              {isArabic ? "أنواع التحسينات" : "Enhancement type"}
+              {isArabic ? "أنواع الاضافات" : "Cover extra type"}
             </h3>
 
             <div className="space-y-4">
-              {enhancements.map((item) => (
+              {CoverExtras.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => {
@@ -168,8 +138,8 @@ export default function EnhancementPage() {
 
               <p className="leading-6 mb-8">
                 {isArabic
-                  ? "لست متأكدًا من التحسين المناسب لمشروعك؟ تواصل معنا وسنكون سعداء بمساعدتك."
-                  : "Not sure which enhancement will work best for your project? Contact us and we'll be happy to advise!"}
+                  ? "هل تحتاج إلى حل غير تقليدي غير مدرج هنا؟ تواصل معنا وسنرى ما يمكننا فعله من أجلك."
+                  : "Need an unusual solution that is not listed here? Contact us and we’ll see what we can do for you."}
               </p>
 
               <div className="flex gap-4">
@@ -193,54 +163,26 @@ export default function EnhancementPage() {
 
         {/* Main Content */}
         <main className="flex-1">
-          <EnhancementHero />
+          <CoverExtrasHero />
 
           <div className="max-w-5xl mx-auto px-8">
-            {enhancements.map((category) => (
+            {CoverExtras.map((category) => (
               <section
                 key={category.id}
                 id={category.slug}
                 className="scroll-mt-32 mb-32"
               >
-                {(isArabic ? category.title_ar : category.title_en) && (
-                  <h2 className="font-adamina text-4xl md:text-6xl mb-8">
-                    {isArabic ? category.title_ar : category.title_en}
-                  </h2>
-                )}
-                {(isArabic
-                  ? category.description_ar
-                  : category.description_en) && (
-                  <p className="text-xl leading-10 max-w-5xl mb-16">
-                    {isArabic
-                      ? category.description_ar
-                      : category.description_en}
-                  </p>
-                )}
-                {/* صور الكاتيجوري */}
+                <h2 className="font-adamina text-4xl md:text-6xl mb-8">
+                  {isArabic ? category.title_ar : category.title_en}
+                </h2>
+
+                <p className="text-[18px] leading-8 max-w-5xl mb-16">
+                  {isArabic ? category.description_ar : category.description_en}
+                </p>
+
                 {category.image_url?.length > 0 && (
-                  <div className="mb-20">
-                    <EnhancementImages images={category.image_url} />
-                  </div>
+                  <CoverExtraImages images={category.image_url} />
                 )}
-
-                {/* التايبات */}
-                {category.types?.map((type) => (
-                  <div key={type.id} id={`type-${type.id}`} className="mb-20">
-                    <h3 className="text-4xl mb-5">
-                      {isArabic ? type.title_ar : type.title_en}
-                    </h3>
-
-                    {(isArabic ? type.description_ar : type.description_en) && (
-                      <p className="text-xl mb-8">
-                        {isArabic ? type.description_ar : type.description_en}
-                      </p>
-                    )}
-
-                    {type.images && type.images.length > 0 && (
-                      <EnhancementImages images={type.images} />
-                    )}
-                  </div>
-                ))}
               </section>
             ))}
           </div>

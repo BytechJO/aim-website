@@ -11,7 +11,7 @@ import { ENDPOINTS } from "@/app/api/endpoints";
 // ─── Route data ──────────────────────────────────────────────────────────────
 
 const CATEGORY_KEYS = [
-  { key: "binding", href: "/services" },
+  { key: "binding", href: "/binding" },
   { key: "enhancement", href: "/enhancement" },
   { key: "coverExtras", href: "/cover-extras" },
   { key: "reprints", href: "/reprints-and-facsimiles" },
@@ -408,7 +408,7 @@ export default function NavBar() {
                           className="overflow-hidden bg-[#F7F7F7]"
                         >
                           <Link
-                            href={lp("/services")}
+                            href={lp("/binding")}
                             className="block px-10 py-3 text-[14px] font-medium text-[#333] hover:bg-gray-100"
                             onClick={() => setMenuOpen(false)}
                           >
@@ -421,6 +421,13 @@ export default function NavBar() {
                             onClick={() => setMenuOpen(false)}
                           >
                             {locale === "ar" ? "التحسينات" : "Enhancement"}
+                          </Link>
+                          <Link
+                            href={lp("/cover-extras")}
+                            className="block px-10 py-3 text-[14px] font-medium text-[#333] hover:bg-gray-100"
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            {locale === "ar" ? "إضافات الغلاف" : "cover-extras"}
                           </Link>
                         </motion.div>
                       )}
