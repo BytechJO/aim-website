@@ -20,7 +20,7 @@ export default function BindingHero() {
         />
 
         <div className="relative h-50 lg:h-105 flex items-center">
-          <div className="max-w-5xl mx-auto w-full px-8">
+          <div className="max-w-5xl mx-auto w-full px-8 lg:px-20">
             <motion.h1
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
