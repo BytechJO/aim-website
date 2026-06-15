@@ -33,7 +33,7 @@ export default function BindingTypesSection({ products }: Props) {
       : products.filter((product) => product.title_en === activeTitle);
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-15">
+    <section className="max-w-362.5 mx-auto px-6 py-15">
       <h2
         className={`text-[72px] leading-none mb-8 ${
           isArabic ? "font-cairo" : "font-adamina"

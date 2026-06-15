@@ -203,7 +203,8 @@ export default function NavBar() {
   )?.key;
   return (
     <header className="fixed w-full bg-white z-50 border-b border-gray-100">
-      <div className="w-full mx-auto lg:max-w-[95%]">
+      <div className="max-w-362.5 mx-auto  ">
+        {" "}
         {/* ── Search overlay ─────────────────────────────────────────────── */}
         <AnimatePresence>
           {searchOpen && (
@@ -275,7 +276,6 @@ export default function NavBar() {
             </motion.div>
           )}
         </AnimatePresence>
-
         {/* ── Main bar — h-[77px] ────────────────────────────────────────── */}
         <div className="flex items-center h-19.25 w-full pr-0">
           {/* Hamburger */}
@@ -608,7 +608,6 @@ export default function NavBar() {
             </div>
           </div>
         </div>
-
         {/* ══ Mega-menu (Frame 886) ════════════════════════════════════════ */}
         <AnimatePresence>
           {servicesOpen && (
@@ -624,7 +623,7 @@ export default function NavBar() {
             >
               {/* ── Main content area ─────────────────────────────────────── */}
               <div
-                className="flex w-full mx-auto md:max-w-[95%]"
+                className="flex w-full mx-auto md:max-w-362.5"
                 style={{ minHeight: 440 }}
               >
                 {/* Explore sidebar — 277px, bg #F6F6F6, Rectangle 39444 */}

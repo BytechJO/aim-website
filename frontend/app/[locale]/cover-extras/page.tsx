@@ -93,10 +93,11 @@ export default function CoverExtraPage() {
   }
   return (
     <section>
-      <div className="max-w-full mx-auto flex items-start">
+      {/* Sidebar */}
+      <div className="max-w-362.5 mx-auto flex items-start">
         {/* Sidebar */}
-        <aside className="hidden lg:block w-100 shrink-0 sticky top-18 self-start bg-[#F3F3F3]">
-          <div className="p-8">
+        <aside className="hidden lg:block w-100 shrink-0 sticky top-18 self-start  bg-[#F3F3F3] before:absolute before:top-0 before:bottom-0 before:right-full before:w-screen before:bg-[#F3F3F3] before:content-['']">
+          <div className="relative p-8">
             <h3 className="text-[16px] mb-3">
               {isArabic ? "ابحث عن إضافة غلاف" : "Search a cover extra"}
             </h3>
@@ -110,8 +111,7 @@ export default function CoverExtraPage() {
             />
 
             <h3 className="text-2xl mt-8 mb-4">
-              {" "}
-              {isArabic ? "أنواع الاضافات" : "Cover extra type"}
+              {isArabic ? "أنواع الإضافات" : "Cover extra type"}
             </h3>
 
             <div className="space-y-4">
@@ -188,6 +188,7 @@ export default function CoverExtraPage() {
           </div>
         </main>
       </div>
+      {/* Main Content */}
     </section>
   );
 }

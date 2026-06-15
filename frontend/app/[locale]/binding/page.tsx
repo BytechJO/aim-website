@@ -108,9 +108,13 @@ export default function BindingPage() {
   }
   return (
     <section>
-      <div className="max-w-full mx-auto flex items-start">
+      <div className="max-w-362.5 mx-auto flex items-start relative">
         {/* Sidebar */}
-        <aside className="hidden lg:block w-100 shrink-0 sticky top-18 self-start bg-[#F3F3F3]">
+        <aside className="hidden lg:block w-100 shrink-0 sticky top-18 self-start ">
+          {/* الخلفية الممتدة لآخر الشاشة */}
+          <div className="absolute inset-0 bg-[#F3F3F3] -z-10" />
+          <div className="absolute top-0 bottom-0 right-full w-screen bg-[#F3F3F3] -z-10" />
+
           <div className="p-8">
             <h3 className="text-[16px] mb-3">
               {isArabic ? "ابحث عن نوع تجليد" : "Find a binding type"}
@@ -127,6 +131,7 @@ export default function BindingPage() {
             <h3 className="text-2xl mt-8 mb-4">
               {isArabic ? "أنواع التجليد" : "Binding types"}
             </h3>
+
             <div className="space-y-4">
               {Bindings.map((item) => (
                 <button

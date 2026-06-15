@@ -44,7 +44,7 @@ export default function CoverExtras({ coverExtras }: Props) {
 
   return (
     <section className="py-15">
-      <div className="max-w-7xl mx-auto px-6 py-15">
+      <div className="max-w-362.5 mx-auto px-6 py-15">
         {/* Header */}
         <div className="mb-14">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -58,7 +58,7 @@ export default function CoverExtras({ coverExtras }: Props) {
 
             <Link
               href={`/${locale}/cover-extras`}
-              className="flex items-center gap-3 shrink-0 group"
+              className="hidden lg:flex items-center gap-3 shrink-0 group"
             >
               <span className="text-[20px] border-b border-black pb-1">
                 {isArabic ? "عرض الكل" : "See all"}
