@@ -15,19 +15,29 @@ export default function Hero() {
         transition={{ duration: 2, ease: "easeOut" }}
         className="absolute inset-0"
       >
+        {/* Mobile image */}
         <Image
-          src="/homeImg/hero.svg"
-          alt="Hero"
+          src="/homeImg/hero2.png"
+          alt="Hero mobile"
           fill
           priority
-          className="object-contain md:object-cover object-center"
+          className="block md:hidden object-cover object-center"
+        />
+
+        {/* Desktop image */}
+        <Image
+          src="/homeImg/hero.svg"
+          alt="Hero desktop"
+          fill
+          priority
+          className="hidden md:block object-cover object-center"
         />
       </motion.div>
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/10" />
       <div className="absolute inset-0 bg-black/20" />
 
       <div className="relative z-10 h-full mt-3 sm:mt-4 md:mt-5">
-        <div className="mx-auto h-full flex items-center px-4 sm:px-2 md:px-4 lg:px-20">
+        <div className="mx-auto h-full flex items-center max-w-362.5 px-4 sm:px-6 lg:px-8">
           <div className="w-full lg:w-fit flex flex-col items-center lg:items-start text-center lg:text-left">
             <motion.h2
               initial={{ opacity: 0, y: 40 }}

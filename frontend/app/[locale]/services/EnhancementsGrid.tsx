@@ -70,7 +70,7 @@ export default function EnhancementsGrid({ enhancements }: Props) {
 
   return (
     <section className="bg-[#F3F3F3] py-15">
-      <div className="max-w-7xl mx-auto px-6 py-15">
+      <div className="max-w-362.5 mx-auto px-6 py-15">
         {/* Header */}
         <div className="mb-14">
           <div className="flex items-center justify-between gap-6">
@@ -84,7 +84,7 @@ export default function EnhancementsGrid({ enhancements }: Props) {
 
             <Link
               href="/enhancement"
-              className="flex items-center gap-3 shrink-0 group"
+              className="hidden lg:flex items-center gap-3 shrink-0 group"
             >
               <span className="text-[20px] border-b border-black pb-1">
                 {isArabic ? "عرض الكل" : "See all"}
