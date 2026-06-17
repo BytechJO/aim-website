@@ -50,16 +50,10 @@ export default function ReviewsSection() {
 
   const [current, setCurrent] = useState(0);
 
-  const maxSlide = reviews.length - 3.5;
-  const isEnd = current >= maxSlide;
+  const visibleCards = 3.5;
+  const step = 3.5;
 
-  const handleDesktopSlide = () => {
-    if (!isEnd) {
-      setCurrent((prev) => Math.min(prev + 3, maxSlide));
-    } else {
-      setCurrent((prev) => Math.max(prev - 3, 0));
-    }
-  };
+  const maxSlide = Math.max(0, reviews.length - visibleCards);
 
   const [mobileCurrent, setMobileCurrent] = useState(0);
   const mobileSliderRef = useRef<HTMLDivElement | null>(null);
@@ -237,34 +231,41 @@ export default function ReviewsSection() {
             ))}
           </div>
 
-          <button
-            onClick={handleDesktopSlide}
-            className={`absolute top-1/2 -translate-y-1/2 w-20 h-16 rounded-full bg-[#E8B090] opacity-70 hover:opacity-100 hover:bg-[#d99a77] transition-all duration-300 flex items-center justify-center z-20 ${
-              isArabic
-                ? isEnd
-                  ? "right-0"
-                  : "left-0"
-                : isEnd
-                  ? "left-0"
-                  : "right-0"
-            }`}
-          >
-            <Image
-              src="/homeImg/arrowRight.svg"
-              alt="Arrow"
-              width={26}
-              height={14}
-              className={
-                isArabic
-                  ? isEnd
-                    ? ""
-                    : "rotate-180"
-                  : isEnd
-                    ? "rotate-180"
-                    : ""
+          {current > 0 && (
+            <button
+              onClick={() => setCurrent((prev) => Math.max(prev - step, 0))}
+              className={`absolute top-1/2 -translate-y-1/2 w-20 h-16 rounded-full bg-[#E8B090] opacity-70 hover:opacity-100 flex items-center justify-center z-20 ${
+                isArabic ? "right-0" : "left-0"
+              }`}
+            >
+              <Image
+                src="/homeImg/arrowRight.svg"
+                alt="Previous"
+                width={26}
+                height={14}
+                className={isArabic ? "" : "rotate-180"}
+              />
+            </button>
+          )}
+
+          {current < maxSlide && (
+            <button
+              onClick={() =>
+                setCurrent((prev) => Math.min(prev + step, maxSlide))
               }
-            />
-          </button>
+              className={`absolute top-1/2 -translate-y-1/2 w-20 h-16 rounded-full bg-[#E8B090] opacity-70 hover:opacity-100 flex items-center justify-center z-20 ${
+                isArabic ? "left-0" : "right-0"
+              }`}
+            >
+              <Image
+                src="/homeImg/arrowRight.svg"
+                alt="Next"
+                width={26}
+                height={14}
+                className={isArabic ? "rotate-180" : ""}
+              />
+            </button>
+          )}
         </div>
         <div className="py-20 -mx-4 lg:mx-0">
           <div className="rounded-2xl bg-linear-to-r from-[#E8DD7A] to-[#EB8C67] px-8 py-12 md:px-16 md:py-20">

@@ -15,7 +15,16 @@ export default async function ProductPage({
 }) {
   await params;
   const { slug } = await params;
+  const productsRes = await fetch(ENDPOINTS.PRODUCTS, {
+    cache: "no-store",
+  });
 
+  const allProducts = productsRes.ok ? await productsRes.json() : [];
+
+  const relatedProducts = allProducts
+    .filter((p: any) => p.slug !== slug)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 2);
   const res = await fetch(ENDPOINTS.PRODUCT(slug), {
     cache: "no-store",
   });
@@ -111,8 +120,7 @@ export default async function ProductPage({
       <ExamplesSection images={product.exampleImages} />
       <PublishingBanner />
       <FAQSection />
-      <RelatedProductsSection />
-      <ContactSection />
+      <RelatedProductsSection products={relatedProducts} /> <ContactSection />
     </>
   );
 }
