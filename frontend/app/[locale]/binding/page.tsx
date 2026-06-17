@@ -108,14 +108,14 @@ export default function BindingPage() {
   }
   return (
     <section>
-      <div className="max-w-362.5 mx-auto flex items-start relative">
+      <div className="max-w-362.5 mx-auto flex items-start">
         {/* Sidebar */}
-        <aside className="hidden lg:block w-100 shrink-0 sticky top-18 self-start ">
-          {/* الخلفية الممتدة لآخر الشاشة */}
-          <div className="absolute inset-0 bg-[#F3F3F3] -z-10" />
-          <div className="absolute top-0 bottom-0 right-full w-screen bg-[#F3F3F3] -z-10" />
-
-          <div className="p-8">
+        <aside
+          className={`hidden lg:block w-100 shrink-0 sticky top-18 self-start bg-[#F3F3F3] 
+    before:absolute before:top-0 before:bottom-0 before:w-screen before:bg-[#F3F3F3] before:content-['']
+    ${isArabic ? "before:left-full" : "before:right-full"}`}
+        >
+          <div className="relative p-8">
             <h3 className="text-[16px] mb-3">
               {isArabic ? "ابحث عن نوع تجليد" : "Find a binding type"}
             </h3>

@@ -125,7 +125,11 @@ export default function EnhancementPage() {
     <section>
       <div className="max-w-362.5 mx-auto flex items-start">
         {/* Sidebar */}
-        <aside className="hidden lg:block w-100 shrink-0 sticky top-18 self-start  bg-[#F3F3F3] before:absolute before:top-0 before:bottom-0 before:right-full before:w-screen before:bg-[#F3F3F3] before:content-['']">
+        <aside
+          className={`hidden lg:block w-100 shrink-0 sticky top-18 self-start bg-[#F3F3F3] 
+    before:absolute before:top-0 before:bottom-0 before:w-screen before:bg-[#F3F3F3] before:content-['']
+    ${isArabic ? "before:left-full" : "before:right-full"}`}
+        >
           <div className="relative p-8">
             <h3 className="text-[16px] mb-3">
               {isArabic ? "ابحث عن تحسين" : "Find an enhancement"}

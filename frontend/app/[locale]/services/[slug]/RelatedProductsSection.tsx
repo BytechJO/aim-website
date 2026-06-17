@@ -4,28 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 
+type Product = {
+  id: number;
+  slug: string;
+  title_en: string;
+  title_ar: string;
+  subtitle_en?: string;
+  subtitle_ar?: string;
+  image_url: string;
+};
 
-export default function RelatedProductsSection() {
-  const relatedProducts = [
-    {
-      id: 2,
-      slug: "hardcover-perfect-bound",
-      title_en: "Hardcover",
-      title_ar: "غلاف مقوى",
-      subtitle_en: "perfect bound",
-      subtitle_ar: "تجليد لاصق",
-      image: "/homeImg/book.png",
-    },
-    {
-      id: 3,
-      slug: "softcover-thread-sewn",
-      title_en: "Softcover",
-      title_ar: "غلاف ورقي",
-      subtitle_en: "thread sewn",
-      subtitle_ar: "خياطة بالخيط",
-      image: "/homeImg/book1.png",
-    },
-  ];
+export default function RelatedProductsSection({
+  products,
+}: {
+  products: Product[];
+}) {
   const locale = useLocale();
   const isArabic = locale === "ar";
 
@@ -38,19 +31,20 @@ export default function RelatedProductsSection() {
       >
         {isArabic ? "منتجات ذات صلة" : "Related products"}
       </h2>
+
       <div className="flex gap-6 flex-wrap">
-        {relatedProducts.map((product) => (
+        {products.map((product) => (
           <Link
             key={product.id}
-            href={`/services/${product.slug}`}
+            href={`/${locale}/services/${product.slug}`}
             className="group"
           >
             <div className="relative w-50 h-50 overflow-hidden">
               <Image
-                src={product.image}
+                src={product.image_url}
                 alt={isArabic ? product.title_ar : product.title_en}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105 "
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </div>
 

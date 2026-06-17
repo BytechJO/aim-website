@@ -15,4 +15,7 @@ export const ENDPOINTS = {
   INSTAGRAM: `${API_BASE_URL}/instagram`,
   CONTACT: `${API_BASE_URL}/contact`,
   NEWSLETTER_SUBSCRIBE: `${API_BASE_URL}/newsletter/subscribe`,
+
+  NEWS: `${API_BASE_URL}/news/public`,
+  NEWS_ITEM: (slug: string) => `${API_BASE_URL}/news/public/${slug}`,
 };

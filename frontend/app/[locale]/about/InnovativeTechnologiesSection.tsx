@@ -33,22 +33,22 @@ export default function InnovativeTechnologiesSection() {
 
   return (
     <section className="w-full  py-24 lg:py-32">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="max-w-[720px]"
+          className="max-w-180"
         >
           <h2
-            className={`${locale === "en" ? "font-adamina" : "font-cairo"} text-[48px] md:text-[72px] leading-none text-black whitespace-nowrap`}
+            className={`${locale === "en" ? "font-adamina" : "font-cairo"} text-[40px] md:text-[72px] leading-10 text-black md:whitespace-nowrap `}
           >
             {t("title")}
           </h2>
 
-          <p className="mt-8 text-[14px] md:text-[16px] leading-7 text-[#333] max-w-[620px]">
+          <p className="mt-8 text-[14px] md:text-[16px] leading-7 text-[#333] max-w-155">
             {t("description")}
           </p>
         </motion.div>
@@ -77,7 +77,7 @@ export default function InnovativeTechnologiesSection() {
               <div className="h-px bg-[#D8D8D8] mb-8" />
 
               {/* logo */}
-              <div className="h-[40px] flex items-center">
+              <div className="h-10 flex items-center">
                 <Image
                   src={item.logo}
                   alt={item.title}
@@ -88,7 +88,7 @@ export default function InnovativeTechnologiesSection() {
               </div>
 
               {/* text */}
-              <p className="mt-8 text-[14px] leading-7 text-[#333] max-w-[520px]">
+              <p className="mt-8 text-[14px] leading-7 text-[#333] max-w-130">
                 {item.description}
               </p>
             </motion.div>
