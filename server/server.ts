@@ -14,8 +14,7 @@ import contactRoutes from "./src/routes/contact.routes";
 import newsletterRoutes from "./src/routes/newsletter.routes";
 import uploadRoutes from "./src/routes/upload.routes";
 import analyticsRoutes from "./src/routes/analytics.routes";
-import enhancementRoutes from "./src/routes/enhancement/enhancement.routes";
-import enhancementTypesRoutes from "./src/routes/enhancement/enhancement-types.routes";
+import enhancementRoutes from "./src/routes/enhancement.routes";
 import coverExtraRoutes from "./src/routes/cover_extras.routes";
 import newsRoutes from "./src/routes/news.routes";
 dotenv.config();
@@ -43,7 +42,6 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/enhancements", enhancementRoutes);
-app.use("/api/enhancement-types", enhancementTypesRoutes);
 app.use("/api/cover-extras", coverExtraRoutes);
 app.use("/api/news", newsRoutes);
 initDB()

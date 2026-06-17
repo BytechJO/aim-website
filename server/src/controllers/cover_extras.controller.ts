@@ -5,7 +5,6 @@ export async function getAll(req: Request, res: Response): Promise<void> {
   const { rows } = await pool.query(`
     SELECT *
     FROM cover_extras
-    WHERE is_active = true
     ORDER BY sort_order, id;
   `);
 
@@ -84,6 +83,8 @@ export async function update(req: Request, res: Response): Promise<void> {
     sort_order,
     is_active,
   } = req.body;
+ const generatedSlug =
+    slug || title_en.toLowerCase().trim().replace(/\s+/g, "-");
 
   const { rows } = await pool.query(
     `
@@ -101,7 +102,7 @@ export async function update(req: Request, res: Response): Promise<void> {
     RETURNING *
     `,
     [
-      slug,
+      generatedSlug,
       title_en,
       title_ar,
       description_en,

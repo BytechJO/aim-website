@@ -1,14 +1,15 @@
 import { Router } from "express";
+
 import {
   getAll,
   getOne,
   create,
   update,
   remove,
-} from "../../controllers/enhancement/enhancement.controller";
+} from "../controllers/enhancement.controller";
 
-import { authenticate } from "../../middleware/authenticate";
-import { requireAdmin } from "../../middleware/authorize";
+import { authenticate } from "../middleware/authenticate";
+import { requireAdmin } from "../middleware/authorize";
 
 const router = Router();
 
