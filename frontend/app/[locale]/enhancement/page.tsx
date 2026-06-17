@@ -16,13 +16,13 @@ interface Enhancement {
   sort_order: number;
   image_url: string[];
   images?: string[];
-  types?: {
-    id: number;
+  sub_enhancements?: {
     title_en: string;
     title_ar: string;
     description_en?: string;
     description_ar?: string;
-    images?: string[];
+    image_url?: string[];
+    sort_order?: number;
   }[];
 }
 export default function EnhancementPage() {
@@ -53,14 +53,17 @@ export default function EnhancementPage() {
     const q = search.toLowerCase().trim();
 
     for (const category of enhancements) {
-      const matchedType = category.types?.find(
-        (type) =>
-          type.title_en.toLowerCase().includes(q) ||
-          type.title_ar.toLowerCase().includes(q),
-      );
+      const matchedIndex =
+        category.sub_enhancements?.findIndex(
+          (type) =>
+            type.title_en.toLowerCase().includes(q) ||
+            type.title_ar.toLowerCase().includes(q),
+        ) ?? -1;
 
-      if (matchedType) {
-        const element = document.getElementById(`type-${matchedType.id}`);
+      if (matchedIndex >= 0) {
+        const element = document.getElementById(
+          `type-${category.id}-${matchedIndex}`,
+        );
 
         if (element) {
           const y = element.getBoundingClientRect().top + window.scrollY - 120;
@@ -70,6 +73,7 @@ export default function EnhancementPage() {
             behavior: "smooth",
           });
         }
+
         return;
       }
     }
@@ -227,8 +231,12 @@ export default function EnhancementPage() {
                 )}
 
                 {/* التايبات */}
-                {category.types?.map((type) => (
-                  <div key={type.id} id={`type-${type.id}`} className="mb-20">
+                {category.sub_enhancements?.map((type, index) => (
+                  <div
+                    key={index}
+                    id={`type-${category.id}-${index}`}
+                    className="mb-20"
+                  >
                     <h3 className="text-4xl mb-5">
                       {isArabic ? type.title_ar : type.title_en}
                     </h3>
@@ -239,8 +247,8 @@ export default function EnhancementPage() {
                       </p>
                     )}
 
-                    {type.images && type.images.length > 0 && (
-                      <EnhancementImages images={type.images} />
+                    {type.image_url && type.image_url.length > 0 && (
+                      <EnhancementImages images={type.image_url} />
                     )}
                   </div>
                 ))}
