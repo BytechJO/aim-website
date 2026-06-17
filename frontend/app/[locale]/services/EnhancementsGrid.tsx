@@ -4,14 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
 import { useState } from "react";
-
-type EnhancementType = {
-  id: number;
-  slug: string;
+type SubEnhancement = {
   title_en: string;
   title_ar: string;
-  images: string[];
-  sort_order: number;
+  description_en?: string;
+  description_ar?: string;
+  image_url?: string[];
+  sort_order?: number;
 };
 
 type Enhancement = {
@@ -23,7 +22,7 @@ type Enhancement = {
   description_ar: string;
   image_url: string[];
   sort_order: number;
-  types: EnhancementType[];
+  sub_enhancements?: SubEnhancement[];
 };
 type Card = {
   id: string;
@@ -44,16 +43,18 @@ export default function EnhancementsGrid({ enhancements }: Props) {
   const cards: Card[] = enhancements
     .sort((a, b) => a.sort_order - b.sort_order)
     .flatMap((category) => {
-      if (category.types.length > 0) {
-        return [...category.types]
-          .sort((a, b) => a.sort_order - b.sort_order)
-          .map((type) => ({
-            id: `${category.id}-${type.id}`,
-            slug: category.slug,
-            image: type.images?.[0],
-            title: isArabic ? category.title_ar : category.title_en,
-            subtitle: isArabic ? type.title_ar : type.title_en,
-          }));
+      if ((category.sub_enhancements?.length ?? 0) > 0) {
+        return (
+          category.sub_enhancements
+            ?.sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
+            .map((type, index) => ({
+              id: `${category.id}-${index}`,
+              slug: category.slug,
+              image: type.image_url?.[0],
+              title: isArabic ? category.title_ar : category.title_en,
+              subtitle: isArabic ? type.title_ar : type.title_en,
+            })) ?? []
+        );
       }
 
       return [
