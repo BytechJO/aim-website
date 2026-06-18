@@ -760,6 +760,36 @@ tbody tr:hover td{background:rgba(246,246,246,.8)}
       <div class="ni" onclick="sec('products')" data-s="products"><i class="ni-ic"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></i>Products</div>
       <div class="ni" onclick="sec('reviews')" data-s="reviews"><i class="ni-ic"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></i>Reviews</div>
       <div class="ni" onclick="sec('instagram')" data-s="instagram"><i class="ni-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></i>Instagram</div>
+      <div class="ni" onclick="sec('news')" data-s="news">
+  <i class="ni-ic">
+    <svg viewBox="0 0 24 24">
+      <path d="M4 5h16v14H4z"/>
+      <line x1="8" y1="9" x2="16" y2="9"/>
+      <line x1="8" y1="13" x2="16" y2="13"/>
+      <line x1="8" y1="17" x2="13" y2="17"/>
+    </svg>
+  </i>
+  News
+</div>
+<div class="ni" onclick="sec('enhancements')" data-s="enhancements">
+  <i class="ni-ic">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z"/>
+    </svg>
+  </i>
+  Enhancements
+</div>
+<div class="ni" onclick="sec('cover-extras')" data-s="cover-extras">
+  <i class="ni-ic">
+    <svg viewBox="0 0 24 24">
+      <path d="M4 5h16v14H4z"/>
+      <line x1="7" y1="9" x2="17" y2="9"/>
+      <line x1="7" y1="13" x2="17" y2="13"/>
+      <line x1="7" y1="17" x2="13" y2="17"/>
+    </svg>
+  </i>
+  Cover Extras
+</div>
       <div class="nlabel">Inbox</div>
       <div class="ni" onclick="sec('contact')" data-s="contact">
         <i class="ni-ic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></i>Contact
@@ -844,7 +874,65 @@ tbody tr:hover td{background:rgba(246,246,246,.8)}
         <div id="ig-c"><div class="loading"><div class="spin"></div></div></div>
       </div>
     </div>
+<!-- NEWS -->
+<div id="s-news" class="sp">
+  <div class="tbar">
+    <span class="tbar-title">News</span>
+    <div class="tbar-acts">
+      <button class="btn btn-dark btn-sm" onclick="openNews()">
+        + Add News
+      </button>
+    </div>
+  </div>
 
+  <div class="sbody">
+    <div id="news-c">
+      <div class="loading">
+        <div class="spin"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ENHANCEMENTS -->
+<div id="s-enhancements" class="sp">
+  <div class="tbar">
+    <span class="tbar-title">Enhancements</span>
+
+    <div class="tbar-acts">
+      <button class="btn btn-dark btn-sm" onclick="openEnhancement()">
+        + Add Enhancement
+      </button>
+    </div>
+  </div>
+
+  <div class="sbody">
+    <div id="enhancements-c">
+      <div class="loading">
+        <div class="spin"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- COVER EXTRAS -->
+<div id="s-cover-extras" class="sp">
+  <div class="tbar">
+    <span class="tbar-title">Cover Extras</span>
+
+    <div class="tbar-acts">
+      <button class="btn btn-dark btn-sm" onclick="openCoverExtra()">
+        + Add Cover Extra
+      </button>
+    </div>
+  </div>
+
+  <div class="sbody">
+    <div id="cover-extras-c">
+      <div class="loading">
+        <div class="spin"></div>
+      </div>
+    </div>
+  </div>
+</div>
     <!-- CONTACT -->
     <div id="s-contact" class="sp">
       <div class="tbar">
@@ -1001,7 +1089,8 @@ function sec(name){
   const ni=document.querySelector(`[data-s="${name}"]`);
   if(ni) ni.classList.add('on');
   S.cur=name;
-  ({overview:loadOverview,products:loadProducts,reviews:loadReviews,instagram:loadIG,contact:loadContact,newsletter:loadNews,admins:loadAdmins,analytics:loadAnalytics})[name]?.();
+  ({overview:loadOverview,products:loadProducts,reviews:loadReviews,instagram:loadIG,contact:loadContact,newsletter:loadNews,admins:loadAdmins,analytics:loadAnalytics,news: loadNewsArticles,enhancements: loadEnhancements,  "cover-extras": loadCoverExtras,
+})[name]?.();
 }
 
 // ════════════════════════════════════════════
@@ -1868,5 +1957,8 @@ g('le').addEventListener('keydown',e=>{ if(e.key==='Enter') g('lp').focus(); });
 // safety: always start on login view
 showView('vLogin');
 </script>
+<script src="./news.js"></script>
+<script src="./enhancements.js"></script>
+<script src="./cover_extra.js"></script>
 </body>
 </html>
