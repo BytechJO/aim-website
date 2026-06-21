@@ -28,7 +28,13 @@ function Model({ modelUrl }: { modelUrl: string }) {
   );
 }
 
-export default function Book3D({ modelUrl }: { modelUrl: string }) {
+export default function Book3D({
+  modelUrl,
+  height = "500px",
+}: {
+  modelUrl: string;
+  height?: string;
+}) {
   useEffect(() => {
     return () => {
       document.body.style.cursor = "default";
@@ -36,7 +42,7 @@ export default function Book3D({ modelUrl }: { modelUrl: string }) {
   }, []);
 
   return (
-    <div className="w-full h-[500px]">
+    <div className="w-full" style={{ height }}>
       <Canvas camera={{ position: [0, 0, 5], fov: 35 }}>
         <ambientLight intensity={2} />
         <directionalLight position={[5, 5, 5]} intensity={2} />

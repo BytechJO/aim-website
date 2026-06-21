@@ -13,6 +13,8 @@ interface Block {
 
   images?: string[];
 
+  list_style?: "bullet" | "numbered";
+
   items_en?: string[];
   items_ar?: string[];
 }
@@ -71,13 +73,30 @@ export default function NewsSections({ sections }: Props) {
             if (block.type === "list") {
               const items = isArabic ? block.items_ar : block.items_en;
 
+              if (block.list_style === "numbered") {
+                return (
+                  <ol
+                    key={blockIndex}
+                    className="list-decimal ps-6 space-y-4 text-lg leading-8 mb-10"
+                  >
+                    {items?.map((item, i) => (
+                      <li key={i} className="whitespace-pre-line">
+                        {item}
+                      </li>
+                    ))}
+                  </ol>
+                );
+              }
+
               return (
                 <ul
                   key={blockIndex}
                   className="list-disc ps-6 space-y-4 text-lg leading-8 mb-10"
                 >
                   {items?.map((item, i) => (
-                    <li key={i}>{item}</li>
+                    <li key={i} className="whitespace-pre-line">
+                      {item}
+                    </li>
                   ))}
                 </ul>
               );
