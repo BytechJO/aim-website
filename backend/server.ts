@@ -17,6 +17,8 @@ import analyticsRoutes from "./src/routes/analytics.routes";
 import enhancementRoutes from "./src/routes/enhancement.routes";
 import coverExtraRoutes from "./src/routes/cover_extras.routes";
 import newsRoutes from "./src/routes/news.routes";
+import dashboardRoutes from "./src/routes/dashboard.routes";
+
 dotenv.config();
 
 const app = express();
@@ -44,6 +46,7 @@ app.use("/api/analytics", analyticsRoutes);
 app.use("/api/enhancements", enhancementRoutes);
 app.use("/api/cover-extras", coverExtraRoutes);
 app.use("/api/news", newsRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 initDB()
   .then(() => seedSuperAdmin())
   .then(() => {

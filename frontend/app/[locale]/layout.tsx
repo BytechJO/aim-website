@@ -9,7 +9,6 @@ import {
   Adamina,
   Cairo,
 } from "next/font/google";
-import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import NavBar from "./components/layout/navBar";
@@ -49,6 +48,7 @@ const cairo = Cairo({
   variable: "--font-cairo",
   subsets: ["arabic"],
 });
+
 export const metadata: Metadata = {
   title: "AIM Website",
   description: "We print books perfectly",
@@ -66,18 +66,16 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html
+    <div
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
-      className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${montserrat.variable} ${plusJakartaSans.variable} ${charm.variable} ${adamina.variable} ${cairo.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${montserrat.variable} ${plusJakartaSans.variable} ${charm.variable} ${adamina.variable} ${cairo.variable} min-h-full antialiased flex flex-col`}
     >
-      <body className="min-h-full flex flex-col">
-        <NextIntlClientProvider messages={messages}>
-          <NavBar />
-          <main className="pt-19.25 flex-1">{children}</main>
-          <Footer />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+      <NextIntlClientProvider messages={messages}>
+        <NavBar />
+        <main className="pt-19.25 flex-1">{children}</main>
+        <Footer />
+      </NextIntlClientProvider>
+    </div>
   );
 }

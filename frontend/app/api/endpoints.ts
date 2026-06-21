@@ -18,4 +18,10 @@ export const ENDPOINTS = {
 
   NEWS: `${API_BASE_URL}/news/public`,
   NEWS_ITEM: (slug: string) => `${API_BASE_URL}/news/public/${slug}`,
+  NEWS_ADMIN: `${API_BASE_URL}/news`,
+
+  DASHBOARD: `${API_BASE_URL}/dashboard`,
+
+  UPLOAD: `${API_BASE_URL}/upload`,
+  USERS: `${API_BASE_URL}/admins`,
 };
