@@ -128,8 +128,6 @@ export default function Reviews() {
               </span>
             ))}
           </div>
-
-          
         </div>
       ),
     },
@@ -168,14 +166,14 @@ export default function Reviews() {
               setEditingItem(item);
               setShowForm(true);
             }}
-            className="rounded-full border border-[#D7D9DF] px-4 py-1.5 text-[12px]"
+            className="rounded-full border border-[#D7D9DF] px-4 py-1.5 text-[12px] font-medium hover:bg-[#F6F6F6] cursor-pointer"
           >
             Edit
           </button>
 
           <button
             onClick={() => setDeleteItem(item)}
-            className="rounded-full border border-[#F1C5C5] px-4 py-1.5 text-[12px] text-[#D64545]"
+            className="rounded-full border border-[#F1C5C5] px-4 py-1.5 text-[12px] font-medium text-[#D64545] hover:bg-[#FFF5F5] cursor-pointer"
           >
             Delete
           </button>

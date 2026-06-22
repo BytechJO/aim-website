@@ -99,7 +99,7 @@ export default function CoverExtras({ coverExtras }: Props) {
               </div>
 
               <div className="mt-5">
-                <h3 className="font-bold text-[20px] text-black">
+                <h3 className="font-semibold text-[20px] text-black">
                   {item.title}
                 </h3>
 

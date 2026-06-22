@@ -203,7 +203,7 @@ export default function Overview({ stats, onNavigate }: Props) {
 
               <button
                 onClick={() => onNavigate("contact")}
-                className="rounded-full border border-[#D7D9DF] px-4 py-2 text-xs font-semibold transition hover:bg-[#F6F6F6]"
+                className="rounded-full border border-[#D7D9DF] px-4 py-2 text-xs font-semibold transition hover:bg-[#F6F6F6] cursor-pointer"
               >
                 View all →
               </button>

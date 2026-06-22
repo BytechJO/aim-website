@@ -209,5 +209,29 @@
       "title": "RICOH",
       "description": "Last but not least, there are two Ricoh Pro C9200 sheet-fed presses that we mainly use for printing covers. The machines enable us to achieve high print quality with vivid and lifelike colours and smooth colour gradients."
     }
+  },
+  "ContactModal": {
+    "callMeBack": "Call me back",
+    "leaveMessage": "Leave a message",
+    "requestCall": "Request a call",
+    "getInTouch": "Get in touch",
+    "callbackDesc": "Enter your details and we'll call you back shortly.",
+    "messageDesc": "We'd love to hear from you. Send us a message.",
+    "name": "Your name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Your message...",
+    "quickCallback": "Quick callback",
+    "usually": "Usually within 15 minutes",
+    "callbackInfo": "Our team will reach out to the number you provided during business hours.",
+    "required": "Please fill in all required fields",
+    "sending": "Sending...",
+    "requestCallback": "Request callback",
+    "sendMessage": "Send message",
+    "privacy": "By submitting, you agree to our privacy policy.",
+    "successCallback": "Callback request sent successfully",
+    "successMessage": "Message sent successfully",
+    "failCallback": "Failed to send callback request",
+    "failMessage": "Failed to send message"
   }
 }

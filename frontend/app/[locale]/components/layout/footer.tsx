@@ -6,12 +6,12 @@ import { useState, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { ENDPOINTS } from "@/app/api/endpoints";
 
 const LOCALES = [
   { code: "en", label: "English", flag: "🇬🇧" },
   { code: "ar", label: "العربية", flag: "🇸🇦" },
 ] as const;
-
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -127,7 +127,58 @@ export default function Footer() {
   };
 
   const currentLang = LOCALES.find((l) => l.code === locale) ?? LOCALES[0];
+  const [popup, setPopup] = useState<{
+    open: boolean;
+    success: boolean;
+    message: string;
+  }>({
+    open: false,
+    success: true,
+    message: "",
+  });
+  const handleSubscribe = async () => {
+    if (!email.trim()) {
+      setPopup({
+        open: true,
+        success: false,
+        message: "Please enter your email address",
+      });
+      return;
+    }
 
+    try {
+      const res = await fetch(`${ENDPOINTS.NEWSLETTER}/subscribe`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          locale,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Subscription failed");
+      }
+
+      setEmail("");
+
+      setPopup({
+        open: true,
+        success: true,
+        message: "Successfully subscribed to our newsletter!",
+      });
+    } catch (err) {
+      setPopup({
+        open: true,
+        success: false,
+        message: err instanceof Error ? err.message : "Something went wrong",
+      });
+    }
+  };
   return (
     <footer ref={ref} className="bg-[#F6F6F6] w-full mt-auto overflow-hidden">
       {/* ── Main content ─────────────────────────────────────────────────── */}
@@ -299,6 +350,7 @@ export default function Footer() {
               className="flex-1 bg-transparent outline-none font-inter text-[14px] text-gray-600 placeholder:text-gray-400 min-w-0"
             />
             <motion.button
+              onClick={handleSubscribe}
               aria-label="Subscribe"
               className="w-10 h-10 shrink-0 rounded-full border-[1.5px] border-[#3F6EE8] flex items-center justify-center text-[#3F6EE8] bg-transparent"
               whileHover={{
@@ -316,7 +368,7 @@ export default function Footer() {
                 viewBox="0 0 16 16"
                 fill="none"
                 aria-hidden="true"
-                 className="rtl:rotate-180"
+                className="rtl:rotate-180"
               >
                 <path
                   d="M3 8H13M13 8L9 4M13 8L9 12"
@@ -538,11 +590,48 @@ export default function Footer() {
             </AnimatePresence>
           </div>
 
-          <span dir="ltr" className="font-montserrat font-semibold text-[18px] leading-6 underline text-[#707070]">
+          <span
+            dir="ltr"
+            className="font-montserrat font-semibold text-[18px] leading-6 underline text-[#707070]"
+          >
             AIM © 2026. All rights reserved.
           </span>
         </div>
       </motion.div>
+      <AnimatePresence>
+        {popup.open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-999 flex items-center justify-center bg-black/40 backdrop-blur-sm"
+            onClick={() => setPopup((p) => ({ ...p, open: false }))}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-3xl p-8 w-full max-w-md text-center shadow-2xl"
+            >
+              <div className="text-5xl mb-4">{popup.success ? "✓" : "⚠"}</div>
+
+              <h3 className="text-2xl font-semibold mb-3">
+                {popup.success ? "Success" : "Oops"}
+              </h3>
+
+              <p className="text-[#707070]">{popup.message}</p>
+
+              <button
+                onClick={() => setPopup((p) => ({ ...p, open: false }))}
+                className="mt-6 rounded-full bg-black text-white px-6 py-3 cursor-pointer"
+              >
+                Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </footer>
   );
 }
