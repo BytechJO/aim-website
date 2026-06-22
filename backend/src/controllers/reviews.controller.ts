@@ -1,14 +1,21 @@
-import { Request, Response } from 'express';
-import { pool } from '../config/db';
+import { Request, Response } from "express";
+import { pool } from "../config/db";
 
 export async function getAll(req: Request, res: Response): Promise<void> {
-  const { rows } = await pool.query('SELECT * FROM reviews ORDER BY sort_order ASC');
+  const { rows } = await pool.query(
+    "SELECT * FROM reviews ORDER BY sort_order ASC",
+  );
   res.json(rows);
 }
 
 export async function getOne(req: Request, res: Response): Promise<void> {
-  const { rows } = await pool.query('SELECT * FROM reviews WHERE id = $1', [req.params.id]);
-  if (!rows[0]) { res.status(404).json({ error: 'Not found' }); return; }
+  const { rows } = await pool.query("SELECT * FROM reviews WHERE id = $1", [
+    req.params.id,
+  ]);
+  if (!rows[0]) {
+    res.status(404).json({ error: "Not found" });
+    return;
+  }
   res.json(rows[0]);
 }
 
@@ -29,12 +36,34 @@ export async function update(req: Request, res: Response): Promise<void> {
      WHERE id=$7 RETURNING *`,
     [title, body, author, rating, sort_order, is_active, req.params.id],
   );
-  if (!rows[0]) { res.status(404).json({ error: 'Not found' }); return; }
+  if (!rows[0]) {
+    res.status(404).json({ error: "Not found" });
+    return;
+  }
   res.json(rows[0]);
 }
 
 export async function remove(req: Request, res: Response): Promise<void> {
-  const { rowCount } = await pool.query('DELETE FROM reviews WHERE id = $1', [req.params.id]);
-  if (!rowCount) { res.status(404).json({ error: 'Not found' }); return; }
+  const { rowCount } = await pool.query("DELETE FROM reviews WHERE id = $1", [
+    req.params.id,
+  ]);
+  if (!rowCount) {
+    res.status(404).json({ error: "Not found" });
+    return;
+  }
   res.status(204).send();
+}
+
+export async function getLatest(req: Request, res: Response): Promise<void> {
+  const { rows } = await pool.query(
+    `
+    SELECT *
+    FROM reviews
+    WHERE is_active = true
+    ORDER BY sort_order ASC
+    LIMIT 7
+    `,
+  );
+
+  res.json(rows);
 }

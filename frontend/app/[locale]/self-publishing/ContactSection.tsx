@@ -1,9 +1,18 @@
+"use client";
+
+import { useState } from "react";
 import { useLocale } from "next-intl";
 import Image from "next/image";
+import ContactModal from "../components/ContactModal";
+import AskQuestionModal from "../components/AskQuestionModal";
 
 export default function ContactSection() {
   const locale = useLocale();
   const isArabic = locale === "ar";
+
+  const [openContactModal, setOpenContactModal] = useState(false);
+  const [openAskModal, setOpenAskModal] = useState(false);
+
   return (
     <section className="py-24">
       <div className="w-full md:max-w-[80%] mx-auto px-4 lg:px-8">
@@ -15,9 +24,7 @@ export default function ContactSection() {
                 src="/self-publishing/contact-section.png"
                 alt="Contact"
                 fill
-                className={`object-contain
-                    
-                    `}
+                className="object-contain"
               />
             </div>
 
@@ -30,7 +37,9 @@ export default function ContactSection() {
               </p>
 
               <h2
-                className={`${locale === "en" ? "font-adamina" : "font-cairo"} mt-4 text-5xl lg:text-7xl font-light text-[#202543]`}
+                className={`${
+                  locale === "en" ? "font-adamina" : "font-cairo"
+                } mt-4 text-5xl lg:text-7xl font-light text-[#202543]`}
               >
                 {isArabic ? "لنتحدث" : "Let’s talk"}
               </h2>
@@ -42,11 +51,19 @@ export default function ContactSection() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-10">
-                <button className="px-15 py-3 rounded-full bg-black text-white cursor-pointer transition-all duration-300 hover:bg-[#5C5858] hover:scale-105">
+                <button
+                  type="button"
+                  onClick={() => setOpenAskModal(true)}
+                  className="px-15 py-3 rounded-full bg-black text-white cursor-pointer transition-all duration-300 hover:bg-[#5C5858] hover:scale-105"
+                >
                   {isArabic ? "اطرح سؤالاً" : "Ask a question"}
                 </button>
 
-                <button className="px-15 py-3 rounded-full bg-white text-black border border-gray-200 cursor-pointer transition-all duration-300 hover:bg-[#E1D8D8]   hover:scale-105">
+                <button
+                  type="button"
+                  onClick={() => setOpenContactModal(true)}
+                  className="px-15 py-3 rounded-full bg-white text-black border border-gray-200 cursor-pointer transition-all duration-300 hover:bg-[#E1D8D8] hover:scale-105"
+                >
                   {isArabic ? "اتصل بنا" : "Call us"}
                 </button>
               </div>
@@ -55,7 +72,10 @@ export default function ContactSection() {
                 {isArabic
                   ? "يمكنكم أيضاً مراسلتنا عبر البريد الإلكتروني:"
                   : "You can also write to us:"}
-                <a href="mailto:info@example.com" className="ml-2 underline">
+                <a
+                  href="mailto:sales@aim.com.pl"
+                  className={isArabic ? "mr-2 underline" : "ml-2 underline"}
+                >
                   sales@aim.com.pl
                 </a>
               </p>
@@ -63,6 +83,17 @@ export default function ContactSection() {
           </div>
         </div>
       </div>
+
+      <AskQuestionModal
+        open={openAskModal}
+        onClose={() => setOpenAskModal(false)}
+      />
+
+      <ContactModal
+        open={openContactModal}
+        type="callback"
+        onClose={() => setOpenContactModal(false)}
+      />
     </section>
   );
 }

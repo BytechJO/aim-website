@@ -13,6 +13,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import NavBar from "./components/layout/navBar";
 import Footer from "./components/layout/footer";
+import { ToastProvider } from "../shared/ToastProvider";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -73,7 +74,9 @@ export default async function LocaleLayout({
     >
       <NextIntlClientProvider messages={messages}>
         <NavBar />
-        <main className="pt-19.25 flex-1">{children}</main>
+        <ToastProvider>
+          <main className="pt-19.25 flex-1">{children}</main>
+        </ToastProvider>
         <Footer />
       </NextIntlClientProvider>
     </div>

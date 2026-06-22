@@ -37,10 +37,32 @@ export default function Login({ onLogin }: Props) {
         throw new Error(data.error || "Login failed");
       }
 
+      if (data.approval_status === "pending") {
+        setError(
+          "Your account is still pending approval. Please wait for super admin approval.",
+        );
+        return;
+      }
+
+      if (data.approval_status === "rejected") {
+        setError(
+          data.rejection_reason
+            ? `Your account was rejected. Reason: ${data.rejection_reason}`
+            : "Your account was rejected. Please contact the super admin.",
+        );
+        return;
+      }
+
+      if (data.approval_status !== "approved") {
+        setError("Your account is not approved yet.");
+        return;
+      }
+
       localStorage.setItem("admin_token", data.token);
       localStorage.setItem("admin_role", data.role);
       localStorage.setItem("admin_approval_status", data.approval_status);
       sessionStorage.setItem("show_admin_welcome", "true");
+
       onLogin();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");

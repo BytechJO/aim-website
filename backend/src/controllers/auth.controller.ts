@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
-import bcrypt from 'bcryptjs';
-import { pool } from '../config/db';
-import { signToken } from '../helpers/jwt';
+import { Request, Response } from "express";
+import bcrypt from "bcryptjs";
+import { pool } from "../config/db";
+import { signToken } from "../helpers/jwt";
 
 export async function register(req: Request, res: Response): Promise<void> {
   const { email, password, full_name, job_number, position } = req.body as {
@@ -14,7 +14,7 @@ export async function register(req: Request, res: Response): Promise<void> {
 
   if (!email || !password || !full_name || !job_number) {
     res.status(400).json({
-      error: 'email, password, full_name, and job_number are required',
+      error: "email, password, full_name, and job_number are required",
     });
     return;
   }
@@ -30,16 +30,16 @@ export async function register(req: Request, res: Response): Promise<void> {
     );
   } catch (err: unknown) {
     // 23505 = unique_violation (email or job_number already taken)
-    if ((err as { code?: string }).code === '23505') {
-      res.status(409).json({ error: 'Email or job number already registered' });
+    if ((err as { code?: string }).code === "23505") {
+      res.status(409).json({ error: "Email or job number already registered" });
       return;
     }
     throw err;
   }
 
   res.status(201).json({
-    message: 'Admin account created and awaiting super admin approval',
-    approval_status: 'pending',
+    message: "Admin account created and awaiting super admin approval",
+    approval_status: "pending",
   });
 }
 
@@ -47,18 +47,18 @@ export async function login(req: Request, res: Response): Promise<void> {
   const { email, password } = req.body as { email: string; password: string };
 
   if (!email || !password) {
-    res.status(400).json({ error: 'Email and password are required' });
+    res.status(400).json({ error: "Email and password are required" });
     return;
   }
 
   const { rows } = await pool.query(
-    'SELECT id, email, password_hash, role, approval_status FROM users WHERE email = $1',
+    "SELECT id, email, password_hash, role, approval_status FROM users WHERE email = $1",
     [email],
   );
 
   const user = rows[0];
   if (!user || !(await bcrypt.compare(password, user.password_hash))) {
-    res.status(401).json({ error: 'Invalid credentials' });
+    res.status(401).json({ error: "Invalid credentials" });
     return;
   }
 
@@ -73,5 +73,42 @@ export async function login(req: Request, res: Response): Promise<void> {
     token,
     role: user.role,
     approval_status: user.approval_status,
+  });
+}
+
+export async function me(req: Request, res: Response): Promise<void> {
+  const authUser = (req as any).user;
+
+  if (!authUser?.id) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  const { rows } = await pool.query(
+    `
+    SELECT 
+      id,
+      email,
+      full_name,
+      job_number,
+      position,
+      role,
+      approval_status,
+      created_at
+    FROM users
+    WHERE id = $1
+    `,
+    [authUser.id],
+  );
+
+  const user = rows[0];
+
+  if (!user) {
+    res.status(404).json({ error: "User not found" });
+    return;
+  }
+
+  res.json({
+    user,
   });
 }

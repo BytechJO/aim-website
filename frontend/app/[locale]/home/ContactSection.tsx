@@ -3,11 +3,15 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
+import ContactModal from "../components/ContactModal";
 
 export default function ContactSection() {
   const t = useTranslations("ContactSection");
   const locale = useLocale();
   const isArabic = locale === "ar";
+  const [openModal, setOpenModal] = useState(false);
+  const [modalType, setModalType] = useState<"message" | "callback">("message");
   return (
     <section>
       <div className="max-w-300.5 mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,11 +56,23 @@ export default function ContactSection() {
               <p className="text-black/70 max-w-lg leading-7">{t("p3")}</p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mt-10">
-                <button className="w-full sm:w-auto px-10 py-4 rounded-full bg-black text-white hover:bg-[#514D4D] cursor-pointer">
+                <button
+                  onClick={() => {
+                    setModalType("message");
+                    setOpenModal(true);
+                  }}
+                  className="w-full sm:w-auto px-10 py-4 rounded-full bg-black text-white hover:bg-[#514D4D] cursor-pointer"
+                >
                   {t("leaveButton")}
                 </button>
 
-                <button className="w-full sm:w-auto px-10 py-4 rounded-full bg-black text-white hover:bg-[#514D4D] cursor-pointer">
+                <button
+                  onClick={() => {
+                    setModalType("callback");
+                    setOpenModal(true);
+                  }}
+                  className="w-full sm:w-auto px-10 py-4 rounded-full bg-black text-white hover:bg-[#514D4D] cursor-pointer"
+                >
                   {t("callButton")}
                 </button>
               </div>
@@ -70,6 +86,11 @@ export default function ContactSection() {
           </div>
         </div>
       </div>
+      <ContactModal
+        open={openModal}
+        type={modalType}
+        onClose={() => setOpenModal(false)}
+      />
     </section>
   );
 }

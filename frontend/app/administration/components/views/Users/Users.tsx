@@ -5,6 +5,7 @@ import { ENDPOINTS } from "@/app/api/endpoints";
 import AdminTable, { AdminColumn } from "../../AdminTable";
 import { motion, AnimatePresence } from "framer-motion";
 import { useToast } from "@/app/shared/ToastProvider";
+import UserForm from "./UsersForm";
 
 type User = {
   id: number;
@@ -22,20 +23,19 @@ type StatusFilter = "all" | "pending" | "approved" | "rejected";
 
 export default function Users() {
   const { showToast } = useToast();
-
+  const [showForm, setShowForm] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const [editingUser, setEditingUser] = useState<User | null>(null);
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
 
   const [deleteItem, setDeleteItem] = useState<User | null>(null);
   const [deleting, setDeleting] = useState(false);
 
-  const [actionLoadingId, setActionLoadingId] = useState<number | null>(null);
-
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
     loadUsers(statusFilter);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFilter]);
 
   const loadUsers = async (status: StatusFilter = "all") => {
@@ -69,82 +69,6 @@ export default function Users() {
       );
     } finally {
       setLoading(false);
-    }
-  };
-
-  const setApproval = async (
-    user: User,
-    approval_status: "approved" | "rejected",
-  ) => {
-    try {
-      setActionLoadingId(user.id);
-
-      const token = localStorage.getItem("admin_token");
-
-      const response = await fetch(`${ENDPOINTS.USERS}/${user.id}/approval`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ approval_status }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Action failed");
-      }
-
-      showToast(
-        approval_status === "approved"
-          ? "User approved successfully"
-          : "User rejected successfully",
-        "ok",
-      );
-
-      await loadUsers(statusFilter);
-    } catch (error) {
-      showToast(
-        error instanceof Error ? error.message : "Action failed",
-        "err",
-      );
-    } finally {
-      setActionLoadingId(null);
-    }
-  };
-
-  const setRole = async (user: User, role: "admin" | "super_admin") => {
-    try {
-      setActionLoadingId(user.id);
-
-      const token = localStorage.getItem("admin_token");
-
-      const response = await fetch(`${ENDPOINTS.USERS}/${user.id}/role`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ role }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Role update failed");
-      }
-
-      showToast("Role updated successfully", "ok");
-
-      await loadUsers(statusFilter);
-    } catch (error) {
-      showToast(
-        error instanceof Error ? error.message : "Role update failed",
-        "err",
-      );
-    } finally {
-      setActionLoadingId(null);
     }
   };
 
@@ -222,13 +146,13 @@ export default function Users() {
       width: "12%",
       render: (user) => (
         <span
-          className={`rounded-full px-3 py-1 text-xs font-semibold ${
+          className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap ${
             user.role === "super_admin"
               ? "bg-purple-100 text-purple-700"
               : "bg-blue-100 text-blue-700"
           }`}
         >
-          {user.role}
+          {user.role === "super_admin" ? "Super Admin" : "Admin"}
         </span>
       ),
     },
@@ -258,44 +182,15 @@ export default function Users() {
       width: "26%",
       render: (user) => (
         <div className="flex flex-wrap gap-2">
-          {user.approval_status === "pending" && (
-            <>
-              <button
-                disabled={actionLoadingId === user.id}
-                onClick={() => setApproval(user, "approved")}
-                className="rounded-full bg-green-600 px-3 py-1 text-xs text-white cursor-pointer"
-              >
-                Approve
-              </button>
-
-              <button
-                disabled={actionLoadingId === user.id}
-                onClick={() => setApproval(user, "rejected")}
-                className="rounded-full bg-red-600 px-3 py-1 text-xs text-white cursor-pointer"
-              >
-                Reject
-              </button>
-            </>
-          )}
-
-          {user.role === "admin" ? (
-            <button
-              disabled={actionLoadingId === user.id}
-              onClick={() => setRole(user, "super_admin")}
-              className="rounded-full bg-purple-600 px-3 py-1 text-xs text-white cursor-pointer"
-            >
-              Make Super
-            </button>
-          ) : (
-            <button
-              disabled={actionLoadingId === user.id}
-              onClick={() => setRole(user, "admin")}
-              className="rounded-full bg-slate-700 px-3 py-1 text-xs text-white cursor-pointer"
-            >
-              Make Admin
-            </button>
-          )}
-
+          <button
+            onClick={() => {
+              setEditingUser(user);
+              setShowForm(true);
+            }}
+            className="rounded-full border border-[#D7D9DF] px-3 py-1 text-xs cursor-pointer"
+          >
+            Edit
+          </button>
           <button
             onClick={() => setDeleteItem(user)}
             className="rounded-full border border-red-200 px-3 py-1 text-xs text-red-600 cursor-pointer"
@@ -321,23 +216,47 @@ export default function Users() {
         <div className="flex items-center justify-between px-8 py-5">
           <h1 className="font-adamina text-[24px] text-[#111]">Users</h1>
 
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-            className="rounded-lg border border-[#D7D9DF] px-4 py-2"
-          >
-            <option value="all">All Users</option>
-            <option value="pending">Pending</option>
-            <option value="approved">Approved</option>
-            <option value="rejected">Rejected</option>
-          </select>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowForm(true)}
+              className="rounded-full bg-black px-5 py-2 text-sm font-semibold text-white cursor-pointer"
+            >
+              + Add User
+            </button>
+
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
+              className="rounded-lg border border-[#D7D9DF] px-4 py-2"
+            >
+              <option value="all">All Users</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
         </div>
       </div>
 
       <div className="p-6">
         <AdminTable data={users} columns={columns} />
       </div>
-
+      <AnimatePresence>
+        {showForm && (
+          <UserForm
+            user={editingUser || undefined}
+            onClose={() => {
+              setShowForm(false);
+              setEditingUser(null);
+            }}
+            onSaved={() => {
+              loadUsers(statusFilter);
+              setShowForm(false);
+              setEditingUser(null);
+            }}
+          />
+        )}
+      </AnimatePresence>
       <AnimatePresence>
         {deleteItem && (
           <motion.div

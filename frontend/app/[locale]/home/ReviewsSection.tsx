@@ -1,53 +1,44 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { motion } from "framer-motion";
+import { ENDPOINTS } from "@/app/api/endpoints";
+interface Review {
+  id: number;
+  title: string;
+  body: string;
+  author: string;
+  rating: number;
+  sort_order: number;
+  is_active: boolean;
+}
 export default function ReviewsSection() {
   const t = useTranslations("ReviewsSection");
   const locale = useLocale();
   const isArabic = locale === "ar";
-  const reviews = [
-    {
-      id: 1,
-      title: "Professionalism 10/10",
-      text: `(...) I could go on and on… but when something is truly good, it speaks for itself. So I’ll keep it brief: Entrusting your first "book baby" to Totem is a little nerve-wracking—you can't help but worry. But what a surprise! Not only does the book look better than I ever imagined, but it also smells so freshly printed that my morning coffee tastes twice as good. Professionalism: 10/10. Patience with the customer: 11/10. The team’s sense of humor: priceless. Thanks to you guys, I can now successfully pretend to be a serious author. I highly recommend Totem to anyone who wants to see their thoughts turned into something that truly looks like a real book — not some cheap printout from a local copy shop.`,
-      author: "Anita",
-    },
-    {
-      id: 2,
-      title: "Great communication",
-      text: "Highly recommended! Great communication, proactive support at every stage, and a highly professional approach. Even though our book was a school project with a tight budget and a strict deadline, it turned out beautifully and received a ton of compliments. You guys are amazing, thank you! :)",
-      author: "Anita",
-    },
-    {
-      id: 3,
-      title: "Incredible support",
-      text: "First and foremost: wonderful people, incredible support, and absolutely fantastic print quality. The final product was outstanding, and the customer service was top-tier. We didn't experience a single hiccup throughout the entire process. My review is full of superlatives, but with their amazing approach to clients, top-notch quality, and attention to detail, I simply can't find any other words. I wholeheartedly recommend this printing house to everyone! :)",
-      author: "City Media",
-    },
-    {
-      id: 4,
-      title: "The staff could not be more helpful",
-      text: "Working with Totem was a highly professional experience, and the staff couldn't have been more helpful. From discussing the quote all the way to the final print, they patiently explained every single detail to me. I definitely recommend them, and I’m already coming back with my next publishing project. :)",
-      author: "Barbara",
-    },
-    {
-      id: 5,
-      title: "Amazing quality",
-      text: "Highly recommended! This was our second time printing a book here — this time, a beautifully illustrated photo and text album. Great collaboration, expert advice on choosing the right format, colors, and paper, plus absolute perfection from the initial design all the way to the final finish. Smooth shipping, delivered perfectly on time. Pure class!",
-      author: "James",
-    },
-    {
-      id: 6,
-      title: "Highly recommended",
-      text: "I am from Portugal and came across Totem online. The help I got in the process from the team and the final results were beyond my expectations, perfectly matching my idea with a quality better than I could have imagined. I had the help of several members of the team and can pledge for their kind helpfulness and proficient service. I was unfamiliar with the processes behind printing, and learned a lot in the process! The delivery went smoothly without delays or trouble; the package arrived a day earlier than expected, well protected and packed. I would at all situations recommended Totem services to friends and colleagues",
-      author: "Sarah",
-    },
-  ];
+  const [reviews, setReviews] = useState<Review[]>([]);
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await fetch(ENDPOINTS.REVIEWS_LATEST);
 
+        if (!res.ok) {
+          throw new Error("Failed to fetch reviews");
+        }
+
+        const data = await res.json();
+
+        setReviews(data.filter((item: Review) => item.is_active));
+      } catch (error) {
+        console.error("Reviews fetch error:", error);
+      }
+    };
+
+    fetchReviews();
+  }, []);
   const [current, setCurrent] = useState(0);
 
   const visibleCards = 3.5;
@@ -183,7 +174,7 @@ export default function ReviewsSection() {
                 </h3>
 
                 <p className="leading-8 text-[16px] mb-6" dir="ltr">
-                  {review.text}
+                  {review.body}
                 </p>
 
                 <p className="text-sm" dir="ltr">
@@ -221,7 +212,7 @@ export default function ReviewsSection() {
                 </h3>
 
                 <p dir="ltr" className="leading-8 text-[16px] mb-6 text-left">
-                  {review.text}
+                  {review.body}
                 </p>
 
                 <p dir="ltr" className="text-sm text-left">

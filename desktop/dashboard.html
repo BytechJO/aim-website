@@ -955,7 +955,7 @@ tbody tr:hover td{background:rgba(246,246,246,.8)}
         <span class="tbar-title">Newsletter Subscribers</span>
       </div>
       <div class="sbody">
-        <div id="news-c"><div class="loading"><div class="spin"></div></div></div>
+        <div id="newsletter-c"><div class="loading"><div class="spin"></div></div></div>
       </div>
     </div>
 
@@ -1511,7 +1511,7 @@ async function setCS(id,status){
 //  NEWSLETTER
 // ════════════════════════════════════════════
 async function loadNews(){
-  const el=g('news-c'); el.innerHTML='<div class="loading"><div class="spin"></div></div>';
+  const el=g('newsletter-c'); el.innerHTML='<div class="loading"><div class="spin"></div></div>';
   try{
     const d=await api('/newsletter');
     if(!d.length){ el.innerHTML=empty('◉','No subscribers yet.'); return; }

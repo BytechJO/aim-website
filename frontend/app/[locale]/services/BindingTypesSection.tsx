@@ -67,7 +67,7 @@ export default function BindingTypesSection({ products }: Props) {
               key={title}
               type="button"
               onClick={() => setActiveTitle(title)}
-              className={`px-5 py-2 rounded-full border transition ${
+              className={`px-5 py-2 rounded-full border transition cursor-pointer ${
                 isActive
                   ? "bg-black text-white border-black"
                   : "bg-white text-black border-gray-300 hover:bg-gray-100"
