@@ -46,7 +46,7 @@ type NewsItem = {
 
 export default function News() {
   const { showToast } = useToast();
-
+  const [savingOrder, setSavingOrder] = useState(false);
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -121,7 +121,63 @@ export default function News() {
       setDeleting(false);
     }
   };
+  const handleReorder = async (newNews: NewsItem[]) => {
+    const previousNews = [...news];
 
+    const normalizedNews = newNews.map((item, index) => ({
+      ...item,
+      sort_order: index + 1,
+    }));
+
+    console.log(
+      "NEW ORDER:",
+      normalizedNews.map((item) => item.id),
+    );
+
+    try {
+      setNews(normalizedNews);
+      setSavingOrder(true);
+
+      const token = localStorage.getItem("admin_token");
+
+      const response = await fetch(`${ENDPOINTS.NEWS_ADMIN}/reorder`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ids: normalizedNews.map((item) => item.id),
+        }),
+      });
+
+      console.log("REORDER STATUS:", response.status);
+
+      if (!response.ok) {
+        let message = "Reorder failed";
+
+        try {
+          const data = await response.json();
+          message = data.error || message;
+        } catch {}
+
+        throw new Error(message);
+      }
+
+      showToast("Order updated successfully", "ok");
+
+      await loadNews();
+    } catch (error) {
+      setNews(previousNews);
+
+      showToast(
+        error instanceof Error ? error.message : "Reorder failed",
+        "err",
+      );
+    } finally {
+      setSavingOrder(false);
+    }
+  };
   const columns: AdminColumn<NewsItem>[] = [
     {
       key: "news",
@@ -255,7 +311,13 @@ export default function News() {
       </div>
 
       <div className="p-6">
-        <AdminTable data={news} columns={columns} />
+        <AdminTable
+          data={news}
+          columns={columns}
+          draggable
+          savingOrder={savingOrder}
+          onReorder={handleReorder}
+        />
       </div>
       <div className="px-6 pb-10">
         <h2 className="mb-6 text-xl font-semibold">Homepage Preview</h2>

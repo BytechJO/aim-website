@@ -38,7 +38,6 @@ type NewsItem = {
   title_color?: string;
   sections?: NewsSection[];
   is_published: boolean;
-  sort_order: number;
 };
 
 type Props = {
@@ -70,7 +69,6 @@ export default function NewsForm({ onClose, onSaved, news }: Props) {
     title_color: news?.title_color || "#000000",
     sections: (news?.sections || []) as NewsSection[],
     is_published: news?.is_published ?? false,
-    sort_order: news?.sort_order || 0,
   });
 
   const uploadImage = async (file: File) => {
@@ -292,7 +290,6 @@ export default function NewsForm({ onClose, onSaved, news }: Props) {
         title_color: form.title_color,
         sections,
         is_published: form.is_published,
-        sort_order: Number(form.sort_order) || 0,
       };
 
       const res = await fetch(
@@ -384,13 +381,6 @@ export default function NewsForm({ onClose, onSaved, news }: Props) {
                 label="Slug"
                 value={form.slug}
                 onChange={(v) => update("slug", v)}
-              />
-
-              <Input
-                label="Sort Order"
-                type="number"
-                value={String(form.sort_order)}
-                onChange={(v) => update("sort_order", Number(v))}
               />
             </FormRow>
 
