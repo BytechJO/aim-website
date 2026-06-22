@@ -96,25 +96,12 @@ export async function getBySlug(req: Request, res: Response): Promise<void> {
 }
 
 export async function create(req: Request, res: Response): Promise<void> {
-  const {
-    slug,
-    title_en,
-    title_ar,
-    description_en,
-    description_ar,
-    hero_image,
-    thumbnail_image,
-    title_color,
-    sections,
-    is_published,
-    sort_order,
-  } = req.body;
+  const client = await pool.connect();
 
-  const finalSlug = slug?.trim() || (await getUniqueSlug(title_en));
+  try {
+    await client.query("BEGIN");
 
-  const { rows } = await pool.query(
-    `
-    INSERT INTO news (
+    const {
       slug,
       title_en,
       title_ar,
@@ -125,29 +112,62 @@ export async function create(req: Request, res: Response): Promise<void> {
       title_color,
       sections,
       is_published,
-      sort_order
-    )
-    VALUES (
-      $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11
-    )
-    RETURNING *
-    `,
-    [
-      finalSlug,
-      title_en,
-      title_ar,
-      description_en,
-      description_ar,
-      hero_image,
-      thumbnail_image,
-      title_color || "#000000",
-      JSON.stringify(sections || []),
-      is_published ?? false,
-      sort_order ?? 0,
-    ],
-  );
+    } = req.body;
 
-  res.status(201).json(rows[0]);
+    const finalSlug = slug?.trim() || (await getUniqueSlug(title_en));
+
+    const orderResult = await client.query(`
+      SELECT COALESCE(MAX(sort_order), 0) + 1 AS next_sort_order
+      FROM news
+    `);
+
+    const nextSortOrder = Number(orderResult.rows[0].next_sort_order);
+
+    const { rows } = await client.query(
+      `
+      INSERT INTO news (
+        slug,
+        title_en,
+        title_ar,
+        description_en,
+        description_ar,
+        hero_image,
+        thumbnail_image,
+        title_color,
+        sections,
+        is_published,
+        sort_order
+      )
+      VALUES (
+        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11
+      )
+      RETURNING *
+      `,
+      [
+        finalSlug,
+        title_en,
+        title_ar,
+        description_en,
+        description_ar,
+        hero_image,
+        thumbnail_image,
+        title_color || "#000000",
+        JSON.stringify(sections || []),
+        is_published ?? false,
+        nextSortOrder,
+      ],
+    );
+
+    await client.query("COMMIT");
+
+    res.status(201).json(rows[0]);
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.error("Create news error:", error);
+    res.status(500).json({ error: "Create failed" });
+  } finally {
+    client.release();
+  }
 }
 
 export async function update(req: Request, res: Response): Promise<void> {
@@ -162,11 +182,10 @@ export async function update(req: Request, res: Response): Promise<void> {
     title_color,
     sections,
     is_published,
-    sort_order,
   } = req.body;
 
   const finalSlug = slug?.trim()
-    ? slug
+    ? slug.trim()
     : await getUniqueSlug(title_en, Number(req.params.id));
 
   const { rows } = await pool.query(
@@ -183,9 +202,8 @@ export async function update(req: Request, res: Response): Promise<void> {
       title_color = $8,
       sections = $9,
       is_published = $10,
-      sort_order = $11,
       updated_at = NOW()
-    WHERE id = $12
+    WHERE id = $11
     RETURNING *
     `,
     [
@@ -198,8 +216,7 @@ export async function update(req: Request, res: Response): Promise<void> {
       thumbnail_image,
       title_color || "#000000",
       JSON.stringify(sections || []),
-      is_published,
-      sort_order,
+      is_published ?? false,
       req.params.id,
     ],
   );
@@ -226,4 +243,40 @@ export async function remove(req: Request, res: Response): Promise<void> {
   }
 
   res.status(204).send();
+}
+export async function reorder(req: Request, res: Response): Promise<void> {
+  const client = await pool.connect();
+
+  try {
+    const { ids } = req.body as { ids: number[] };
+
+    if (!Array.isArray(ids) || ids.length === 0) {
+      res.status(400).json({ error: "ids array is required" });
+      return;
+    }
+
+    await client.query("BEGIN");
+
+    for (let i = 0; i < ids.length; i++) {
+      await client.query(
+        `
+        UPDATE news
+        SET sort_order = $1,
+            updated_at = NOW()
+        WHERE id = $2
+        `,
+        [i + 1, ids[i]],
+      );
+    }
+
+    await client.query("COMMIT");
+
+    res.json({ success: true });
+  } catch (error) {
+    await client.query("ROLLBACK");
+    console.error(error);
+    res.status(500).json({ error: "Reorder failed" });
+  } finally {
+    client.release();
+  }
 }

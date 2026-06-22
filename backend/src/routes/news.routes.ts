@@ -7,6 +7,7 @@ import {
   create,
   update,
   remove,
+  reorder,
 } from "../controllers/news.controller";
 
 import { authenticate } from "../middleware/authenticate";
@@ -20,10 +21,12 @@ router.get("/public/:slug", getBySlug);
 
 // Admin
 router.get("/", authenticate, requireAdmin, getAll);
-router.get("/:id", authenticate, requireAdmin, getOne);
-
-// Protected
 router.post("/", authenticate, requireAdmin, create);
+
+// Important: لازم قبل /:id
+router.put("/reorder", authenticate, requireAdmin, reorder);
+
+router.get("/:id", authenticate, requireAdmin, getOne);
 router.put("/:id", authenticate, requireAdmin, update);
 router.delete("/:id", authenticate, requireAdmin, remove);
 
