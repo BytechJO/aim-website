@@ -12,7 +12,6 @@ type InstagramPost = {
   caption: string;
   instagram_link: string;
   post_date: string;
-  sort_order: number;
   is_active: boolean;
 };
 
@@ -41,7 +40,6 @@ export default function InstagramForm({ onClose, onSaved, post }: Props) {
     caption: post?.caption || "",
     instagram_link: post?.instagram_link || "",
     post_date: post?.post_date?.split("T")[0] || "",
-    sort_order: post?.sort_order || 0,
     is_active: post?.is_active ?? true,
   });
 
@@ -92,7 +90,6 @@ export default function InstagramForm({ onClose, onSaved, post }: Props) {
         caption: form.caption,
         instagram_link: form.instagram_link,
         post_date: form.post_date,
-        sort_order: Number(form.sort_order) || 0,
         is_active: form.is_active,
       };
 
@@ -202,7 +199,7 @@ export default function InstagramForm({ onClose, onSaved, post }: Props) {
           </Section>
 
           <Section title="Settings">
-            <FormRow>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <Input
                 label="Post Date"
                 type="date"
@@ -210,36 +207,31 @@ export default function InstagramForm({ onClose, onSaved, post }: Props) {
                 onChange={(v) => update("post_date", v)}
               />
 
-              <Input
-                label="Sort Order"
-                type="number"
-                value={String(form.sort_order)}
-                onChange={(v) => update("sort_order", Number(v))}
-              />
-            </FormRow>
+              <div>
+                <label className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-[#707070]">
+                  Status
+                </label>
 
-            <div>
-              <label className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-[#707070]">
-                Status
-              </label>
-
-              <select
-                value={String(form.is_active)}
-                onChange={(e) => update("is_active", e.target.value === "true")}
-                className="
-                  w-full
-                  rounded-[10px]
-                  border
-                  border-[#D7D9DF]
-                  bg-[#F6F6F6]
-                  px-4
-                  py-2.5
-                  text-sm
-                "
-              >
-                <option value="true">Active</option>
-                <option value="false">Hidden</option>
-              </select>
+                <select
+                  value={String(form.is_active)}
+                  onChange={(e) =>
+                    update("is_active", e.target.value === "true")
+                  }
+                  className="
+          w-full
+          rounded-[10px]
+          border
+          border-[#D7D9DF]
+          bg-[#F6F6F6]
+          px-4
+          py-2.5
+          text-sm
+        "
+                >
+                  <option value="true">Active</option>
+                  <option value="false">Hidden</option>
+                </select>
+              </div>
             </div>
           </Section>
         </div>

@@ -28,6 +28,8 @@ export default function Binding() {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [deleteProduct, setDeleteProduct] = useState<Product | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [savingOrder, setSavingOrder] = useState(false);
+
   const handleDelete = async () => {
     if (!deleteProduct) return;
 
@@ -91,7 +93,56 @@ export default function Binding() {
       setLoading(false);
     }
   };
+  const handleReorder = async (newProducts: Product[]) => {
+    const previousProducts = [...products];
 
+    const normalizedProducts = newProducts.map((item, index) => ({
+      ...item,
+      sort_order: index + 1,
+    }));
+
+    try {
+      setProducts(normalizedProducts);
+      setSavingOrder(true);
+
+      const token = localStorage.getItem("admin_token");
+
+      const response = await fetch(`${ENDPOINTS.PRODUCTS}/reorder`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ids: normalizedProducts.map((item) => item.id),
+        }),
+      });
+
+      if (!response.ok) {
+        let message = "Reorder failed";
+
+        try {
+          const data = await response.json();
+          message = data.error || message;
+        } catch {}
+
+        throw new Error(message);
+      }
+
+      showToast("Order updated successfully", "ok");
+
+      await loadProducts();
+    } catch (error) {
+      setProducts(previousProducts);
+
+      showToast(
+        error instanceof Error ? error.message : "Reorder failed",
+        "err",
+      );
+    } finally {
+      setSavingOrder(false);
+    }
+  };
   const columns: AdminColumn<Product>[] = [
     {
       key: "product",
@@ -252,7 +303,13 @@ export default function Binding() {
       </div>
       <div className="p-6">
         {/* Table */}
-        <AdminTable data={products} columns={columns} />
+        <AdminTable
+          data={products}
+          columns={columns}
+          draggable
+          savingOrder={savingOrder}
+          onReorder={handleReorder}
+        />
       </div>
 
       <AnimatePresence>

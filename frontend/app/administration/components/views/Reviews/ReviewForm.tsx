@@ -11,7 +11,6 @@ type Review = {
   body: string;
   author: string;
   rating: number;
-  sort_order: number;
   is_active: boolean;
 };
 
@@ -31,7 +30,6 @@ export default function ReviewForm({ onClose, onSaved, review }: Props) {
     body: review?.body || "",
     author: review?.author || "",
     rating: review?.rating || 5,
-    sort_order: review?.sort_order || 0,
     is_active: review?.is_active ?? true,
   });
 
@@ -53,7 +51,6 @@ export default function ReviewForm({ onClose, onSaved, review }: Props) {
         body: form.body,
         author: form.author,
         rating: Number(form.rating),
-        sort_order: Number(form.sort_order),
         is_active: form.is_active,
       };
 
@@ -171,34 +168,20 @@ export default function ReviewForm({ onClose, onSaved, review }: Props) {
                 <option value={5}>5 Stars</option>
               </select>
             </div>
-
             <div>
               <label className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-[#707070]">
-                Sort Order
+                Status
               </label>
 
-              <input
-                type="number"
-                value={form.sort_order}
-                onChange={(e) => update("sort_order", Number(e.target.value))}
+              <select
+                value={String(form.is_active)}
+                onChange={(e) => update("is_active", e.target.value === "true")}
                 className="w-full rounded-[10px] border border-[#D7D9DF] bg-[#F6F6F6] px-4 py-2.5 text-sm"
-              />
+              >
+                <option value="true">Active</option>
+                <option value="false">Hidden</option>
+              </select>
             </div>
-          </div>
-
-          <div>
-            <label className="mb-2 block text-[10px] font-semibold uppercase tracking-widest text-[#707070]">
-              Status
-            </label>
-
-            <select
-              value={String(form.is_active)}
-              onChange={(e) => update("is_active", e.target.value === "true")}
-              className="w-full rounded-[10px] border border-[#D7D9DF] bg-[#F6F6F6] px-4 py-2.5 text-sm"
-            >
-              <option value="true">Active</option>
-              <option value="false">Hidden</option>
-            </select>
           </div>
         </div>
 

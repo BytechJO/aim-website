@@ -29,6 +29,7 @@ export default function Instagram() {
 
   const [deleteItem, setDeleteItem] = useState<InstagramPost | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [savingOrder, setSavingOrder] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
@@ -96,11 +97,62 @@ export default function Instagram() {
     }
   };
 
+  const handleReorder = async (newPosts: InstagramPost[]) => {
+    const previousPosts = [...posts];
+
+    const normalizedPosts = newPosts.map((item, index) => ({
+      ...item,
+      sort_order: index + 1,
+    }));
+
+    try {
+      setPosts(normalizedPosts);
+      setSavingOrder(true);
+
+      const token = localStorage.getItem("admin_token");
+
+      const response = await fetch(`${ENDPOINTS.INSTAGRAM}/reorder`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ids: normalizedPosts.map((item) => item.id),
+        }),
+      });
+
+      if (!response.ok) {
+        let message = "Reorder failed";
+
+        try {
+          const data = await response.json();
+          message = data.error || message;
+        } catch {}
+
+        throw new Error(message);
+      }
+
+      showToast("Order updated successfully", "ok");
+
+      await loadPosts();
+    } catch (error) {
+      setPosts(previousPosts);
+
+      showToast(
+        error instanceof Error ? error.message : "Reorder failed",
+        "err",
+      );
+    } finally {
+      setSavingOrder(false);
+    }
+  };
+
   const columns: AdminColumn<InstagramPost>[] = [
     {
       key: "post",
       label: "Post",
-      width: "30%",
+      width: "28%",
       render: (item) => (
         <div className="flex items-center gap-3">
           <Image
@@ -123,7 +175,7 @@ export default function Instagram() {
     {
       key: "date",
       label: "Date",
-      width: "15%",
+      width: "14%",
       render: (item) => (
         <span className="text-[13px] text-[#4B4B4B]">
           {item.post_date ? new Date(item.post_date).toLocaleDateString() : "-"}
@@ -134,7 +186,7 @@ export default function Instagram() {
     {
       key: "link",
       label: "Instagram",
-      width: "20%",
+      width: "18%",
       render: (item) => (
         <a
           href={item.instagram_link}
@@ -226,7 +278,14 @@ export default function Instagram() {
       </div>
 
       <div className="p-6">
-        <AdminTable data={posts} columns={columns} />
+        <AdminTable
+          data={posts}
+          columns={columns}
+          draggable
+          dragWidth="5%"
+          savingOrder={savingOrder}
+          onReorder={handleReorder}
+        />
       </div>
 
       <AnimatePresence>
