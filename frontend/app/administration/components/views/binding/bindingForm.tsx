@@ -20,8 +20,6 @@ type Product = {
 
   image_url?: string;
 
-  sort_order: number;
-
   is_active: boolean;
 
   description_en?: string;
@@ -83,7 +81,6 @@ export default function BindingForm({ onClose, onSaved, product }: Props) {
 
     slug: product?.slug || "",
 
-    sort_order: product?.sort_order || 0,
     is_active: product?.is_active ?? true,
 
     description_en: product?.description_en || "",
@@ -198,8 +195,6 @@ export default function BindingForm({ onClose, onSaved, product }: Props) {
         subtitle_ar: form.subtitle_ar,
 
         image_url,
-
-        sort_order: Number(form.sort_order) || 0,
 
         is_active: form.is_active,
 
@@ -393,17 +388,7 @@ export default function BindingForm({ onClose, onSaved, product }: Props) {
                 label="Slug"
                 value={form.slug}
                 onChange={(v) => update("slug", v)}
-              />
-            </FormRow>
-
-            <FormRow>
-              <Input
-                label="Sort Order"
-                type="number"
-                value={String(form.sort_order)}
-                onChange={(v) => update("sort_order", Number(v))}
-              />
-
+              />{" "}
               <Select
                 label="Active"
                 value={String(form.is_active)}

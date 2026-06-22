@@ -14,7 +14,6 @@ type Enhancement = {
   description_ar?: string;
   image_url?: (string | File)[];
   sub_enhancements?: unknown[];
-  sort_order: number;
 };
 type SubEnhancement = {
   title_en: string;
@@ -49,7 +48,6 @@ export default function EnhancementForm({
     slug: enhancement?.slug || "",
     description_en: enhancement?.description_en || "",
     description_ar: enhancement?.description_ar || "",
-    sort_order: enhancement?.sort_order || 0,
     image_url: enhancement?.image_url || [],
     sub_enhancements: (enhancement?.sub_enhancements as SubEnhancement[]) || [],
   });
@@ -124,7 +122,6 @@ export default function EnhancementForm({
 
         image_url,
 
-        sort_order: Number(form.sort_order) || 0,
 
         sub_enhancements,
       };
@@ -315,15 +312,6 @@ export default function EnhancementForm({
                 label="Slug"
                 value={form.slug}
                 onChange={(v) => update("slug", v)}
-              />
-            </FormRow>
-
-            <FormRow>
-              <Input
-                label="Sort Order"
-                type="number"
-                value={String(form.sort_order)}
-                onChange={(v) => update("sort_order", Number(v))}
               />
             </FormRow>
           </Section>

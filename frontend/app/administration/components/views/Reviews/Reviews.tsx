@@ -28,6 +28,7 @@ export default function Reviews() {
 
   const [deleteItem, setDeleteItem] = useState<Review | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [savingOrder, setSavingOrder] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
@@ -85,6 +86,56 @@ export default function Reviews() {
       );
     } finally {
       setDeleting(false);
+    }
+  };
+  const handleReorder = async (newReviews: Review[]) => {
+    const previousReviews = [...reviews];
+
+    const normalizedReviews = newReviews.map((item, index) => ({
+      ...item,
+      sort_order: index + 1,
+    }));
+
+    try {
+      setReviews(normalizedReviews);
+      setSavingOrder(true);
+
+      const token = localStorage.getItem("admin_token");
+
+      const response = await fetch(`${ENDPOINTS.REVIEWS}/reorder`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ids: normalizedReviews.map((item) => item.id),
+        }),
+      });
+
+      if (!response.ok) {
+        let message = "Reorder failed";
+
+        try {
+          const data = await response.json();
+          message = data.error || message;
+        } catch {}
+
+        throw new Error(message);
+      }
+
+      showToast("Order updated successfully", "ok");
+
+      await loadReviews();
+    } catch (error) {
+      setReviews(previousReviews);
+
+      showToast(
+        error instanceof Error ? error.message : "Reorder failed",
+        "err",
+      );
+    } finally {
+      setSavingOrder(false);
     }
   };
   const columns: AdminColumn<Review>[] = [
@@ -205,7 +256,13 @@ export default function Reviews() {
       </div>
 
       <div className="p-6">
-        <AdminTable data={reviews} columns={columns} />
+        <AdminTable
+          data={reviews}
+          columns={columns}
+          draggable
+          savingOrder={savingOrder}
+          onReorder={handleReorder}
+        />
       </div>
 
       <AnimatePresence>

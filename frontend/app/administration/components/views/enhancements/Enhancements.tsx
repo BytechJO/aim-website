@@ -30,6 +30,8 @@ export default function Enhancements() {
   );
   const [deleteProduct, setDeleteProduct] = useState<Enhancement | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [savingOrder, setSavingOrder] = useState(false);
+
   const handleDelete = async () => {
     if (!deleteProduct) return;
 
@@ -96,7 +98,56 @@ export default function Enhancements() {
       setLoading(false);
     }
   };
+  const handleReorder = async (newEnhancements: Enhancement[]) => {
+    const previousEnhancements = [...enhancements];
 
+    const normalizedEnhancements = newEnhancements.map((item, index) => ({
+      ...item,
+      sort_order: index + 1,
+    }));
+
+    try {
+      setEnhancements(normalizedEnhancements);
+      setSavingOrder(true);
+
+      const token = localStorage.getItem("admin_token");
+
+      const response = await fetch(`${ENDPOINTS.ENHANCEMENTS}/reorder`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ids: normalizedEnhancements.map((item) => item.id),
+        }),
+      });
+
+      if (!response.ok) {
+        let message = "Reorder failed";
+
+        try {
+          const data = await response.json();
+          message = data.error || message;
+        } catch {}
+
+        throw new Error(message);
+      }
+
+      showToast("Order updated successfully", "ok");
+
+      await loadEnhancements();
+    } catch (error) {
+      setEnhancements(previousEnhancements);
+
+      showToast(
+        error instanceof Error ? error.message : "Reorder failed",
+        "err",
+      );
+    } finally {
+      setSavingOrder(false);
+    }
+  };
   const columns: AdminColumn<Enhancement>[] = [
     {
       key: "enhancement",
@@ -274,7 +325,13 @@ export default function Enhancements() {
       </div>
       <div className="p-6">
         {/* Table */}
-        <AdminTable data={enhancements} columns={columns} />
+        <AdminTable
+          data={enhancements}
+          columns={columns}
+          draggable
+          savingOrder={savingOrder}
+          onReorder={handleReorder}
+        />
       </div>
 
       <AnimatePresence>

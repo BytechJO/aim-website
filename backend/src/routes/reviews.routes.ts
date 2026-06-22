@@ -6,6 +6,7 @@ import {
   update,
   remove,
   getLatest,
+  reorder,
 } from "../controllers/reviews.controller";
 import { authenticate } from "../middleware/authenticate";
 import { requireAdmin } from "../middleware/authorize";
@@ -14,7 +15,7 @@ const router = Router();
 
 // PUBLIC
 router.get("/latest", getLatest);
-
+router.put("/reorder", authenticate, requireAdmin, reorder);
 // ADMIN ONLY
 router.use(authenticate, requireAdmin);
 

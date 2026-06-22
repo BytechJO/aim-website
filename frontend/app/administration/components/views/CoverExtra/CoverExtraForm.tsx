@@ -14,7 +14,6 @@ type CoverExtra = {
   description_en?: string;
   description_ar?: string;
   image_url?: (string | File)[];
-  sort_order: number;
   is_active?: boolean;
 };
 
@@ -46,7 +45,6 @@ export default function CoverExtraForm({
     slug: coverExtra?.slug || "",
     description_en: coverExtra?.description_en || "",
     description_ar: coverExtra?.description_ar || "",
-    sort_order: coverExtra?.sort_order || 0,
     image_url: coverExtra?.image_url || [],
   });
 
@@ -118,7 +116,6 @@ export default function CoverExtraForm({
         description_en: form.description_en,
         description_ar: form.description_ar,
         image_url,
-        sort_order: Number(form.sort_order) || 0,
         is_active: true,
       };
 
@@ -237,15 +234,6 @@ export default function CoverExtraForm({
                 label="Slug"
                 value={form.slug}
                 onChange={(v) => update("slug", v)}
-              />
-            </FormRow>
-
-            <FormRow>
-              <Input
-                label="Sort Order"
-                type="number"
-                value={String(form.sort_order)}
-                onChange={(v) => update("sort_order", Number(v))}
               />
             </FormRow>
           </Section>

@@ -31,6 +31,7 @@ export default function CoverExtras() {
 
   const [deleteItem, setDeleteItem] = useState<CoverExtra | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [savingOrder, setSavingOrder] = useState(false);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/immutability
@@ -98,6 +99,56 @@ export default function CoverExtras() {
       );
     } finally {
       setDeleting(false);
+    }
+  };
+  const handleReorder = async (newCoverExtras: CoverExtra[]) => {
+    const previousCoverExtras = [...coverExtras];
+
+    const normalizedCoverExtras = newCoverExtras.map((item, index) => ({
+      ...item,
+      sort_order: index + 1,
+    }));
+
+    try {
+      setCoverExtras(normalizedCoverExtras);
+      setSavingOrder(true);
+
+      const token = localStorage.getItem("admin_token");
+
+      const response = await fetch(`${ENDPOINTS.COVER_EXTRAS}/reorder`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          ids: normalizedCoverExtras.map((item) => item.id),
+        }),
+      });
+
+      if (!response.ok) {
+        let message = "Reorder failed";
+
+        try {
+          const data = await response.json();
+          message = data.error || message;
+        } catch {}
+
+        throw new Error(message);
+      }
+
+      showToast("Order updated successfully", "ok");
+
+      await loadCoverExtras();
+    } catch (error) {
+      setCoverExtras(previousCoverExtras);
+
+      showToast(
+        error instanceof Error ? error.message : "Reorder failed",
+        "err",
+      );
+    } finally {
+      setSavingOrder(false);
     }
   };
 
@@ -217,7 +268,13 @@ export default function CoverExtras() {
       </div>
 
       <div className="p-6">
-        <AdminTable data={coverExtras} columns={columns} />
+        <AdminTable
+          data={coverExtras}
+          columns={columns}
+          draggable
+          savingOrder={savingOrder}
+          onReorder={handleReorder}
+        />
       </div>
 
       <AnimatePresence>

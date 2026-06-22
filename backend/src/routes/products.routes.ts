@@ -5,6 +5,7 @@ import {
   create,
   update,
   remove,
+  reorder,
 } from "../controllers/products.controller";
 import { authenticate } from "../middleware/authenticate";
 import { requireAdmin } from "../middleware/authorize";
@@ -13,6 +14,7 @@ const router = Router();
 
 // approved admin or super_admin only
 router.get("/", getAll);
+router.put("/reorder", authenticate, requireAdmin, reorder);
 router.get("/:slug", getOne);
 
 // Protected

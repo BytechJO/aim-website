@@ -794,49 +794,43 @@ export default function NavBar() {
                 transition={{ delay: 0.12, duration: 0.2 }}
               >
                 {/* Left: phone icon + "Call me back" — Inter 400 20px #FFFFFF */}
-                <div
-                  className="absolute inset-y-0 flex items-center gap-3"
-                  style={{ left: "17%" }}
-                >
-                  {/* Phone/chat icon — 29×25px */}
-                  <svg
-                    width="29"
-                    height="25"
-                    viewBox="0 0 29 25"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <rect width="29" height="25" rx="4" fill="#D42A26" />
-                    <path
-                      d="M8 8h13M8 12.5h8M8 17h5"
-                      stroke="white"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M19.5 16l3 3"
-                      stroke="white"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                <div className="h-full w-full md:max-w-362.5 mx-auto flex items-center justify-between px-0">
+                  {/* Call me back */}
                   <Link
                     href={lp("/contact")}
-                    className="font-inter font-normal text-[20px] leading-6 text-white hover:underline whitespace-nowrap"
+                    className="h-full flex items-center gap-3 font-inter font-normal text-[16px] leading-6 text-white hover:underline whitespace-nowrap"
                     onClick={() => setServicesOpen(false)}
                   >
-                    {t("callMeBack")}
-                  </Link>
-                </div>
+                    <svg
+                      width="29"
+                      height="25"
+                      viewBox="0 0 29 25"
+                      fill="none"
+                      aria-hidden="true"
+                      className="shrink-0"
+                    >
+                      <rect width="29" height="25" rx="4" fill="#D42A26" />
+                      <path
+                        d="M8 8h13M8 12.5h8M8 17h5"
+                        stroke="white"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M19.5 16l3 3"
+                        stroke="white"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
 
-                {/* Right: "Cover generator" — Inter 300 20px underline #FFFFFF */}
-                <div
-                  className="absolute inset-y-0 flex items-center gap-3"
-                  style={{ left: "78%" }}
-                >
+                    <span>{t("callMeBack")}</span>
+                  </Link>
+
+                  {/* Cover generator */}
                   <Link
                     href={lp("/cover-generator")}
-                    className="font-inter font-light text-[20px] leading-4 underline text-white hover:opacity-80 whitespace-nowrap"
+                    className="h-full flex items-center font-inter font-light text-[16px] leading-4 underline text-white hover:opacity-80 whitespace-nowrap pr-4"
                     onClick={() => setServicesOpen(false)}
                   >
                     {t("coverGenerator")}
