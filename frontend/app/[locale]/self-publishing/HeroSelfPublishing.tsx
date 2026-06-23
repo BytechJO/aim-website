@@ -14,7 +14,7 @@ export default function HeroSelfPublishing() {
           <div>
             <h1
               className={`${
-                locale === "en" ? "font-adamina" : "font-cairo"
+                locale === "en" ? "font-adamina" : "font-noto-arabic"
               } text-5xl lg:text-7xl text-black`}
             >
               {isArabic ? "النشر الذاتي" : "Self-publishing"}

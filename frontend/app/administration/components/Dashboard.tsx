@@ -255,7 +255,7 @@ export default function Dashboard({ onLogout }: Props) {
                   </div>
                 </div>
               ) : (
-                stats && <Overview stats={stats} onNavigate={setView} />
+                stats && <Overview stats={stats} onNavigate={setView} adminUser={adminUser} />
               ))}
 
             {view === "binding" && <Products />}

@@ -41,7 +41,7 @@ export default function ProductsSection() {
         >
           <h2
             className={`
-    ${locale === "en" ? "font-adamina" : "font-cairo"}
+    ${locale === "en" ? "font-adamina" : "font-noto-arabic"}
     text-3xl lg:text-[55px]
     font-light text-[#202543] max-w-200
   `}

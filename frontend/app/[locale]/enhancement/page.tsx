@@ -131,7 +131,8 @@ export default function EnhancementPage() {
     return <Loading />;
   }
   return (
-    <section>
+    <section className="overflow-x-clip">
+      {" "}
       <div className="max-w-362.5 mx-auto flex items-start">
         {/* Sidebar */}
         <aside
@@ -184,7 +185,7 @@ export default function EnhancementPage() {
                   : "Not sure which enhancement will work best for your project? Contact us and we'll be happy to advise!"}
               </p>
 
-              <div className="flex gap-4">
+              <div className="flex gap-4 whitespace-nowrap">
                 <button
                   type="button"
                   onClick={() => {
@@ -266,7 +267,6 @@ export default function EnhancementPage() {
           </div>
         </main>
       </div>
-
       <ContactModal
         open={contactModalOpen}
         type={contactModalType}

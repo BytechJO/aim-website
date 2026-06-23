@@ -260,7 +260,7 @@ export default function ContactModal({ open, type, onClose }: Props) {
             <div className="px-8 pb-8 pt-6">
               <h2
                 className={`${
-                  isArabic ? "font-cairo" : "font-adamina"
+                  isArabic ? "font-noto-arabic" : "font-adamina"
                 } text-[28px] leading-tight text-[#202543]`}
               >
                 {tab === "callback" ? t("requestCall") : t("getInTouch")}

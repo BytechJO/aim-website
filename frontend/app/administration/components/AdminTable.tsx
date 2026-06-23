@@ -222,7 +222,7 @@ export default function AdminTable<T extends { id: number }>({
         <thead>
           <tr className="bg-[#FAFAFA]">
             {draggable && (
-              <th className="px-2 py-4 text-left text-[11px] font-bold uppercase tracking-[0.08em] text-[#7A7A7A]">
+              <th className="px-4 py-4 text-left text-[11px] font-bold uppercase tracking-[0.08em] text-[#7A7A7A]">
                 Drag
               </th>
             )}
@@ -303,7 +303,7 @@ export default function AdminTable<T extends { id: number }>({
               `}
             >
               {draggable && (
-                <td className="px-2 py-4 align-middle">
+                <td className="px-4 py-4 align-middle">
                   <div
                     className={`flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200 ${
                       dragOverId === row.id && draggingId !== row.id

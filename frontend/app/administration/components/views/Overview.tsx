@@ -3,7 +3,16 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AdminView } from "../Dashboard";
-
+type AdminUser = {
+  id: number;
+  email: string;
+  full_name: string;
+  job_number: string;
+  position: string | null;
+  role: string;
+  approval_status: string;
+  created_at: string;
+};
 type DashboardStats = {
   products: number;
   activeProducts: number;
@@ -36,6 +45,7 @@ type DashboardStats = {
 type Props = {
   stats: DashboardStats;
   onNavigate: (view: AdminView) => void;
+  adminUser: AdminUser | null;
 };
 
 const containerVariants = {
@@ -61,7 +71,7 @@ const itemVariants = {
   },
 };
 
-export default function Overview({ stats, onNavigate }: Props) {
+export default function Overview({ stats, onNavigate, adminUser }: Props) {
   const hour = new Date().getHours();
 
   const greeting =
@@ -109,7 +119,7 @@ export default function Overview({ stats, onNavigate }: Props) {
         >
           <div className="relative z-10">
             <h2 className="font-adamina text-[26px] text-[#0F0F0F]">
-              {greeting}, Admin.
+              {greeting}, {adminUser?.full_name}.
             </h2>
 
             <p className="mt-1 text-[13px] text-black/60">
@@ -179,16 +189,17 @@ export default function Overview({ stats, onNavigate }: Props) {
               onClick={() => onNavigate("newsletter")}
             />
           </motion.div>
-
-          <motion.div variants={itemVariants}>
-            <Card
-              icon="👤"
-              title="Staff"
-              value={stats.admins}
-              sub={`${stats.pendingAdmins} pending`}
-              onClick={() => onNavigate("admins")}
-            />
-          </motion.div>
+          {adminUser?.role==="super_admin"&& (
+            <motion.div variants={itemVariants}>
+              <Card
+                icon="👤"
+                title="Staff"
+                value={stats.admins}
+                sub={`${stats.pendingAdmins} pending`}
+                onClick={() => onNavigate("admins")}
+              />
+            </motion.div>
+          )}
         </motion.div>
 
         {stats.newContacts > 0 && (

@@ -180,7 +180,7 @@ export default function ContactPage() {
             >
               <h2
                 className={`${
-                  locale === "en" ? "font-adamina" : "font-cairo"
+                  locale === "en" ? "font-adamina" : "font-noto-arabic"
                 } text-4xl lg:text-[30px] font-light text-[#202543] mb-8`}
               >
                 {isArabic ? "تواصل معنا" : "Contact Us"}

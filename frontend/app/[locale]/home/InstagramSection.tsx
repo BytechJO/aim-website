@@ -90,7 +90,7 @@ export default function InstagramSection() {
         {/* Header */}
         <div className="flex justify-between items-center mb-16">
           <h2
-            className={`${locale === "en" ? "font-adamina" : "font-cairo"} text-4xl lg:text-7xl font-light text-[#202543] leading-none`}
+            className={`${locale === "en" ? "font-adamina" : "font-noto-arabic"} text-4xl lg:text-7xl font-light text-[#202543] leading-none`}
           >
             {t("Instagram")}
           </h2>

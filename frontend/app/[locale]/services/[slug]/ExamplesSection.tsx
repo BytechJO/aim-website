@@ -58,7 +58,7 @@ export default function ExamplesSection({ images }: { images: string[] }) {
 
       <p
         className={`text-[13px] text-[#444] mb-8 ${
-          locale === "en" ? "font-adamina" : "font-cairo"
+          locale === "en" ? "font-adamina" : "font-noto-arabic"
         }`}
       >
         {locale === "ar"

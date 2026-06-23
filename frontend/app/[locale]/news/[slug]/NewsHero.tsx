@@ -46,7 +46,7 @@ export default function NewsHero({
                 transition={{ duration: 0.8 }}
                 style={{ color: title_color || "#000000" }}
                 className={`${
-                  isArabic ? "font-cairo" : "font-adamina"
+                  isArabic ? "font-noto-arabic" : "font-adamina"
                 } text-5xl lg:text-7xl`}
               >
                 {isArabic ? title_ar : title_en}

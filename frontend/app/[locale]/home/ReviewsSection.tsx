@@ -100,7 +100,7 @@ export default function ReviewsSection() {
         >
           <div>
             <h2
-              className={`${locale === "en" ? "font-adamina" : "font-cairo"} text-4xl lg:text-[50px] text-[#202543]`}
+              className={`${locale === "en" ? "font-adamina" : "font-noto-arabic"} text-4xl lg:text-[50px] text-[#202543]`}
             >
               {t("Read our clients’ reviews")}
             </h2>

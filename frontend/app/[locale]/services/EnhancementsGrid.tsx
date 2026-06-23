@@ -77,7 +77,7 @@ export default function EnhancementsGrid({ enhancements }: Props) {
           <div className="flex items-center justify-between gap-6">
             <h2
               className={`${
-                locale === "en" ? "font-adamina" : "font-cairo"
+                locale === "en" ? "font-adamina" : "font-noto-arabic"
               } text-5xl md:text-7xl lg:text-[70px] leading-none text-black`}
             >
               {isArabic ? "التحسينات" : "Enhancements"}

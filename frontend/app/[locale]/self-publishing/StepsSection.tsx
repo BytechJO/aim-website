@@ -45,7 +45,7 @@ export default function StepsSection() {
       <div className="max-w-[90%] mx-auto px-4 lg:px-8">
         <motion.h2
           className={`
-    ${locale === "en" ? "font-adamina" : "font-cairo"}
+    ${locale === "en" ? "font-adamina" : "font-noto-arabic"}
     text-4xl lg:text-6xl font-light text-[#202543] mb-14
   `}
           initial={{ opacity: 0, y: 80, scale: 0.95 }}

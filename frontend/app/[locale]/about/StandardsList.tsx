@@ -48,7 +48,7 @@ export default function StandardsList() {
             {/* content */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               <h2
-                className={`${locale === "en" ? "font-adamina" : "font-cairo"} text-[48px] md:text-[55px] leading-[0.95] text-black max-w-105`}
+                className={`${locale === "en" ? "font-adamina" : "font-noto-arabic"} text-[48px] md:text-[55px] leading-[0.95] text-black max-w-105`}
               >
                 {item.title}
               </h2>

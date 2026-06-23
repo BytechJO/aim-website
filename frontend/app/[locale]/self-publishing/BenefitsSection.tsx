@@ -329,7 +329,7 @@ export default function BenefitsSection() {
           {/* Heading with line-by-line animation */}
           <h2
             className={`
-    ${locale === "en" ? "font-adamina" : "font-cairo"}
+    ${locale === "en" ? "font-adamina" : "font-noto-arabic"}
     text-center text-3xl lg:text-6xl mb-10 md:mb-20
     ${isVisible ? "heading-visible" : "heading-enter"}
   `}
