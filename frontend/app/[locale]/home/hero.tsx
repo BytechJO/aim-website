@@ -43,7 +43,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-[52px] sm:text-[42px] md:text-[56px] lg:text-[70px] leading-none font-light text-white"
+              className="text-[52px] sm:text-[42px] md:text-[56px] lg:text-[70px] leading-none font-light text-white font-noto-arabic"
             >
               {t("title1")}
             </motion.h2>
@@ -52,7 +52,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15 }}
               className={`
-    ${locale === "en" ? "font-adamina" : "font-cairo"}
+    ${locale === "en" ? "font-adamina" : "font-noto-arabic"}
     text-[72px] sm:text-[68px] md:text-[88px] lg:text-[110px]
     font-light text-white p-0
   `}
@@ -63,7 +63,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-white text-sm sm:text-base md:text-lg max-w-md"
+              className="text-white text-sm sm:text-base md:text-lg max-w-md font-noto-arabic"
             >
               {t("subtitle")}
             </motion.p>

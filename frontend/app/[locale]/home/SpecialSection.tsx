@@ -18,7 +18,7 @@ export default function SpecialSection() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className={`
-    ${locale === "en" ? "font-adamina" : "font-cairo"}
+    ${locale === "en" ? "font-adamina" : "font-noto-arabic"}
     text-4xl lg:text-7xl font-light text-[#202543] md:mb-14
   `}
         >

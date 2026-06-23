@@ -39,7 +39,7 @@ export default function NewsSections({ sections }: Props) {
         <section key={sectionIndex} className="mb-24">
           <h2
             className={`${
-              isArabic ? "font-cairo" : "font-adamina"
+              isArabic ? "font-noto-arabic" : "font-adamina"
             } text-2xl md:text-3xl mb-10`}
           >
             {isArabic ? section.title_ar : section.title_en}

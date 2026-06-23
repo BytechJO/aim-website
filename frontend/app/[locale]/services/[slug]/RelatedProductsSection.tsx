@@ -26,7 +26,7 @@ export default function RelatedProductsSection({
     <section className="max-w-7xl mx-auto px-6 py-15">
       <h2
         className={`text-6xl mb-12 ${
-          locale === "en" ? "font-adamina" : "font-cairo"
+          locale === "en" ? "font-adamina" : "font-noto-arabic"
         }`}
       >
         {isArabic ? "منتجات ذات صلة" : "Related products"}

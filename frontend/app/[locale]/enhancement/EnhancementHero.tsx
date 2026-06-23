@@ -26,7 +26,7 @@ export default function EnhancementHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className={`${
-                isArabic ? "font-cairo" : "font-adamina"
+                isArabic ? "font-noto-arabic" : "font-adamina"
               } text-5xl lg:text-7xl text-black`}
             >
               {isArabic ? "التحسينات" : "Enhancement"}

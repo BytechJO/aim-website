@@ -9,6 +9,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ENDPOINTS } from "@/app/api/endpoints";
 import ContactModal from "../ContactModal";
 
+interface Product {
+  id: number;
+  slug: string;
+  title_en: string;
+  title_ar: string;
+  subtitle_en: string;
+  subtitle_ar: string;
+  image_url: string;
+}
 // ─── Route data ──────────────────────────────────────────────────────────────
 
 const CATEGORY_KEYS = [
@@ -148,7 +157,7 @@ export default function NavBar() {
     "message" | "callback"
   >("callback");
   const [searchOpen, setSearchOpen] = useState(false);
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -195,6 +204,7 @@ export default function NavBar() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setServicesOpen(false);
     setLangOpen(false);
     setMenuOpen(false);
@@ -497,7 +507,7 @@ export default function NavBar() {
               onMouseLeave={() => setLangOpen(false)}
             >
               <button
-                className="flex items-center gap-1 font-inter font-semibold text-[15px] text-[#222222] hover:text-black transition-colors"
+                className="flex items-center gap-1 font-inter font-semibold text-[15px] text-[#222222] hover:text-black transition-colors cursor-pointer"
                 onClick={() => setLangOpen((v) => !v)}
               >
                 {locale.toUpperCase()}
@@ -511,13 +521,13 @@ export default function NavBar() {
                     initial="hidden"
                     animate="visible"
                     exit="exit"
-                    className="absolute right-0 top-full mt-1 bg-white border border-gray-100 shadow-lg rounded-lg overflow-hidden z-50 min-w-18"
+                    className="absolute right-0 top-full mt-1 bg-white border border-gray-100 shadow-lg rounded-lg overflow-hidden z-50 min-w-18 "
                   >
                     {LOCALES.map((l, i) => (
                       <motion.button
                         key={l}
                         onClick={() => switchLocale(l)}
-                        className={`block w-full px-4 py-2.5 text-left font-inter text-[14px] transition-colors hover:bg-gray-50 ${locale === l ? "font-semibold text-black" : "text-gray-700"}`}
+                        className={`block w-full px-4 py-2.5 text-left font-inter text-[14px] transition-colors hover:bg-gray-50 cursor-pointer ${locale === l ? "font-semibold text-black" : "text-gray-700"}`}
                         initial={{ opacity: 0, x: -4 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.05 }}

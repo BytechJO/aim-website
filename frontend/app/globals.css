@@ -16,8 +16,8 @@
   --font-charm: var(--font-charm);
   --font-adamina: var(--font-adamina);
   --font-cairo: var(--font-cairo);
+  --font-noto-arabic: var(--font-noto-sans-arabic);
 }
-
 
 body {
   background: var(--background);

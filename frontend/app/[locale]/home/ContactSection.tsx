@@ -73,7 +73,7 @@ export default function ContactSection() {
               <p className="text-lg text-[#202543] mb-4">{t("p1")}</p>
 
               <h2
-                className={`${locale === "en" ? "font-adamina" : "font-cairo"} text-5xl lg:text-7xl font-light text-[#202543] mb-8`}
+                className={`${locale === "en" ? "font-adamina" : "font-noto-arabic"} text-5xl lg:text-7xl font-light text-[#202543] mb-8`}
               >
                 {t("p2")}
               </h2>

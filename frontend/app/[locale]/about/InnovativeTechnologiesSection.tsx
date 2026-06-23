@@ -43,7 +43,7 @@ export default function InnovativeTechnologiesSection() {
           className="max-w-180"
         >
           <h2
-            className={`${locale === "en" ? "font-adamina" : "font-cairo"} text-[40px] md:text-[72px] leading-10 text-black md:whitespace-nowrap `}
+            className={`${locale === "en" ? "font-adamina" : "font-noto-arabic"} text-[40px] md:text-[72px] leading-10 text-black md:whitespace-nowrap `}
           >
             {t("title")}
           </h2>

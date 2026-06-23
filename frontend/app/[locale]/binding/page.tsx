@@ -112,7 +112,8 @@ export default function BindingPage() {
     return <Loading />;
   }
   return (
-    <section>
+    <section className="overflow-x-clip">
+      {" "}
       <div className="max-w-362.5 mx-auto flex items-start">
         {/* Sidebar */}
         <aside
@@ -231,7 +232,6 @@ export default function BindingPage() {
           </div>
         </main>
       </div>
-
       <ContactModal
         open={contactModalOpen}
         type={contactModalType}

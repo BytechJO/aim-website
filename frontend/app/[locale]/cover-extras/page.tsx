@@ -97,7 +97,8 @@ export default function CoverExtraPage() {
     return <Loading />;
   }
   return (
-    <section>
+    <section className="overflow-x-clip">
+      {" "}
       {/* Sidebar */}
       <div className="max-w-362.5 mx-auto flex items-start">
         {/* Sidebar */}
@@ -140,7 +141,7 @@ export default function CoverExtraPage() {
               ))}
             </div>
 
-            <div className="bg-[#EBDD7D] mt-8 p-8">
+            <div className="bg-[#EBDD7D] mt-8 p-8 ">
               <h3 className="text-2xl mb-4">
                 {isArabic ? "هل لديك سؤال؟" : "Do you have a question?"}
               </h3>
@@ -151,7 +152,7 @@ export default function CoverExtraPage() {
                   : "Need an unusual solution that is not listed here? Contact us and we’ll see what we can do for you."}
               </p>
 
-              <div className="flex gap-4">
+              <div className="flex gap-4 whitespace-nowrap">
                 <button
                   type="button"
                   onClick={() => {
@@ -200,7 +201,6 @@ export default function CoverExtraPage() {
           </div>
         </main>
       </div>
-
       <ContactModal
         open={contactModalOpen}
         type={contactModalType}

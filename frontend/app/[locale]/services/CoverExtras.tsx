@@ -50,7 +50,7 @@ export default function CoverExtras({ coverExtras }: Props) {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h2
               className={`${
-                locale === "en" ? "font-adamina" : "font-cairo"
+                locale === "en" ? "font-adamina" : "font-noto-arabic"
               } text-5xl md:text-7xl lg:text-[70px] leading-none text-black`}
             >
               {isArabic ? "إضافات الغلاف" : "Cover Extras"}

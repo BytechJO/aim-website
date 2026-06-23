@@ -38,7 +38,7 @@ export default function ContactSection() {
 
               <h2
                 className={`${
-                  locale === "en" ? "font-adamina" : "font-cairo"
+                  locale === "en" ? "font-adamina" : "font-noto-arabic"
                 } mt-4 text-5xl lg:text-7xl font-light text-[#202543]`}
               >
                 {isArabic ? "لنتحدث" : "Let’s talk"}

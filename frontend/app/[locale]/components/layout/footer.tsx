@@ -317,20 +317,22 @@ export default function Footer() {
             }}
           />
 
-          <div className="relative z-10">
-            <h3 className="font-inter font-medium text-[22px] leading-12.25 text-black">
-              {t("newsletterTitle")}{" "}
+          <div className="relative z-10 leading-[1.8]">
+            <h3 className="font-inter font-medium text-[22px]  text-black">
+              {t("newsletterTitle")}
             </h3>
-            <p className="font-inter font-medium text-[15px] text-black -mt-2">
-              {t("newsletterDesc")}{" "}
+
+            <p className="font-inter font-medium text-[15px] text-black mt-2">
+              {t("newsletterDesc")}
             </p>
-            <p className="font-inter font-normal text-[10px] text-black mt-1">
+
+            <p className="font-inter font-normal text-[10px] text-black mt-2">
               {t("privacyAccept")}{" "}
               <Link
                 href="/privacy"
                 className="underline hover:opacity-70 transition-opacity"
               >
-                {t("privacyPolicy")}{" "}
+                {t("privacyPolicy")}
               </Link>
               .
             </p>
@@ -491,7 +493,7 @@ export default function Footer() {
         <div className="max-w-480 mx-auto px-8 sm:px-16 xl:px-51.75 py-5 flex items-center justify-between gap-4 flex-wrap">
           <motion.a
             href="/privacy"
-            className="font-montserrat font-semibold text-[18px] leading-6 underline text-[#707070]"
+            className="font-montserrat font-semibold text-[12px] leading-6 underline text-[#707070]"
             whileHover={{ color: "#333" }}
             transition={{ duration: 0.18 }}
           >
@@ -499,19 +501,19 @@ export default function Footer() {
           </motion.a>
 
           {/* Language switcher */}
-          <div className="relative" onMouseLeave={() => setLangOpen(false)}>
+          <div className="relative">
             <motion.button
+              type="button"
               className="flex items-center gap-2 cursor-pointer group"
               onClick={() => setLangOpen((v) => !v)}
-              onMouseEnter={() => setLangOpen(true)}
               whileHover={{ scale: 1.04 }}
               transition={{ duration: 0.18 }}
               aria-label="Switch language"
             >
               {/* Globe icon */}
               <svg
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#919191"
@@ -524,7 +526,7 @@ export default function Footer() {
                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
               </svg>
 
-              <span className="font-montserrat font-semibold text-[15px] leading-6 text-[#707070] group-hover:text-[#444] transition-colors">
+              <span className="font-montserrat font-semibold text-[12px] leading-6 text-[#707070] group-hover:text-[#444] transition-colors ">
                 {currentLang.label}
               </span>
 
@@ -561,7 +563,7 @@ export default function Footer() {
                     <motion.button
                       key={l.code}
                       onClick={() => switchLocale(l.code)}
-                      className={`flex items-center gap-3 w-full px-4 py-3 text-left text-sm transition-colors hover:bg-gray-50 ${
+                      className={`flex items-center gap-3 w-full px-4 py-3 text-left text-sm transition-colors hover:bg-gray-50 cursor-pointer ${
                         locale === l.code
                           ? "font-semibold text-black bg-gray-50"
                           : "text-gray-600"
@@ -571,7 +573,7 @@ export default function Footer() {
                       transition={{ delay: i * 0.06 }}
                       whileHover={{ x: 3 }}
                     >
-                      <span className="text-[18px]">{l.flag}</span>
+                      <span className="text-[12px]">{l.flag}</span>
                       <span>{l.label}</span>
                       {locale === l.code && (
                         <motion.span
@@ -592,7 +594,7 @@ export default function Footer() {
 
           <span
             dir="ltr"
-            className="font-montserrat font-semibold text-[18px] leading-6 underline text-[#707070]"
+            className="font-montserrat font-semibold text-[12px] leading-6 underline text-[#707070]"
           >
             AIM © 2026. All rights reserved.
           </span>

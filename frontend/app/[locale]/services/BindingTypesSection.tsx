@@ -36,7 +36,7 @@ export default function BindingTypesSection({ products }: Props) {
     <section className="max-w-362.5 mx-auto px-6 py-15">
       <h2
         className={`text-[72px] leading-none mb-8 ${
-          isArabic ? "font-cairo" : "font-adamina"
+          isArabic ? "font-noto-arabic" : "font-adamina"
         }`}
       >
         {isArabic ? "أنواع التجليد" : "Binding types"}

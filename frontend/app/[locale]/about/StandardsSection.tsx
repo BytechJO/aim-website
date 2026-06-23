@@ -41,7 +41,7 @@ export default function StandardsSection() {
             className="max-w-150 text-center"
           >
             <h2
-              className={`${locale === "en" ? "font-adamina" : "font-cairo"} text-[40px] md:text-[72px] leading-none text-black`}
+              className={`${locale === "en" ? "font-adamina" : "font-noto-arabic"} text-[40px] md:text-[72px] leading-none text-black`}
             >
               {t("title")}
             </h2>

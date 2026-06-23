@@ -8,6 +8,7 @@ import {
   Charm,
   Adamina,
   Cairo,
+  Noto_Sans_Arabic,
 } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -49,7 +50,11 @@ const cairo = Cairo({
   variable: "--font-cairo",
   subsets: ["arabic"],
 });
-
+const notoSansArabic = Noto_Sans_Arabic({
+  variable: "--font-noto-sans-arabic",
+  subsets: ["arabic"],
+  weight: ["200", "300", "400", "500", "600", "700"],
+});
 export const metadata: Metadata = {
   title: "AIM Website",
   description: "We print books perfectly",
@@ -70,7 +75,19 @@ export default async function LocaleLayout({
     <div
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
-      className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${montserrat.variable} ${plusJakartaSans.variable} ${charm.variable} ${adamina.variable} ${cairo.variable} min-h-full antialiased flex flex-col`}
+      className={`
+  ${geistSans.variable}
+  ${geistMono.variable}
+  ${inter.variable}
+  ${montserrat.variable}
+  ${plusJakartaSans.variable}
+  ${charm.variable}
+  ${adamina.variable}
+  ${cairo.variable}
+  ${notoSansArabic.variable}
+  ${locale === "ar" ? "font-noto-arabic" : "font-inter"}
+  min-h-full antialiased flex flex-col
+`}
     >
       <NextIntlClientProvider messages={messages}>
         <NavBar />
