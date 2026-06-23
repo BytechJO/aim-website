@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ENDPOINTS } from "@/app/api/endpoints";
 import CoverExtrasHero from "./CoverExtrasHero";
 import Loading from "./loading";
+import ContactModal from "../components/ContactModal";
 
 interface CoverExtra {
   id: number;
@@ -23,6 +24,10 @@ export default function CoverExtraPage() {
   const [CoverExtras, setCoverExtras] = useState<CoverExtra[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [contactModalType, setContactModalType] = useState<
+    "message" | "callback"
+  >("callback");
   useEffect(() => {
     const fetchCoverExtra = async () => {
       try {
@@ -147,13 +152,16 @@ export default function CoverExtraPage() {
               </p>
 
               <div className="flex gap-4">
-                <a
-                  href="tel:+962XXXXXXXXX"
-                  className="px-8 py-4 rounded-full bg-[#F3F3F3] text-[#285FE7] font-semibold hover:bg-white transition"
+                <button
+                  type="button"
+                  onClick={() => {
+                    setContactModalType("callback");
+                    setContactModalOpen(true);
+                  }}
+                  className="px-8 py-4 rounded-full bg-[#F3F3F3] text-[#285FE7] font-semibold hover:bg-white transition cursor-pointer"
                 >
                   {isArabic ? "اتصل بنا" : "Call us"}
-                </a>
-
+                </button>
                 <a
                   href={`/${locale}/contact`}
                   className="px-8 py-4 rounded-full bg-[#F3F3F3] text-[#285FE7] font-semibold hover:bg-white transition"
@@ -192,7 +200,12 @@ export default function CoverExtraPage() {
           </div>
         </main>
       </div>
-      {/* Main Content */}
+
+      <ContactModal
+        open={contactModalOpen}
+        type={contactModalType}
+        onClose={() => setContactModalOpen(false)}
+      />
     </section>
   );
 }
