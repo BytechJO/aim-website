@@ -19,6 +19,12 @@ import coverExtraRoutes from "./src/routes/cover_extras.routes";
 import newsRoutes from "./src/routes/news.routes";
 import dashboardRoutes from "./src/routes/dashboard.routes";
 
+//     ADMIN
+
+import pagesRoutes from "./src/routes/panel/pages.routes";
+import pageSectionsRoutes from "./src/routes/panel/pageSections.routes";
+import navigationLinksRoutes from "./src/routes/panel/navigationLinks.routes";
+
 dotenv.config();
 
 const app = express();
@@ -47,6 +53,13 @@ app.use("/api/enhancements", enhancementRoutes);
 app.use("/api/cover-extras", coverExtraRoutes);
 app.use("/api/news", newsRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+
+//     ADMIN
+app.use("/api/pages", pagesRoutes);
+app.use("/api/page-sections", pageSectionsRoutes);
+app.use("/api/navigation-links", navigationLinksRoutes);
+
+
 initDB()
   .then(() => seedSuperAdmin())
   .then(() => {

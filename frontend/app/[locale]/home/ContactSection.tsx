@@ -12,6 +12,21 @@ export default function ContactSection() {
   const isArabic = locale === "ar";
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState<"message" | "callback">("message");
+  const floatingStyles = `
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-60px);
+    }
+  }
+
+  .float {
+    animation: float 15s ease-in-out infinite;
+  }
+`;
   return (
     <section>
       <div className="max-w-300.5 mx-auto px-4 sm:px-6 lg:px-8">
@@ -23,11 +38,21 @@ export default function ContactSection() {
           {/* الصورة */}
           <div className="relative h-75 md:h-150">
             <Image
-              src="/homeImg/contact.png"
+              src="/homeImg/contact1.png"
               alt="Contact card"
               fill
               className="object-contain"
             />
+            <div className="absolute top-[25%] left-[18%] w-4 h-4 rounded-full bg-[#F4A16D] float" />
+            <Image
+              src="/homeImg/star.svg"
+              alt="decorative shape"
+              width={20}
+              height={20}
+              className="absolute top-[25%] right-[12%] w-5 h-5 object-contain float"
+            />
+            <div className="absolute bottom-[12%] left-[-1%] w-6 h-6 rounded-full bg-[#A66BFF] float" />
+            <div className="absolute bottom-[18%] right-[6%] w-6 h-6 rounded-full bg-[#7AB3FF] float" />
           </div>
 
           {/* النص */}
@@ -91,6 +116,7 @@ export default function ContactSection() {
         type={modalType}
         onClose={() => setOpenModal(false)}
       />
+      <style jsx>{floatingStyles}</style>
     </section>
   );
 }

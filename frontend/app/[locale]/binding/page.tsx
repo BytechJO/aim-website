@@ -6,6 +6,7 @@ import { ENDPOINTS } from "@/app/api/endpoints";
 import BindingImages from "./BindingImages";
 import BindingHero from "./BindingHero";
 import Loading from "./loading";
+import ContactModal from "../components/ContactModal";
 interface Binding {
   id: number;
   slug: string;
@@ -23,6 +24,10 @@ export default function BindingPage() {
   const [Bindings, setBindings] = useState<Binding[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [contactModalType, setContactModalType] = useState<
+    "message" | "callback"
+  >("callback");
   useEffect(() => {
     const fetchBinding = async () => {
       try {
@@ -169,12 +174,16 @@ export default function BindingPage() {
               </p>
 
               <div className="flex gap-4">
-                <a
-                  href="tel:+962XXXXXXXXX"
-                  className="px-8 py-4 rounded-full bg-[#F3F3F3] text-[#285FE7] font-semibold hover:bg-white transition"
+                <button
+                  type="button"
+                  onClick={() => {
+                    setContactModalType("callback");
+                    setContactModalOpen(true);
+                  }}
+                  className="px-8 py-4 rounded-full bg-[#F3F3F3] text-[#285FE7] font-semibold hover:bg-white transition cursor-pointer"
                 >
                   {isArabic ? "اتصل بنا" : "Call us"}
-                </a>
+                </button>
 
                 <a
                   href={`/${locale}/contact`}
@@ -222,6 +231,12 @@ export default function BindingPage() {
           </div>
         </main>
       </div>
+
+      <ContactModal
+        open={contactModalOpen}
+        type={contactModalType}
+        onClose={() => setContactModalOpen(false)}
+      />
     </section>
   );
 }

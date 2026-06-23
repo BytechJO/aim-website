@@ -198,7 +198,7 @@ export default function ReviewsSection() {
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="w-full md:w-1/2 lg:w-[28.57%] shrink-0 px-6"
+                className="w-full md:w-1/2 lg:w-[28.57%] shrink-0 "
               >
                 <div className="text-blue-600 text-xl mb-4" dir="ltr">
                   ★★★★★

@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { ENDPOINTS } from "@/app/api/endpoints";
+import ContactModal from "../ContactModal";
 
 // ─── Route data ──────────────────────────────────────────────────────────────
 
@@ -142,7 +143,10 @@ function TopLink({
 
 export default function NavBar() {
   const t = useTranslations("nav");
-
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [contactModalType, setContactModalType] = useState<
+    "message" | "callback"
+  >("callback");
   const [searchOpen, setSearchOpen] = useState(false);
   const [products, setProducts] = useState<any[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -796,10 +800,14 @@ export default function NavBar() {
                 {/* Left: phone icon + "Call me back" — Inter 400 20px #FFFFFF */}
                 <div className="h-full w-full md:max-w-362.5 mx-auto flex items-center justify-between px-0">
                   {/* Call me back */}
-                  <Link
-                    href={lp("/contact")}
-                    className="h-full flex items-center gap-3 font-inter font-normal text-[16px] leading-6 text-white hover:underline whitespace-nowrap"
-                    onClick={() => setServicesOpen(false)}
+                  <button
+                    type="button"
+                    className="h-full flex items-center gap-3 font-inter font-normal text-[14px] leading-6 text-white hover:underline whitespace-nowrap cursor-pointer"
+                    onClick={() => {
+                      setServicesOpen(false);
+                      setContactModalType("callback");
+                      setContactModalOpen(true);
+                    }}
                   >
                     <svg
                       width="29"
@@ -825,12 +833,12 @@ export default function NavBar() {
                     </svg>
 
                     <span>{t("callMeBack")}</span>
-                  </Link>
+                  </button>
 
                   {/* Cover generator */}
                   <Link
                     href={lp("/cover-generator")}
-                    className="h-full flex items-center font-inter font-light text-[16px] leading-4 underline text-white hover:opacity-80 whitespace-nowrap pr-4"
+                    className="h-full flex items-center font-inter font-light text-[14px] leading-4 underline text-white hover:opacity-80 whitespace-nowrap pr-4"
                     onClick={() => setServicesOpen(false)}
                   >
                     {t("coverGenerator")}
@@ -841,6 +849,11 @@ export default function NavBar() {
           )}
         </AnimatePresence>
       </div>
+      <ContactModal
+        open={contactModalOpen}
+        type={contactModalType}
+        onClose={() => setContactModalOpen(false)}
+      />
     </header>
   );
 }

@@ -6,6 +6,7 @@ import EnhancementImages from "./EnhancementImages";
 import { useEffect, useState } from "react";
 import { ENDPOINTS } from "@/app/api/endpoints";
 import Loading from "./loading";
+import ContactModal from "../components/ContactModal";
 interface Enhancement {
   id: number;
   slug: string;
@@ -31,6 +32,10 @@ export default function EnhancementPage() {
   const [enhancements, setEnhancements] = useState<Enhancement[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [contactModalType, setContactModalType] = useState<
+    "message" | "callback"
+  >("callback");
   useEffect(() => {
     const fetchEnhancements = async () => {
       try {
@@ -180,12 +185,16 @@ export default function EnhancementPage() {
               </p>
 
               <div className="flex gap-4">
-                <a
-                  href="tel:+962XXXXXXXXX"
-                  className="px-8 py-4 rounded-full bg-[#F3F3F3] text-[#285FE7] font-semibold hover:bg-white transition"
+                <button
+                  type="button"
+                  onClick={() => {
+                    setContactModalType("callback");
+                    setContactModalOpen(true);
+                  }}
+                  className="px-8 py-4 rounded-full bg-[#F3F3F3] text-[#285FE7] font-semibold hover:bg-white transition cursor-pointer"
                 >
                   {isArabic ? "اتصل بنا" : "Call us"}
-                </a>
+                </button>
 
                 <a
                   href={`/${locale}/contact`}
@@ -257,6 +266,12 @@ export default function EnhancementPage() {
           </div>
         </main>
       </div>
+
+      <ContactModal
+        open={contactModalOpen}
+        type={contactModalType}
+        onClose={() => setContactModalOpen(false)}
+      />
     </section>
   );
 }

@@ -131,18 +131,42 @@ export default function ContactPage() {
           : "border-[#D7D9DF] hover:border-black/20"
     }`;
   };
+  const floatingStyles = `
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
 
+    50% {
+      transform: translateY(-60px);
+    }
+  }
+
+  .float {
+    animation: float 15s ease-in-out infinite;
+  }
+`;
   return (
     <section>
       <div className="max-w-[85%] mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-1 md:gap-12 items-center">
           <div className="relative h-75 md:h-150">
             <Image
-              src="/homeImg/contact.png"
+              src="/homeImg/contact1.png"
               alt="Contact card"
               fill
               className="object-contain"
             />
+            <div className="absolute top-[25%] left-[18%] w-4 h-4 rounded-full bg-[#F4A16D] float" />
+            <Image
+              src="/homeImg/star.svg"
+              alt="decorative shape"
+              width={20}
+              height={20}
+              className="absolute top-[25%] right-[12%] w-5 h-5 object-contain float"
+            />
+            <div className="absolute bottom-[12%] left-[-1%] w-6 h-6 rounded-full bg-[#A66BFF] float" />
+            <div className="absolute bottom-[18%] right-[6%] w-6 h-6 rounded-full bg-[#7AB3FF] float" />
           </div>
 
           <div>
@@ -268,6 +292,7 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
+      <style jsx>{floatingStyles}</style>
     </section>
   );
 }
