@@ -1,5 +1,8 @@
+import dns from "node:dns";
 import nodemailer from "nodemailer";
-import SMTPTransport from "nodemailer/lib/smtp-transport";
+import type SMTPTransport from "nodemailer/lib/smtp-transport";
+
+dns.setDefaultResultOrder("ipv4first");
 
 const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
 const smtpPort = Number(process.env.SMTP_PORT || 587);
@@ -8,7 +11,6 @@ const mailOptions: SMTPTransport.Options = {
   host: smtpHost,
   port: smtpPort,
   secure: smtpPort === 465,
-  family: 4,
   auth: {
     user: process.env.SMTP_USER || "",
     pass: process.env.SMTP_PASS || "",
