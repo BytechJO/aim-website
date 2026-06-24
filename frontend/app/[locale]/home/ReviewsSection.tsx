@@ -188,7 +188,7 @@ export default function ReviewsSection() {
         {/* DESKTOP */}
         <div className="hidden lg:block relative overflow-hidden lg:w-[110%]">
           <div
-            className={`flex transition-transform duration-700 ease-in-out`}
+            className={`flex gap-8 transition-transform duration-700 ease-in-out`}
             style={{
               transform: isArabic
                 ? `translateX(${current * 28.57}%)`
@@ -198,12 +198,17 @@ export default function ReviewsSection() {
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="w-full md:w-1/2 lg:w-[28.57%] shrink-0 "
+                className="w-full md:w-1/2 lg:w-[28.57%] shrink-0"
               >
-                <div className="text-blue-600 text-xl mb-4" dir="ltr">
-                  ★★★★★
+                <div
+                  className="text-blue-600 text-xl mb-4 tracking-[2px]"
+                  dir="ltr"
+                >
+                  {"★".repeat(review.rating)}
+                  <span className="text-gray-300">
+                    {"★".repeat(5 - review.rating)}
+                  </span>
                 </div>
-
                 <h3
                   dir="ltr"
                   className="text-[32px] font-medium mb-6 text-left"

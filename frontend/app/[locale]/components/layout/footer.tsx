@@ -7,6 +7,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { ENDPOINTS } from "@/app/api/endpoints";
+import NewsletterConfirmation from "../NewsletterConfirmation";
+import { useToast } from "@/app/shared/ToastProvider";
 
 const LOCALES = [
   { code: "en", label: "English", flag: "🇬🇧" },
@@ -92,7 +94,12 @@ function NavColumn({
 }
 
 export default function Footer() {
+  const { showToast } = useToast();
   const [email, setEmail] = useState("");
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmEmail, setConfirmEmail] = useState("");
+  const [confirmTimer, setConfirmTimer] = useState(45);
+  const [loadingSubscribe, setLoadingSubscribe] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const t = useTranslations("footer");
   const quickLinks = [
@@ -127,33 +134,29 @@ export default function Footer() {
   };
 
   const currentLang = LOCALES.find((l) => l.code === locale) ?? LOCALES[0];
-  const [popup, setPopup] = useState<{
-    open: boolean;
-    success: boolean;
-    message: string;
-  }>({
-    open: false,
-    success: true,
-    message: "",
-  });
   const handleSubscribe = async () => {
     if (!email.trim()) {
-      setPopup({
-        open: true,
-        success: false,
-        message: "Please enter your email address",
-      });
+      showToast(
+        locale === "ar"
+          ? "يرجى إدخال البريد الإلكتروني"
+          : "Please enter your email address",
+        "err",
+      );
       return;
     }
 
     try {
+      setLoadingSubscribe(true);
+
+      const cleanEmail = email.trim().toLowerCase();
+
       const res = await fetch(`${ENDPOINTS.NEWSLETTER}/subscribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
+          email: cleanEmail,
           locale,
         }),
       });
@@ -161,28 +164,45 @@ export default function Footer() {
       const data = await res.json();
 
       if (!res.ok) {
+        if (
+          res.status === 429 &&
+          data.error === "confirmation_code_recently_sent"
+        ) {
+          setConfirmEmail(cleanEmail);
+          setConfirmTimer(data.remainingSeconds ?? 45);
+          setConfirmOpen(true);
+          return;
+        }
+
+        if (res.status === 409 || data.error === "already_subscribed") {
+          showToast(
+            locale === "ar"
+              ? "أنت مشترك بالفعل في النشرة البريدية"
+              : "You are already subscribed to our newsletter",
+            "inf",
+          );
+          return;
+        }
+
         throw new Error(data.error || "Subscription failed");
       }
 
-      setEmail("");
-
-      setPopup({
-        open: true,
-        success: true,
-        message: "Successfully subscribed to our newsletter!",
-      });
+      setConfirmEmail(cleanEmail);
+      setConfirmTimer(data.remainingSeconds ?? 45);
+      setConfirmOpen(true);
     } catch (err) {
-      setPopup({
-        open: true,
-        success: false,
-        message: err instanceof Error ? err.message : "Something went wrong",
-      });
+      showToast(
+        err instanceof Error ? err.message : "Something went wrong",
+        "err",
+      );
+    } finally {
+      setLoadingSubscribe(false);
     }
   };
   return (
     <footer ref={ref} className="bg-[#F6F6F6] w-full mt-auto overflow-hidden">
       {/* ── Main content ─────────────────────────────────────────────────── */}
-      <div className="max-w-480 mx-auto px-8 sm:px-16 xl:px-30 pt-25 lg:pt-35.75 pb-16">
+      <div className="max-w-480 mx-auto px-8 sm:px-16 xl:px-30 pt-25 lg:pt-15.75 pb-16">
         {/* Row 1: logo + contact | nav columns */}
         <div className="flex flex-col lg:flex-row justify-between gap-16 lg:gap-8">
           {/* Left: logo · contact · certs */}
@@ -208,7 +228,7 @@ export default function Footer() {
             <div className="flex flex-col mt-8">
               <motion.a
                 href="tel:+"
-                className="font-inter font-medium text-[22px] leading-11.25 underline text-black"
+                className="font-inter font-medium text-[17px] leading-11.25 underline text-black"
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
               >
@@ -216,7 +236,7 @@ export default function Footer() {
               </motion.a>
               <motion.a
                 href="mailto:contact@aim.com.pl"
-                className="font-inter font-medium text-[22px] leading-11.25 underline text-black"
+                className="font-inter font-medium text-[17px] leading-11.25 underline text-black"
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
               >
@@ -293,7 +313,7 @@ export default function Footer() {
 
         {/* Row 2: Newsletter ─────────────────────────────────────────────── */}
         <motion.div
-          className="mt-25 lg:mt-30 rounded-2xl px-8 lg:px-10 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative overflow-hidden"
+          className="mt-25 lg:mt-15 rounded-2xl px-8 lg:px-10 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative overflow-hidden"
           style={{
             background: "linear-gradient(90deg, #F8E586 47.02%, #EE8461 100%)",
           }}
@@ -353,33 +373,42 @@ export default function Footer() {
             />
             <motion.button
               onClick={handleSubscribe}
+              disabled={loadingSubscribe}
               aria-label="Subscribe"
-              className="w-10 h-10 shrink-0 rounded-full border-[1.5px] border-[#3F6EE8] flex items-center justify-center text-[#3F6EE8] bg-transparent"
-              whileHover={{
-                backgroundColor: "#3F6EE8",
-                color: "#fff",
-                scale: 1.1,
-                borderColor: "#3F6EE8",
-              }}
-              whileTap={{ scale: 0.95 }}
+              className="w-10 h-10 shrink-0 rounded-full border-[1.5px] border-[#3F6EE8] flex items-center justify-center text-[#3F6EE8] bg-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+              whileHover={
+                loadingSubscribe
+                  ? {}
+                  : {
+                      backgroundColor: "#3F6EE8",
+                      color: "#fff",
+                      scale: 1.1,
+                      borderColor: "#3F6EE8",
+                    }
+              }
+              whileTap={loadingSubscribe ? {} : { scale: 0.95 }}
               transition={{ duration: 0.2 }}
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                aria-hidden="true"
-                className="rtl:rotate-180"
-              >
-                <path
-                  d="M3 8H13M13 8L9 4M13 8L9 12"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              {loadingSubscribe ? (
+                <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                  className="rtl:rotate-180"
+                >
+                  <path
+                    d="M3 8H13M13 8L9 4M13 8L9 12"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
             </motion.button>
           </motion.div>
         </motion.div>
@@ -600,40 +629,18 @@ export default function Footer() {
           </span>
         </div>
       </motion.div>
-      <AnimatePresence>
-        {popup.open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-999 flex items-center justify-center bg-black/40 backdrop-blur-sm"
-            onClick={() => setPopup((p) => ({ ...p, open: false }))}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl p-8 w-full max-w-md text-center shadow-2xl"
-            >
-              <div className="text-5xl mb-4">{popup.success ? "✓" : "⚠"}</div>
-
-              <h3 className="text-2xl font-semibold mb-3">
-                {popup.success ? "Success" : "Oops"}
-              </h3>
-
-              <p className="text-[#707070]">{popup.message}</p>
-
-              <button
-                onClick={() => setPopup((p) => ({ ...p, open: false }))}
-                className="mt-6 rounded-full bg-black text-white px-6 py-3 cursor-pointer"
-              >
-                Close
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <NewsletterConfirmation
+        open={confirmOpen}
+        email={confirmEmail}
+        locale={locale}
+        initialResendTimer={confirmTimer}
+        onClose={() => setConfirmOpen(false)}
+        onConfirmed={() => {
+          setConfirmOpen(false);
+          setEmail("");
+          setConfirmEmail("");
+        }}
+      />
     </footer>
   );
 }
