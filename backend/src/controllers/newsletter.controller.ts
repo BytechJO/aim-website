@@ -27,7 +27,7 @@ const RESEND_COOLDOWN_SECONDS = 45;
 export async function subscribe(req: Request, res: Response): Promise<void> {
   try {
     const { email, locale } = req.body;
-
+    console.log("Subscribe API hit:", req.body?.email);
     if (!email) {
       res.status(400).json({ error: "Email is required" });
       return;
