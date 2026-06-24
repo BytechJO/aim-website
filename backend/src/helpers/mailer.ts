@@ -1,27 +1,52 @@
-import nodemailer from "nodemailer";
-import type SMTPTransport from "nodemailer/lib/smtp-transport";
+const fromEmail = process.env.SMTP_FROM || "aimprintingjo@gmail.com";
+const fromName = "AIM Printing";
 
-const smtpHost = process.env.SMTP_HOST || "smtp-relay.brevo.com";
-const smtpPort = Number(process.env.SMTP_PORT || 587);
+async function sendBrevoEmail({
+  to,
+  subject,
+  html,
+  text,
+}: {
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+}) {
+  if (!process.env.BREVO_API_KEY) {
+    throw new Error("BREVO_API_KEY is missing");
+  }
 
-function createMailerTransporter() {
-  const mailOptions: SMTPTransport.Options = {
-    host: smtpHost,
-    port: smtpPort,
-    secure: smtpPort === 465,
-    auth: {
-      user: process.env.SMTP_USER || "",
-      pass: process.env.SMTP_PASS || "",
+  const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      "api-key": process.env.BREVO_API_KEY,
     },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 15000,
-  };
+    body: JSON.stringify({
+      sender: {
+        name: fromName,
+        email: fromEmail,
+      },
+      to: [
+        {
+          email: to,
+        },
+      ],
+      subject,
+      htmlContent: html,
+      textContent: text,
+    }),
+  });
 
-  return nodemailer.createTransport(mailOptions);
+  const result = await response.text();
+
+  if (!response.ok) {
+    throw new Error(`Brevo API error ${response.status}: ${result}`);
+  }
+
+  console.log("After sendMail:", to);
 }
-
-const fromEmail = process.env.SMTP_FROM || process.env.SMTP_USER;
 
 export async function sendNewsletterConfirmationEmail(
   email: string,
@@ -46,13 +71,7 @@ export async function sendNewsletterConfirmationEmail(
 
   console.log("Before sendMail:", email);
 
-  const transporter = createMailerTransporter();
-
-  await transporter.sendMail({
-    from: `"AIM Printing" <${fromEmail}>`,
-    to: email,
-    subject,
-    html: `
+  const html = `
 <!DOCTYPE html>
 <html lang="${isArabic ? "ar" : "en"}" dir="${isArabic ? "rtl" : "ltr"}">
   <head>
@@ -176,13 +195,16 @@ export async function sendNewsletterConfirmationEmail(
     </table>
   </body>
 </html>
-    `,
+  `;
+
+  await sendBrevoEmail({
+    to: email,
+    subject,
+    html,
     text: isArabic
       ? `كود تأكيد الاشتراك هو: ${code}`
       : `Your newsletter confirmation code is: ${code}`,
   });
-
-  console.log("After sendMail:", email);
 }
 
 export async function sendNewsPublishedEmail({
@@ -206,13 +228,7 @@ export async function sendNewsPublishedEmail({
     ? `خبر جديد من AIM: ${title}`
     : `New from AIM: ${title}`;
 
-  const transporter = createMailerTransporter();
-
-  await transporter.sendMail({
-    from: `"AIM Printing" <${fromEmail}>`,
-    to,
-    subject,
-    html: `
+  const html = `
 <!DOCTYPE html>
 <html lang="${isArabic ? "ar" : "en"}" dir="${isArabic ? "rtl" : "ltr"}">
   <body style="margin:0; padding:0; background:#f4f4f4; font-family:Arial, Helvetica, sans-serif;">
@@ -301,7 +317,12 @@ export async function sendNewsPublishedEmail({
     </table>
   </body>
 </html>
-    `,
+  `;
+
+  await sendBrevoEmail({
+    to,
+    subject,
+    html,
     text: `${title}\n\n${description || ""}\n\n${url}`,
   });
 }
