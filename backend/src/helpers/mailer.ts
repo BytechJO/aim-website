@@ -1,28 +1,30 @@
-import dns from "node:dns";
 import nodemailer from "nodemailer";
 import type SMTPTransport from "nodemailer/lib/smtp-transport";
-
-dns.setDefaultResultOrder("ipv4first");
 
 const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
 const smtpPort = Number(process.env.SMTP_PORT || 587);
 
-const mailOptions: SMTPTransport.Options = {
+type SMTPOptionsWithFamily = SMTPTransport.Options & {
+  family?: 4 | 6;
+};
+
+const mailOptions: SMTPOptionsWithFamily = {
   host: smtpHost,
   port: smtpPort,
   secure: smtpPort === 465,
+  family: 4, // يجبر الاتصال IPv4
   auth: {
     user: process.env.SMTP_USER || "",
     pass: process.env.SMTP_PASS || "",
   },
-
-  // مهمين عشان ما يضل pending للأبد
   connectionTimeout: 10000,
   greetingTimeout: 10000,
   socketTimeout: 15000,
 };
 
-export const transporter = nodemailer.createTransport(mailOptions);
+export const transporter = nodemailer.createTransport(
+  mailOptions as SMTPTransport.Options
+);
 
 export async function sendNewsletterConfirmationEmail(
   email: string,
