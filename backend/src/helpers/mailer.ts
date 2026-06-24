@@ -1,17 +1,21 @@
 import nodemailer from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 
+const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
 const smtpPort = Number(process.env.SMTP_PORT || 587);
 
-export const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
+const mailOptions: SMTPTransport.Options = {
+  host: smtpHost,
   port: smtpPort,
   secure: smtpPort === 465,
   family: 4,
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    user: process.env.SMTP_USER || "",
+    pass: process.env.SMTP_PASS || "",
   },
-});
+};
+
+export const transporter = nodemailer.createTransport(mailOptions);
 export async function sendNewsletterConfirmationEmail(
   email: string,
   code: string,
