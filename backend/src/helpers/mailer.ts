@@ -1,26 +1,17 @@
-import dns from "node:dns/promises";
 import nodemailer from "nodemailer";
 import type SMTPTransport from "nodemailer/lib/smtp-transport";
 
-const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
-const smtpPort = Number(process.env.SMTP_PORT || 465);
+const smtpHost = process.env.SMTP_HOST || "smtp-relay.brevo.com";
+const smtpPort = Number(process.env.SMTP_PORT || 587);
 
-async function createMailerTransporter() {
-  const addresses = await dns.resolve4(smtpHost);
-  const ipv4 = addresses[0];
-
-  console.log("SMTP IPv4 resolved:", ipv4);
-
+function createMailerTransporter() {
   const mailOptions: SMTPTransport.Options = {
-    host: ipv4,
+    host: smtpHost,
     port: smtpPort,
     secure: smtpPort === 465,
     auth: {
       user: process.env.SMTP_USER || "",
       pass: process.env.SMTP_PASS || "",
-    },
-    tls: {
-      servername: smtpHost,
     },
     connectionTimeout: 10000,
     greetingTimeout: 10000,
@@ -29,6 +20,9 @@ async function createMailerTransporter() {
 
   return nodemailer.createTransport(mailOptions);
 }
+
+const fromEmail = process.env.SMTP_FROM || process.env.SMTP_USER;
+
 export async function sendNewsletterConfirmationEmail(
   email: string,
   code: string,
@@ -49,12 +43,13 @@ export async function sendNewsletterConfirmationEmail(
   const previewText = isArabic
     ? `كود تأكيد اشتراكك هو ${code}`
     : `Your confirmation code is ${code}`;
+
   console.log("Before sendMail:", email);
 
-  const transporter = await createMailerTransporter();
+  const transporter = createMailerTransporter();
 
   await transporter.sendMail({
-    from: `"AIM Printing" <${process.env.SMTP_USER}>`,
+    from: `"AIM Printing" <${fromEmail}>`,
     to: email,
     subject,
     html: `
@@ -186,6 +181,7 @@ export async function sendNewsletterConfirmationEmail(
       ? `كود تأكيد الاشتراك هو: ${code}`
       : `Your newsletter confirmation code is: ${code}`,
   });
+
   console.log("After sendMail:", email);
 }
 
@@ -209,9 +205,11 @@ export async function sendNewsPublishedEmail({
   const subject = isArabic
     ? `خبر جديد من AIM: ${title}`
     : `New from AIM: ${title}`;
-  const transporter = await createMailerTransporter();
+
+  const transporter = createMailerTransporter();
+
   await transporter.sendMail({
-    from: `"AIM Printing" <${process.env.SMTP_USER}>`,
+    from: `"AIM Printing" <${fromEmail}>`,
     to,
     subject,
     html: `
