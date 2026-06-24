@@ -1,50 +1,34 @@
-import dns from "node:dns";
+import dns from "node:dns/promises";
 import nodemailer from "nodemailer";
 import type SMTPTransport from "nodemailer/lib/smtp-transport";
 
 const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
 const smtpPort = Number(process.env.SMTP_PORT || 465);
 
-type MailOptions = SMTPTransport.Options & {
-  lookup?: (
-    hostname: string,
-    options: dns.LookupOneOptions,
-    callback: (
-      err: NodeJS.ErrnoException | null,
-      address: string,
-      family: number,
-    ) => void,
-  ) => void;
-};
+async function createMailerTransporter() {
+  const addresses = await dns.resolve4(smtpHost);
+  const ipv4 = addresses[0];
 
-const mailOptions: MailOptions = {
-  host: smtpHost,
-  port: smtpPort,
-  secure: smtpPort === 465,
+  console.log("SMTP IPv4 resolved:", ipv4);
 
-  auth: {
-    user: process.env.SMTP_USER || "",
-    pass: process.env.SMTP_PASS || "",
-  },
+  const mailOptions: SMTPTransport.Options = {
+    host: ipv4,
+    port: smtpPort,
+    secure: smtpPort === 465,
+    auth: {
+      user: process.env.SMTP_USER || "",
+      pass: process.env.SMTP_PASS || "",
+    },
+    tls: {
+      servername: smtpHost,
+    },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
+  };
 
-  lookup: (hostname, options, callback) => {
-    console.log("SMTP lookup forced IPv4:", hostname);
-
-    dns.lookup(
-      hostname,
-      {
-        family: 4,
-      },
-      callback,
-    );
-  },
-
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 15000,
-};
-
-export const transporter = nodemailer.createTransport(mailOptions);
+  return nodemailer.createTransport(mailOptions);
+}
 export async function sendNewsletterConfirmationEmail(
   email: string,
   code: string,
@@ -66,6 +50,8 @@ export async function sendNewsletterConfirmationEmail(
     ? `كود تأكيد اشتراكك هو ${code}`
     : `Your confirmation code is ${code}`;
   console.log("Before sendMail:", email);
+
+  const transporter = await createMailerTransporter();
 
   await transporter.sendMail({
     from: `"AIM Printing" <${process.env.SMTP_USER}>`,
@@ -223,7 +209,7 @@ export async function sendNewsPublishedEmail({
   const subject = isArabic
     ? `خبر جديد من AIM: ${title}`
     : `New from AIM: ${title}`;
-
+  const transporter = await createMailerTransporter();
   await transporter.sendMail({
     from: `"AIM Printing" <${process.env.SMTP_USER}>`,
     to,
