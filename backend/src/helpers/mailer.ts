@@ -15,9 +15,15 @@ const mailOptions: SMTPTransport.Options = {
     user: process.env.SMTP_USER || "",
     pass: process.env.SMTP_PASS || "",
   },
+
+  // مهمين عشان ما يضل pending للأبد
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 15000,
 };
 
 export const transporter = nodemailer.createTransport(mailOptions);
+
 export async function sendNewsletterConfirmationEmail(
   email: string,
   code: string,
@@ -38,6 +44,7 @@ export async function sendNewsletterConfirmationEmail(
   const previewText = isArabic
     ? `كود تأكيد اشتراكك هو ${code}`
     : `Your confirmation code is ${code}`;
+  console.log("Before sendMail:", email);
 
   await transporter.sendMail({
     from: `"AIM Printing" <${process.env.SMTP_USER}>`,
@@ -172,6 +179,7 @@ export async function sendNewsletterConfirmationEmail(
       ? `كود تأكيد الاشتراك هو: ${code}`
       : `Your newsletter confirmation code is: ${code}`,
   });
+  console.log("After sendMail:", email);
 }
 
 export async function sendNewsPublishedEmail({
