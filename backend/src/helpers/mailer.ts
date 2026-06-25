@@ -41,6 +41,7 @@ async function sendBrevoEmail({
 
   const result = await response.text();
 
+  
   if (!response.ok) {
     throw new Error(`Brevo API error ${response.status}: ${result}`);
   }
