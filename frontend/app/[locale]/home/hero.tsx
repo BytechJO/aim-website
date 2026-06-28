@@ -9,22 +9,18 @@ export default function Hero() {
 
   return (
     <section className="relative h-screen overflow-hidden">
-      <motion.div
-        initial={{ scale: 1.08 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 2, ease: "easeOut" }}
-        className="absolute inset-0"
-      >
+      <div className="absolute inset-0 bg-black">
         {/* Mobile video */}
         <video
-          className="block md:hidden absolute inset-0 w-full h-full object-cover object-center"
+          className="block md:hidden absolute inset-0 w-full h-full object-cover object-top"
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/homeImg/AimHeaderPoster.jpg"
         >
-          <source src="homeImg/AimHeader.mp4" type="video/mp4" />
+          <source src="/homeImg/AimHeader.mp4" type="video/mp4" />
         </video>
 
         {/* Desktop video */}
@@ -34,11 +30,12 @@ export default function Hero() {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/homeImg/AimHeaderPoster.jpg"
         >
           <source src="/homeImg/AimHeader.mp4" type="video/mp4" />
         </video>
-      </motion.div>
+      </div>
 
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/10" />
       <div className="absolute inset-0 bg-black/20" />
