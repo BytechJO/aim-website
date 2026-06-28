@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -7,6 +6,7 @@ import Link from "next/link";
 export default function Hero() {
   const t = useTranslations("hero");
   const locale = useLocale();
+
   return (
     <section className="relative h-screen overflow-hidden">
       <motion.div
@@ -15,24 +15,31 @@ export default function Hero() {
         transition={{ duration: 2, ease: "easeOut" }}
         className="absolute inset-0"
       >
-        {/* Mobile image */}
-        <Image
-          src="/homeImg/hero2.png"
-          alt="Hero mobile"
-          fill
-          priority
-          className="block md:hidden object-cover object-center"
-        />
+        {/* Mobile video */}
+        <video
+          className="block md:hidden absolute inset-0 w-full h-full object-cover object-center"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        >
+          <source src="homeImg/AimHeader.mp4" type="video/mp4" />
+        </video>
 
-        {/* Desktop image */}
-        <Image
-          src="/homeImg/hero.svg"
-          alt="Hero desktop"
-          fill
-          priority
-          className="hidden md:block object-cover object-center"
-        />
+        {/* Desktop video */}
+        <video
+          className="hidden md:block absolute inset-0 w-full h-full object-cover object-top"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        >
+          <source src="/homeImg/AimHeader.mp4" type="video/mp4" />
+        </video>
       </motion.div>
+
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/20 to-black/10" />
       <div className="absolute inset-0 bg-black/20" />
 
@@ -47,18 +54,20 @@ export default function Hero() {
             >
               {t("title1")}
             </motion.h2>
+
             <motion.h1
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15 }}
               className={`
-    ${locale === "en" ? "font-adamina" : "font-noto-arabic"}
-    text-[72px] sm:text-[68px] md:text-[88px] lg:text-[110px]
-    font-light text-white p-0
-  `}
+                ${locale === "en" ? "font-adamina" : "font-noto-arabic"}
+                text-[72px] sm:text-[68px] md:text-[88px] lg:text-[110px]
+                font-light text-white p-0
+              `}
             >
               {t("title2")}
             </motion.h1>
+
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -67,6 +76,7 @@ export default function Hero() {
             >
               {t("subtitle")}
             </motion.p>
+
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -78,6 +88,7 @@ export default function Hero() {
                   {t("explore")}
                 </button>
               </Link>
+
               <div
                 onClick={() =>
                   document
