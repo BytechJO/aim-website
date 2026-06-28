@@ -77,7 +77,7 @@ export default function SpecialSection() {
               <div>
                 <div className="relative h-105 overflow-hidden">
                   <Image
-                    src="/homeImg/special1.svg"
+                    src="/homeImg/special1.webp"
                     alt="Printing"
                     fill
                     className="object-cover"
@@ -86,7 +86,7 @@ export default function SpecialSection() {
                   <span
                     className={`absolute top-6 ${
                       isArabic ? "right-6" : "left-6"
-                    } text-sm font-light text-white z-20`}
+                    } text-sm font-light text-black z-20`}
                   >
                     01
                   </span>

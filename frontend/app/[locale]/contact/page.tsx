@@ -152,7 +152,7 @@ export default function ContactPage() {
         <div className="grid lg:grid-cols-2 gap-1 md:gap-12 items-center">
           <div className="relative h-75 md:h-150">
             <Image
-              src="/homeImg/contact1.png"
+              src="/homeImg/contact1.webp"
               alt="Contact card"
               fill
               className="object-contain"
