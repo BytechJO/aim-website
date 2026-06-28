@@ -17,7 +17,7 @@ export default function StorySection() {
   }
 
   .float {
-    animation: float 20s ease-in-out infinite;
+    animation: float 15s ease-in-out infinite;
   }
 `;
   return (
@@ -48,7 +48,7 @@ export default function StorySection() {
             {/* Right Image */}
             <div className="relative min-h-100 lg:min-h-175 rounded-xl order-1 lg:order-2">
               <Image
-                src="/homeImg/story-image.svg"
+                src="/homeImg/story-image 1.webp"
                 alt="Printing worker"
                 fill
                 className="object-cover rounded-xl"
